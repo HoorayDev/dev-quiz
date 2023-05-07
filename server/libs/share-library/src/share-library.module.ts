@@ -1,11 +1,16 @@
 import { CacheModule } from '@nestjs/cache-manager';
 import { HttpException, Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports:[
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath:'.env'
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
