@@ -16,6 +16,14 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@app/share-library": [
+        "libs/share-library/src"
+      ],
+      "@app/share-library/*": [
+        "libs/share-library/src/*"
+      ]
+    }
   }
 }
