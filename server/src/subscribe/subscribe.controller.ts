@@ -19,31 +19,11 @@ import {
 export class SubscribeController {
   constructor(private readonly subscribeService: SubscribeService) {}
 
+  // TODO: 로그인 체크
+  // TODO: 구독 여부 체크 후 멱등성 유지
   @Post()
   create(@Body() createSubscribeDto: CreateSubscribeDto) {
     return this.subscribeService.create(createSubscribeDto);
   }
 
-  @Get()
-  findAll() {
-    return this.subscribeService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.subscribeService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateSubscribeDto: UpdateSubscribeDto,
-  ) {
-    return this.subscribeService.update(+id, updateSubscribeDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.subscribeService.remove(+id);
-  }
 }
