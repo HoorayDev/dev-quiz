@@ -12,6 +12,7 @@ import { LoggingInterceptor } from '@app/share-library/interceptor/logger.interc
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { TimeoutInterceptor } from '@app/share-library/interceptor/timeout.interceptor';
 import { HttpExceptionFilter } from '@app/share-library/filter/http-exception.filter';
+import { TransformInterceptor } from '@app/share-library/interceptor/Transform.interceptor';
 
 export const CONFIG_OPTION = () => {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -65,19 +66,23 @@ export const THROTTLER_CONFIG = {
 
 export const APP_PROVIDER = [
   {
-    provide: APP_GUARD,
-    useClass: ThrottlerGuard,
+    provide: APP_INTERCEPTOR,
+    useClass: TransformInterceptor,
+  },
+  {
+    provide: APP_INTERCEPTOR,
+    useClass: LoggingInterceptor,
   },
   {
     provide: APP_INTERCEPTOR,
     useClass: TimeoutInterceptor,
   },
   {
-    provide: APP_FILTER,
-    useClass: HttpExceptionFilter,
+    provide: APP_GUARD,
+    useClass: ThrottlerGuard,
   },
   {
-    provide: APP_INTERCEPTOR,
-    useClass: LoggingInterceptor,
+    provide: APP_FILTER,
+    useClass: HttpExceptionFilter,
   },
 ];
