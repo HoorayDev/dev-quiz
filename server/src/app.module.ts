@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { ShareLibraryModule } from '@app/share-library/src';
 import { SubscribeModule } from './subscribe/subscribe.module';
 import { UserModule } from './user/user.module';
-import { QuizModule } from './quiz/quiz.module';
 import { QuizSetModule } from './quiz-set/quiz-set.module';
 import { AnswerModule } from './answer/answer.module';
 import { APP_PROVIDER } from '@app/share-library/config/module.config';
@@ -14,7 +13,6 @@ import { APP_PROVIDER } from '@app/share-library/config/module.config';
     ShareLibraryModule,
     SubscribeModule,
     UserModule,
-    QuizModule,
     QuizSetModule,
     AnswerModule,
   ],
