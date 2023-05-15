@@ -10,7 +10,7 @@ const port = 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  Logger.overrideLogger(['error', 'warn', 'log']);
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
 
