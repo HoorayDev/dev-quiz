@@ -8,22 +8,19 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from 'typeorm';
-import { QuestionEntity } from '@app/share-library/entities/question/question.entity';
+import { QuizSetEntity } from '@app/share-library/entities/question/quiz-set.entity';
 
 @Entity('t_quiz')
 export class QuizEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => QuestionEntity, {
+  @ManyToOne(() => QuizSetEntity, {
     createForeignKeyConstraints: false,
     nullable: false,
   })
-  @JoinColumn({ name: 'question_id' })
-  question: QuestionEntity;
-
-  @Column({ nullable: false })
-  question_id: number;
+  @JoinColumn({ name: 'quiz_set_id' })
+  quiz_set: QuizSetEntity;
 
   @Column()
   title: string;

@@ -22,9 +22,6 @@ export class QuizOptionEntity extends BaseEntity {
   @JoinColumn({ name: 'quiz_id' })
   quiz: QuizEntity;
 
-  @Column()
-  title: string;
-
   @Column('int')
   value: number;
 

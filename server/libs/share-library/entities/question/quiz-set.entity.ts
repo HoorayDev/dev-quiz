@@ -6,10 +6,11 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from 'typeorm';
-import { QuestionCategory } from '@app/share-library/enum/question.enum';
+import { QuizSetCategory } from '@app/share-library/enum/quiz-set.enum';
 
-@Entity('t_question')
-export class QuestionEntity extends BaseEntity {
+// t_question -> t_quiz_set 명칭 변경
+@Entity('t_quiz_set')
+export class QuizSetEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,9 +19,9 @@ export class QuestionEntity extends BaseEntity {
 
   @Column({
     type: 'enum',
-    enum: QuestionCategory,
+    enum: QuizSetCategory,
   })
-  category: QuestionCategory;
+  category: QuizSetCategory;
 
   @Column('simple-array')
   tag: string[];

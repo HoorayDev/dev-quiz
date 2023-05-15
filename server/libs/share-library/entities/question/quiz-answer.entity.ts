@@ -25,6 +25,6 @@ export class QuizAnswerEntity extends BaseEntity {
     createForeignKeyConstraints: false,
     nullable: false,
   })
-  @JoinColumn({ name: 'quiz_answer_id' })
+  @JoinColumn({ name: 'quiz_answer_option_id' })
   quiz_answer: QuizOptionEntity;
 }
