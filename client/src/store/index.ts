@@ -2,12 +2,13 @@ import {
     configureStore,
     getDefaultMiddleware,
     ThunkAction,
-    Action} from '@reduxjs/toolkit';
+    Action
+} from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
-import {useDispatch} from 'react-redux';
-import rootReducer from './reducer';
+import { useDispatch } from 'react-redux';
+import rootReducer from '~/store/reducer';
 
-const makeStore = () => {
+const makeStore: any = () => {
     const middleware = getDefaultMiddleware();
     const store = configureStore({
         reducer: rootReducer,
