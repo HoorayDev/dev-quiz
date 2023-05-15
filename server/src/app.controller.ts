@@ -1,6 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  HealthCheckDto,
+  HealthCheckResponse,
+} from '@app/share-library/dto/health.dto';
 
 @ApiTags('app')
 @Controller()
@@ -13,8 +17,15 @@ export class AppController {
   }
 
   // Endpoint: Health Check
+  @ApiResponse({
+    status: 200,
+    description: 'Health Check',
+    type: HealthCheckResponse,
+  })
   @Get('/health')
-  healthCheck() {
-    return this.appService.getHello();
+  healthCheck(): HealthCheckDto {
+    return {
+      result: true,
+    };
   }
 }
