@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { Logger } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 // server environment
 const domain = 'http://localhost';
@@ -9,6 +10,17 @@ const port = 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  const config = new DocumentBuilder()
+    .setTitle('Dev Quiz API')
+    .setDescription('The Dev Quiz API description')
+    .setVersion('1.0')
+    .addTag('dev-quiz')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  const swaggerPath = process.env.SWAGGER_PATH || '/api';
+  SwaggerModule.setup(swaggerPath, app, document);
+
   app.use(cookieParser());
   app.enableCors({
     origin: '*',
