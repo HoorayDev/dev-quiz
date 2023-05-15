@@ -1,46 +1,27 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
-  Patch,
   Param,
-  Delete,
 } from '@nestjs/common';
 import { QuizSetService } from './quiz-set.service';
 import { ApiTags } from '@nestjs/swagger';
-import {
-  CreateQuizSetDto,
-  UpdateQuizSetDto,
-} from '@api/quiz-set/dto/quiz-set.input.dto';
-
 @ApiTags('quiz-set')
 @Controller('quiz-set')
 export class QuizSetController {
   constructor(private readonly quizSetService: QuizSetService) {}
 
-  @Post()
-  create(@Body() createQuizSetDto: CreateQuizSetDto) {
-    return this.quizSetService.create(createQuizSetDto);
-  }
-
+  // TODO: 기본적인 정보만 뿌려주는 API 화
   @Get()
   findAll() {
     return this.quizSetService.findAll();
   }
 
+  // TODO: 퀴즈 Set 조회
+  // TODO: 닉네임 생성 여부 체크
+  // TODO: 확인 이후, 퀴즈 Set 조회 ( Detail, Quiz, Option )
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.quizSetService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateQuizSetDto: UpdateQuizSetDto) {
-    return this.quizSetService.update(+id, updateQuizSetDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.quizSetService.remove(+id);
-  }
 }
