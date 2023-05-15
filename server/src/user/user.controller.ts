@@ -9,11 +9,11 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   //TODO: Create Response Dto, CreateUserDto
+  //TODO: Cookie Set
+  //TODO: name save
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    //TODO: Cookie Set
 
-    //TODO: name save
     return this.userService.create(createUserDto);
   }
 }
