@@ -3,7 +3,7 @@ import { useAppSelector } from '../hooks/useAppSelector';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { decrement, increment } from '../store/countSlice';
 import { RootState } from '../store'
-import styles from '../pages/index.module.scss'
+import styles from '../styles/index.module.scss'
 
 const Index =()=>{
   const dispatch = useAppDispatch();
