@@ -8,9 +8,11 @@ import {
   Delete,
 } from '@nestjs/common';
 import { SubscribeService } from './subscribe.service';
-import { CreateSubscribeDto } from './dto/create-subscribe.dto';
-import { UpdateSubscribeDto } from './dto/update-subscribe.dto';
 import { ApiTags } from '@nestjs/swagger';
+import {
+  CreateSubscribeDto,
+  UpdateSubscribeDto,
+} from '@api/subscribe/dto/subscribe.input.dto';
 
 @ApiTags('subscribe')
 @Controller('subscribe')

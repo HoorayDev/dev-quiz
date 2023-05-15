@@ -8,9 +8,11 @@ import {
   Delete,
 } from '@nestjs/common';
 import { QuizSetService } from './quiz-set.service';
-import { CreateQuizSetDto } from './dto/create-quiz-set.dto';
-import { UpdateQuizSetDto } from './dto/update-quiz-set.dto';
 import { ApiTags } from '@nestjs/swagger';
+import {
+  CreateQuizSetDto,
+  UpdateQuizSetDto,
+} from '@api/quiz-set/dto/quiz-set.input.dto';
 
 @ApiTags('quiz-set')
 @Controller('quiz-set')

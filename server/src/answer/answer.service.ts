@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAnswerDto } from './dto/create-answer.dto';
-import { UpdateAnswerDto } from './dto/update-answer.dto';
+import {
+  CreateAnswerDto,
+  UpdateAnswerDto,
+} from '@api/answer/dto/answer.input.dto';
 
 @Injectable()
 export class AnswerService {
