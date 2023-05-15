@@ -11,14 +11,17 @@ const port = 3000;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('api');
+
   const config = new DocumentBuilder()
     .setTitle('Dev Quiz API')
     .setDescription('The Dev Quiz API description')
     .setVersion('1.0')
     .addTag('dev-quiz')
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
-  const swaggerPath = process.env.SWAGGER_PATH || '/api';
+  const swaggerPath = process.env.SWAGGER_PATH || '/u33dd22asd';
   SwaggerModule.setup(swaggerPath, app, document);
 
   app.use(cookieParser());
