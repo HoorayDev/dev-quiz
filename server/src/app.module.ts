@@ -10,7 +10,14 @@ import { AnswerModule } from './answer/answer.module';
 import { APP_PROVIDER } from '@app/share-library/config/module.config';
 
 @Module({
-  imports: [ShareLibraryModule, SubscribeModule, UserModule, QuizModule, QuizSetModule, AnswerModule],
+  imports: [
+    ShareLibraryModule,
+    SubscribeModule,
+    UserModule,
+    QuizModule,
+    QuizSetModule,
+    AnswerModule,
+  ],
   controllers: [AppController],
   providers: [AppService, ...APP_PROVIDER],
 })
