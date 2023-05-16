@@ -85,7 +85,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/share-library(|/.*)$": "<rootDir>/libs/share-library/src/$1"
+      "^@app/share-library(|/.*)$": "<rootDir>/libs/share-library/$1",
+      "^@api(|/.*)$":"<rootDir>/src/$1"
     }
   }
 }
