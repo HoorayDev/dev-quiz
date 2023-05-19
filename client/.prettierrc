@@ -1,0 +1,17 @@
+{
+  "arrowParens": "avoid",
+  "endOfLine": "auto",
+  "htmlWhitespaceSensitivity": "css",
+  "singleQuote": true,
+  "printWidth": 120,
+  "semi": true,
+  "tabWidth": 2,
+  "overrides": [
+    {
+      "files": "*.json",
+      "options": {
+        "printWidth": 200
+      }
+    }
+  ]
+}
