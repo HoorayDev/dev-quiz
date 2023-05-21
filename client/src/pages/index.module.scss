@@ -1,0 +1,29 @@
+@use 'src/styles/constants/colors';
+@use 'src/styles/mixins/flexbox';
+@use 'src/styles/constants/sizes';
+
+.categoryWrapper {
+  display:grid;
+  grid-template-columns: 440px 440px;
+  grid-row: auto;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  margin-top: 140px;
+
+  .card {
+    @include flexbox.flexbox;
+    width: 440px;
+    height: 370px;
+    background-color: colors.$PRIMARY;
+    border-radius: 5px;
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
+    font-size: sizes.$FONT_LARGE;
+    font-weight: bold;
+  }
+
+  .commingSoon {
+    color: rgba(0, 0, 0, 0.15);
+  }
+}
+
+
