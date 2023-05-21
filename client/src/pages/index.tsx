@@ -32,13 +32,7 @@ const Index =()=>{
   return (
       <div>
           <div className={styles.categoryWrapper}>{categoryListCard}</div>
-        {/* TODO : 방향 삼각형 아이콘 */}
-        <DQButton>틀린 문제 확인하기</DQButton>
-          {/*<span>{value}</span>*/}
-          {/*<div>*/}
-          {/*    <button onClick={()=>dispatch(increment())}>+</button>*/}
-          {/*    <button onClick={()=>dispatch(decrement())}>-</button>*/}
-          {/*</div>*/}
+        <DQButton>► 틀린 문제 확인하기</DQButton>
       </div>
   )
 }
