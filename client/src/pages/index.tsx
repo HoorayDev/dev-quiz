@@ -32,7 +32,6 @@ const Index =()=>{
   return (
       <div>
           <div className={styles.categoryWrapper}>{categoryListCard}</div>
-        <DQButton>► 틀린 문제 확인하기</DQButton>
       </div>
   )
 }
