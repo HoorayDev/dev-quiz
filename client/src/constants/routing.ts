@@ -8,3 +8,8 @@ export const RESULT = {
   text: 'RESULT',
 };
 
+export const PATCH_NOTE = {
+  href: '/patchNote',
+  text: 'PATCH_NOTE',
+};
+
