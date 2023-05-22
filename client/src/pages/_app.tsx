@@ -1,15 +1,20 @@
 import { AppProps } from "next/app";
 import { Provider } from 'react-redux';
-import wrapper from '../store/index';
+import wrapper from '~/store/index';
 import Layout from '~/components/HOC/Layout';
-import '../styles/index.scss';
+import { FC } from 'react';
+import '~/styles/index.scss'
 
-const _App = ({ Component, pageProps }: AppProps) => {
+interface DefaultStaticProps {
+  hasAppHeader?: boolean;
+}
+
+const _App: FC<AppProps> = ({ Component, pageProps: { hasAppHeader = false, ...pageProps } }: AppProps) => {
     const { store, props } = wrapper.useWrappedStore(pageProps);
 
     return (
         <Provider store={store}>
-            <Layout>
+            <Layout hasAppHeader={hasAppHeader}>
                 <Component {...props} />
             </Layout>
         </Provider>
@@ -17,3 +22,4 @@ const _App = ({ Component, pageProps }: AppProps) => {
 }
 
 export default _App;
+export type { DefaultStaticProps };

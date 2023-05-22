@@ -1,0 +1,20 @@
+.nav {
+  height: 70px;
+  background-color: white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.08));
+  z-index: 1;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 200px;
+
+  &.flexRow, .flexRow{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .navMenu {
+    gap:71px;
+  }
+}
+
+// TODO : cursor pointer
