@@ -36,14 +36,14 @@ const Index =()=>{
 
     return (
         <div>
-            <QuizProgressBar maxValue={10} currentValue={5}/>
             <div className={styles.categoryWrapper}>{categoryListCard}</div>
-            <button onClick={() => setModalOpen(true)}>로그인</button>
-            {modalOpen && (
-                <ModalPortal>
-                    <LoginModal onClose={() => setModalOpen(false)} />
-                </ModalPortal>
-            )}
+            {/*<QuizProgressBar maxValue={10} currentValue={5}/>*/}
+            {/*<button onClick={() => setModalOpen(true)}>로그인</button>*/}
+            {/*{modalOpen && (*/}
+            {/*    <ModalPortal>*/}
+            {/*        <LoginModal onClose={() => setModalOpen(false)} />*/}
+            {/*    </ModalPortal>*/}
+            {/*)}*/}
             {/*<span>{value}</span>*/}
             {/*<div>*/}
             {/*    <button onClick={()=>dispatch(increment())}>+</button>*/}
