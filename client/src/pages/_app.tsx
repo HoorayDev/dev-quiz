@@ -14,7 +14,7 @@ const _App: FC<AppProps> = ({ Component, pageProps: { hasAppHeader = false, ...p
 
     return (
         <Provider store={store}>
-            <Layout hasAppHeader={true}>
+            <Layout hasAppHeader={hasAppHeader}>
                 <Component {...props} />
             </Layout>
         </Provider>

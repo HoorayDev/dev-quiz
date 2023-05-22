@@ -1,3 +1,5 @@
+import { GetStaticProps } from 'next';
+import { DefaultStaticProps } from '~/pages/_app';
 import { useMemo } from "react";
 import wrapper from '~/store/index';
 import { useAppSelector } from '~/hooks/useAppSelector';
@@ -40,4 +42,12 @@ const Index =()=>{
   )
 }
 
+const getStaticProps: GetStaticProps<DefaultStaticProps> = async () => ({
+  props: {
+    hasAppHeader: true,
+  },
+});
+
+
 export default Index;
+export { getStaticProps };
