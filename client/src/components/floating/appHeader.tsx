@@ -1,12 +1,12 @@
 import { FC } from "react";
 import styles from '~/components/floating/appHeader.module.scss';
-import Logo from '~/images/hooray_logo.svg'
+// import Logo from '~/images/hooray_logo.svg'
 
 interface AppHeaderProps {}
 
 const AppHeader: FC<AppHeaderProps> = () => {
   return <nav className={`${styles.nav} ${styles.flexRow}`}>
-    <Logo />
+    {/*<Logo />*/}
     <div className={`${styles.flexRow} ${styles.navMenu}`}>
       <p>홈</p>
       <p>팀소개</p>
