@@ -5,7 +5,6 @@
 - **시작일**: 2023.05
 - **GitHub 주소**: [https://github.com/HoorayDev/dev-quiz](https://github.com/HoorayDev/dev-quiz)
 - **팀 구성**: 3명 (Frontend 2명, Backend 1명)
-- **사용 기술**: NestJs, MySQL, AWS
 
 ## 📜 프로젝트 설명
 
@@ -15,9 +14,9 @@
 
 ## 👥 프로젝트 팀원 및 역할
 
-- ([@2Ruk](https://github.com/2Ruk))
-- ([@JungSWon](https://github.com/JungSWon))
-- ([@Yu-jae-min](https://github.com/Yu-jae-min))
+- ([@2Ruk](https://github.com/2Ruk)) - Backend
+- ([@JungSWon](https://github.com/JungSWon)) - Frontend
+- ([@Yu-jae-min](https://github.com/Yu-jae-min)) - Frontend
 
 ## ⚙️ 사용 기술 스택
 
