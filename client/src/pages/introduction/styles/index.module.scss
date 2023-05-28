@@ -1,0 +1,39 @@
+@use 'src/styles/mixins/flexbox';
+
+.pageLayout {
+  @include flexbox.flexbox;
+  height: 100%;
+  width: 100%;
+
+  .imageContainer {
+    @include flexbox.flexbox('end');
+    padding: 20vh 32px;
+    width: 50%;
+  }
+
+  .content {
+    width: 50%;
+
+    .innerContent {
+      margin-bottom: 128px;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 30px;
+    }
+
+    .title {
+      margin-bottom: 38px;
+    }
+
+    .innerTitle {
+      @include flexbox.flexbox('start')
+    }
+
+    .underline {
+    //  text underline style
+
+    }
+  }
+}
