@@ -8,3 +8,8 @@ export const RESULT = {
   text: 'RESULT',
 };
 
+export const INTRODUCTION = {
+  href: '/introduction',
+  text: 'INTRODUCTION',
+};
+
