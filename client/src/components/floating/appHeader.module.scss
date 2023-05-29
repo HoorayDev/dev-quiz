@@ -1,3 +1,5 @@
+@use 'src/styles/constants/colors';
+
 .nav {
   height: 70px;
   background-color: white;
@@ -14,6 +16,10 @@
 
   .navMenu {
     gap:71px;
+  }
+
+  .logo {
+    color: colors.$PRIMARY;
   }
 }
 
