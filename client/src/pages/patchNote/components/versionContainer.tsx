@@ -35,4 +35,4 @@ const VersionContainer = ({ data: { date, version, update } }: VersionContainerP
   </div>
 };
 
-export { VersionContainer };
+export default VersionContainer;

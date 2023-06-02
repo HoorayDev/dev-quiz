@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import wrapper from '~/store/index';
 import Layout from '~/components/HOC/Layout';
 import { FC, useEffect, useState } from 'react';
-import { Splash } from '~/pages/splash';
+import Splash from '~/pages/splash';
 import '~/styles/index.scss'
 
 interface DefaultStaticProps {

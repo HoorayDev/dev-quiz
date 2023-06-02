@@ -8,4 +8,4 @@ const Splash = ()=>{
   </div>
 }
 
-export { Splash };
+export default Splash;
