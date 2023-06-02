@@ -1,0 +1,67 @@
+@use 'src/styles/constants/colors';
+
+.title{
+  margin: 142px 0 128px 0;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.resultGrid {
+  margin-bottom: 63px;
+  display: grid;
+  grid-auto-flow: column;
+  gap:37px;
+  height: 330px;
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+    .blockText{
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    .blockNumber{
+      font-weight: 700;
+      font-size: 60px;
+    }
+  }
+
+  .correct {
+    background-color: colors.$PRIMARY;
+    color: colors.$WHITE;
+  }
+
+  .wrong {
+    background-color: colors.$GRAY100;
+    color: colors.$BLACK;
+  }
+}
+
+.buttonContainer {
+  margin-bottom: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
+
+  p {
+    font-weight: 400;
+    font-size: 12px;
+  }
+}
+
