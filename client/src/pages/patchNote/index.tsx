@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import { DefaultStaticProps } from '~/pages/_app';
-import { VersionContainer } from './components/versionContainer';
+import VersionContainer from './components/versionContainer';
 import styles from './styles/index.module.scss';
 
 const versionData = [
