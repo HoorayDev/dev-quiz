@@ -1,14 +1,22 @@
 import { FC, ReactNode } from 'react';
 import styles from '~/components/reusable/DQButton.module.scss';
+import Forward from '~/images/caret-forward.svg';
 
 interface DQButtonProps {
   children: ReactNode;
+  onClick: ()=> void;
+  hasIcon?: boolean;
 };
 
 const DQButton: FC<DQButtonProps> = ({
-  children
+  children,
+  onClick,
+  hasIcon = false,
 }) => {
-  return <button className={styles.dqButton}>{children}</button>
+  return <button className={styles.dqButton}>
+    {hasIcon && <Forward />}
+    {children}
+  </button>
 };
 
 export { DQButton };
