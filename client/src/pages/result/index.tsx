@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { DQButton } from '../../components/reusable/DQButton';
+import { DQButton } from '~/components/reusable/DQButton';
 
 const Result: FC = () => {
   return <div>
