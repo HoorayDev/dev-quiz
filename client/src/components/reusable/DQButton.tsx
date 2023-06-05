@@ -13,7 +13,7 @@ const DQButton: FC<DQButtonProps> = ({
   onClick,
   hasIcon = false,
 }) => {
-  return <button className={styles.dqButton}>
+  return <button className={styles.dqButton} onClick={onClick}>
     {hasIcon && <Forward />}
     {children}
   </button>
