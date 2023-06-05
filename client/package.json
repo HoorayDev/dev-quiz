@@ -14,6 +14,7 @@
     "@types/node": "20.1.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
+    "@types/react-redux": "^7.1.25",
     "eslint-config-next": "13.4.1",
     "next": "13.4.1",
     "next-redux-wrapper": "^8.1.0",
