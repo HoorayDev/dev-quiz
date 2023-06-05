@@ -45,3 +45,17 @@ export class ResultResponseDto {
   })
   result: boolean;
 }
+
+export class CreateResponseDto implements ResponseDto<ResultResponseDto> {
+  @ApiProperty({
+    example: 200,
+    description: '상태 코드',
+  })
+  statusCode: number;
+
+  @ApiProperty({
+    description: '응답 Data',
+    type: () => ResultResponseDto,
+  })
+  data: ResultResponseDto;
+}

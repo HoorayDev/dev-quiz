@@ -2,8 +2,7 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserInputDto } from '@api/user/dto/user.input.dto';
-import { ResponseDto } from '@app/share-library/dto/response.dto';
-import { UserCreateResponseDto } from '@api/user/type/user.response.dto';
+import { CreateResponseDto } from '@app/share-library/dto/response.dto';
 
 @ApiTags('user')
 @Controller('user')
@@ -14,7 +13,7 @@ export class UserController {
   @ApiResponse({
     status: 201,
     description: '유저 생성',
-    type: UserCreateResponseDto,
+    type: CreateResponseDto,
     headers: {
       'Set-Cookie': {
         description: 'cookie id set',
