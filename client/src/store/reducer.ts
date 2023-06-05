@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
-import counterSlice from '~/store/countSlice';
+import toastSlice from '~/store/slices/toast';
 import { Reducer } from 'react';
 
 const combinedReducer: any = combineReducers({
-    counter: counterSlice,
+    toast: toastSlice,
 });
 
 const rootReducer: typeof combinedReducer = (state: any, action: any) => {
