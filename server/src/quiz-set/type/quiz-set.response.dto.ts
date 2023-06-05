@@ -1,9 +1,7 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
 import { QuizSetEntity } from '@app/share-library/entities/question/quiz-set.entity';
 import { QuizSetCategory } from '@app/share-library/enum/quiz-set.enum';
-import {
-  ResponseDto,
-} from '@app/share-library/dto/response.dto';
+import { ResponseDto } from '@app/share-library/dto/response.dto';
 
 class BaseQuizSetEntity implements Partial<QuizSetEntity> {
   @ApiProperty({
