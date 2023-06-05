@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import { DefaultStaticProps } from '~/pages/_app';
-import VersionContainer from './components/versionContainer';
-import styles from './styles/index.module.scss';
+import VersionContainer from '~/components/patchNote/versionContainer';
+import styles from '~/pages/patchNote/styles/index.module.scss';
 
 const versionData = [
   { date: '2023.03', version: '0.1.0', update: [

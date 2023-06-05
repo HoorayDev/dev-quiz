@@ -1,9 +1,7 @@
 import { FC, ReactNode } from 'react';
-import { DQButton } from '../../components/reusable/DQButton';
+import { DQButton } from '~/components/reusable/DQButton';
 import styles from '~/pages/result/styles/index.module.scss';
 import Forward from '~/images/caret-forward.svg';
-
-
 
 const Result: FC = () => {
   return <div>

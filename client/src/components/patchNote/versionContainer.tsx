@@ -1,5 +1,5 @@
 import FC from 'react';
-import styles from '../styles/index.module.scss';
+import styles from '~/components/patchNote/versionContainer.module.scss';
 
 interface VersionDataObject {
   date: string;
