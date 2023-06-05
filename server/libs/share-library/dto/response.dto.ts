@@ -48,7 +48,7 @@ export class ResultResponseDto {
 
 export class CreateResponseDto implements ResponseDto<ResultResponseDto> {
   @ApiProperty({
-    example: 200,
+    example: 201,
     description: '상태 코드',
   })
   statusCode: number;
