@@ -1,18 +1,32 @@
-import {
-  Controller,
-  Get,
-  Param,
-} from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { QuizSetService } from './quiz-set.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Pagination } from '@app/share-library/dto/request.dto';
+import { ReadAllQuizSetResponseDto } from '@api/quiz-set/type/quiz-set.response.dto';
 @ApiTags('quiz-set')
 @Controller('quiz-set')
 export class QuizSetController {
   constructor(private readonly quizSetService: QuizSetService) {}
 
   // TODO: 기본적인 정보만 뿌려주는 API 화
+  @ApiOperation({ summary: '퀴즈 Set 조회' })
+  @ApiQuery({
+    name: 'page',
+    type: Number,
+    description: '페이지 번호',
+  })
+  @ApiQuery({
+    name: 'limit',
+    type: Number,
+    description: '페이지당 데이터 수',
+  })
+  @ApiResponse({
+    status: 200,
+    description: '퀴즈 Set 조회 성공',
+    type: ReadAllQuizSetResponseDto,
+  })
   @Get()
-  findAll() {
+  findAll(@Query() pagination: Pagination) {
     return this.quizSetService.findAll();
   }
 
@@ -23,5 +37,4 @@ export class QuizSetController {
   findOne(@Param('id') id: string) {
     return this.quizSetService.findOne(+id);
   }
-
 }
