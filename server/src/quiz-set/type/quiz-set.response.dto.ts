@@ -1,6 +1,9 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
 import { QuizSetEntity } from '@app/share-library/entities/question/quiz-set.entity';
 import { QuizSetCategory } from '@app/share-library/enum/quiz-set.enum';
+import {
+  ResponseDto,
+} from '@app/share-library/dto/response.dto';
 
 class BaseQuizSetEntity implements Partial<QuizSetEntity> {
   @ApiProperty({
@@ -55,7 +58,7 @@ export class ReadOneQuizSetResponseDto extends PickType(BaseQuizSetEntity, [
   'created_at',
 ]) {}
 
-export class ReadAllQuizSetResponseDto {
+export class ReadAllQuizSetResponse {
   @ApiProperty({
     description: '퀴즈 Set List',
     type: () => [ReadOneQuizSetResponseDto],
@@ -79,4 +82,20 @@ export class ReadAllQuizSetResponseDto {
     example: 1,
   })
   currentPage: number;
+}
+
+export class ReadAllQuizSetResponseDto
+  implements ResponseDto<ReadAllQuizSetResponse>
+{
+  @ApiProperty({
+    example: 200,
+    description: '상태 코드',
+  })
+  statusCode: number;
+
+  @ApiProperty({
+    description: '응답 Data',
+    type: () => ReadAllQuizSetResponse,
+  })
+  data: ReadAllQuizSetResponse;
 }
