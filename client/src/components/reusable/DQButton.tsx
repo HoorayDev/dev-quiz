@@ -4,19 +4,27 @@ import Forward from '~/images/caret-forward.svg';
 
 interface DQButtonProps {
   children: ReactNode;
-  onClick: ()=> void;
   hasIcon?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
 };
 
 const DQButton: FC<DQButtonProps> = ({
   children,
   onClick,
   hasIcon = false,
+  disabled = false,
 }) => {
-  return <button className={styles.dqButton} onClick={onClick}>
-    {hasIcon && <Forward />}
-    {children}
-  </button>
+  return (
+      <button
+          className={`${styles.dqButton} ${styles[disabled ? 'disabled' : '']}`}
+          onClick={onClick}
+          disabled={disabled}
+      >
+        {hasIcon && <Forward />}
+        {children}
+      </button>
+  )
 };
 
 export { DQButton };

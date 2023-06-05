@@ -1,3 +1,5 @@
+@use 'src/styles/constants/colors';
+
 .dqButton {
   // TODO : refactor Button && modify display style
   display: flex;
@@ -16,5 +18,9 @@
 
   &:active {
     background-color: #E8D424;
+  }
+
+  &:disabled {
+    background-color: colors.$GRAY100;
   }
 }
