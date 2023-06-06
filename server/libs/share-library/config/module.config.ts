@@ -7,6 +7,12 @@ import { QuizOptionEntity } from '@app/share-library/entities/question/quiz-opti
 import { QuizResponseEntity } from '@app/share-library/entities/question/quiz-response.entity';
 import { UserEntity } from '@app/share-library/entities/user/user.entity';
 import { SubscribeEntity } from '@app/share-library/entities/user/subscribe.entity';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from '@app/share-library/interceptor/logger.interceptor';
+import { ThrottlerGuard } from '@nestjs/throttler';
+import { TimeoutInterceptor } from '@app/share-library/interceptor/timeout.interceptor';
+import { HttpExceptionFilter } from '@app/share-library/filter/http-exception.filter';
+import { TransformInterceptor } from '@app/share-library/interceptor/Transform.interceptor';
 
 export const CONFIG_OPTION = () => {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -57,3 +63,26 @@ export const THROTTLER_CONFIG = {
   ttl: 1,
   limit: 60,
 };
+
+export const APP_PROVIDER = [
+  {
+    provide: APP_INTERCEPTOR,
+    useClass: TransformInterceptor,
+  },
+  {
+    provide: APP_INTERCEPTOR,
+    useClass: LoggingInterceptor,
+  },
+  {
+    provide: APP_INTERCEPTOR,
+    useClass: TimeoutInterceptor,
+  },
+  {
+    provide: APP_GUARD,
+    useClass: ThrottlerGuard,
+  },
+  {
+    provide: APP_FILTER,
+    useClass: HttpExceptionFilter,
+  },
+];

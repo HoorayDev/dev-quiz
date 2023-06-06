@@ -9,6 +9,7 @@ import {
   THROTTLER_CONFIG,
   TYPEORM_OPTION,
 } from '@app/share-library/config/module.config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import {
     }),
     CacheModule.register(CACHE_CONFIG),
     ThrottlerModule.forRoot(THROTTLER_CONFIG),
+    AuthModule,
   ],
   providers: [],
   exports: [],
