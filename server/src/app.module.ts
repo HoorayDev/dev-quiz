@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { QuizSetModule } from './quiz-set/quiz-set.module';
 import { AnswerModule } from './answer/answer.module';
 import { APP_PROVIDER } from '@app/share-library/config/module.config';
+import { QuizModule } from './quiz/quiz.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { APP_PROVIDER } from '@app/share-library/config/module.config';
     UserModule,
     QuizSetModule,
     AnswerModule,
+    QuizModule,
   ],
   controllers: [AppController],
   providers: [AppService, ...APP_PROVIDER],
