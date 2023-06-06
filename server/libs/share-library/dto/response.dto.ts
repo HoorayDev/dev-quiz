@@ -59,3 +59,36 @@ export class CreateResponseDto implements ResponseDto<ResultResponseDto> {
   })
   data: ResultResponseDto;
 }
+
+class ErrorData {
+  @ApiProperty({
+    example: 400,
+    description: '상태 코드',
+  })
+  statusCode: number;
+
+  @ApiProperty({
+    example: '에러 메세지',
+    description: '에러 메시지',
+  })
+  message: string;
+
+  @ApiProperty({
+    example: 'Bad Request',
+    description: '에러 타입',
+  })
+  error: string;
+}
+export class ErrorResponseDto implements ResponseDto<ErrorData> {
+  @ApiProperty({
+    example: 400,
+    description: '상태 코드',
+  })
+  statusCode: number;
+
+  @ApiProperty({
+    description: '응답 Data',
+    type: () => ErrorData,
+  })
+  data: ErrorData;
+}
