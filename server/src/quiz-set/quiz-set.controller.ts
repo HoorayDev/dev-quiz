@@ -5,7 +5,7 @@ import { Pagination } from '@app/share-library/dto/request.dto';
 import {
   ReadAllQuizSetResponseDto,
   ReadOneQuizSetResponseDto,
-} from '@api/quiz-set/type/quiz-set.response.dto';
+} from '@api/quiz-set/dto/quiz-set.response.dto';
 @ApiTags('quiz-set')
 @Controller('quiz-set')
 export class QuizSetController {
