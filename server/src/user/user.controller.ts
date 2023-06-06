@@ -1,9 +1,7 @@
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import {
-  CreateUserInputDto,
-} from '@api/user/dto/user.input.dto';
+import { CreateUserInputDto } from '@api/user/dto/user.input.dto';
 import {
   CreateResponseDto,
   ErrorResponseDto,
