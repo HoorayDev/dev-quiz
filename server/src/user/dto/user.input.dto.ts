@@ -1,6 +1,9 @@
 import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-
+export class CurrentUserDto {
+  name: string;
+  id: string;
+}
 export class CreateUserInputDto {
   @ApiProperty({
     description: '유저의 닉네임',
