@@ -1,7 +1,8 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { QuizOptionService } from './quiz-option.service';
-import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { QuizParamInputDto } from '@api/quiz/dto/quiz.input.dto';
+import { ReadAllQuizOptionResponseDto } from '@api/quiz-option/dto/quiz-option.response.dto';
 
 @ApiTags('quiz-option')
 @Controller('/quiz-set/:quizSetId/quiz/:quizId/quiz-option')
@@ -16,6 +17,10 @@ export class QuizOptionController {
     name: 'quizId',
     type: Number,
     description: '퀴즈 ID',
+  })
+  @ApiResponse({
+    status: 200,
+    type: ReadAllQuizOptionResponseDto,
   })
   @Get()
   findAll(@Param() { quizSetId, quizId }: QuizParamInputDto) {
