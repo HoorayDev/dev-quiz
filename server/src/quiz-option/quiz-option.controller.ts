@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { QuizOptionService } from './quiz-option.service';
-import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { QuizParamInputDto } from '@api/quiz/dto/quiz.input.dto';
 import { ReadAllQuizOptionResponseDto } from '@api/quiz-option/dto/quiz-option.response.dto';
 
@@ -9,6 +9,7 @@ import { ReadAllQuizOptionResponseDto } from '@api/quiz-option/dto/quiz-option.r
 export class QuizOptionController {
   constructor(private readonly quizOptionService: QuizOptionService) {}
 
+  @ApiOperation({ summary: 'quiz-option 전체 조회' })
   @ApiParam({
     name: 'quizSetId',
     type: Number,
