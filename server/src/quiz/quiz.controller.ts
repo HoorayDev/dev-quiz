@@ -3,12 +3,19 @@ import { QuizService } from './quiz.service';
 import { JwtGuard } from '@app/share-library/guard/jwt.guard';
 import { CurrentUser } from '@app/share-library/decorator/current-user';
 import { CurrentUserDto } from '@api/user/dto/user.input.dto';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ErrorResponseDto } from '@app/share-library/dto/response.dto';
 import { QuizParamInputDto } from '@api/quiz/dto/quiz.input.dto';
 import { ViewReadOneQuizResponseDto } from '@api/quiz/dto/quiz.response.dto';
 
 @ApiTags('quiz')
+@ApiCookieAuth('id')
 @UseGuards(JwtGuard)
 @Controller('/quiz-set/:quizSetId/quiz')
 export class QuizController {
