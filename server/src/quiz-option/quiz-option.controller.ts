@@ -1,34 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { QuizOptionService } from './quiz-option.service';
-import { CreateQuizOptionDto } from './dto/create-quiz-option.dto';
-import { UpdateQuizOptionDto } from './dto/update-quiz-option.dto';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { QuizParamInputDto } from '@api/quiz/dto/quiz.input.dto';
 
-@Controller('quiz-option')
+@ApiTags('quiz-option')
+@Controller('/quiz-set/:quizSetId/quiz/:quizId/quiz-option')
 export class QuizOptionController {
   constructor(private readonly quizOptionService: QuizOptionService) {}
 
-  @Post()
-  create(@Body() createQuizOptionDto: CreateQuizOptionDto) {
-    return this.quizOptionService.create(createQuizOptionDto);
-  }
-
+  @ApiParam({
+    name: 'quizSetId',
+    type: Number,
+  })
+  @ApiParam({
+    name: 'quizId',
+    type: Number,
+    description: '퀴즈 ID',
+  })
   @Get()
-  findAll() {
+  findAll(@Param() { quizSetId, quizId }: QuizParamInputDto) {
     return this.quizOptionService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.quizOptionService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateQuizOptionDto: UpdateQuizOptionDto) {
-    return this.quizOptionService.update(+id, updateQuizOptionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.quizOptionService.remove(+id);
   }
 }
