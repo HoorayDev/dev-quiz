@@ -5,8 +5,4 @@ export class QuizParamInputDto {
   @IsNumber()
   @Type(() => Number)
   id: number;
-
-  @IsNumber()
-  @Type(() => Number)
-  quizSetId: number;
 }

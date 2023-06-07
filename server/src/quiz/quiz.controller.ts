@@ -10,16 +10,11 @@ import { ViewReadOneQuizResponseDto } from '@api/quiz/dto/quiz.response.dto';
 
 @ApiTags('quiz')
 @UseGuards(JwtGuard)
-@Controller('quiz-set/:quizSetId/quiz')
+@Controller('/quiz')
 export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
   @ApiOperation({ summary: 'quiz 단일 조회' })
-  @ApiParam({
-    name: 'quizSetId',
-    type: Number,
-    description: '퀴즈 Set ID',
-  })
   @ApiParam({
     name: 'id',
     type: Number,
@@ -42,10 +37,10 @@ export class QuizController {
   })
   @Get(':id')
   findOne(
-    @Param() { quizSetId, id }: QuizParamInputDto,
+    @Param() { id }: QuizParamInputDto,
     @CurrentUser() currentUser: CurrentUserDto,
   ) {
-    console.log({ quizSetId, id, currentUser });
+    console.log({ id, currentUser });
     return this.quizService.findOne(+id);
   }
 }
