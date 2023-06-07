@@ -9,6 +9,7 @@ import { AnswerModule } from './answer/answer.module';
 import { APP_PROVIDER } from '@app/share-library/config/module.config';
 import { QuizModule } from './quiz/quiz.module';
 import { QuizOptionModule } from './quiz-option/quiz-option.module';
+import { QuizResponseModule } from './quiz-response/quiz-response.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { QuizOptionModule } from './quiz-option/quiz-option.module';
     AnswerModule,
     QuizModule,
     QuizOptionModule,
+    QuizResponseModule,
   ],
   controllers: [AppController],
   providers: [AppService, ...APP_PROVIDER],
