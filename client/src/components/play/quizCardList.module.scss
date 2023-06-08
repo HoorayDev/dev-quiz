@@ -1,0 +1,47 @@
+@use 'src/styles/mixins/flexbox';
+@use 'src/styles/constants/sizes';
+
+.playWrapper {
+  @include flexbox.columnFlexbox;
+}
+
+.quizTitle{
+  margin: 140px 0;
+  font-size: sizes.$FONT_LARGE;
+  font-weight: bold;
+}
+
+.quizCardWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row: auto;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.buttonWrapper {
+  margin: 60px 0;
+
+  .buttonTitle{
+    margin-left: 15px;
+  }
+}
+
+.commentaryWrapper{
+  margin-bottom: 60px;
+  border: 1px solid rgba(0, 0, 0, 30%);
+  padding: 45px;
+
+  .answerWrapper{
+    margin-bottom: 25px;
+
+    .answer{
+      margin-left: 15px;
+    }
+  }
+
+  .description{
+    font-size: sizes.$FONT_MEDIUM;
+    line-height: 1.4em;
+  }
+}

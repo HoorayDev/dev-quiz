@@ -1,38 +1,66 @@
 import { GetStaticProps } from 'next';
 import { DefaultStaticProps } from '~/pages/_app';
-import { useMemo } from "react";
-import { RootState } from '~/store/store';
+import { useMemo, useEffect, useState } from "react";
+import { useAppSelector } from '~/hooks/useAppSelector';
+import { useAppDispatch } from '~/hooks/useAppDispatch';
+import { add } from '~/store/incorrectSlice';
+import { RootState } from '~/store/store'
 import styles from '~/pages/index.module.scss'
-import QuizProgressBar from '~/components/quizProgressBar'
-import { useState } from 'react'
-import ModalPortal from '~/components/Modal/modalPortal';
 import LoginModal from '~/components/Modal/LoginModal/LoginModal';
 import { DQButton } from '~/components/reusable/DQButton';
-
-const categoryList = ['Javascript', 'Comming Soon..', 'Comming Soon..', 'Comming Soon..']
+import { PLAY } from '~/constants/routing'
+import { useRouter } from 'next/router';
+import { useQuery } from '@tanstack/react-query';
+import { getQuizSetAPI } from '~/apis/initial';
+import { upperFirst } from 'lodash';
 
 const Index =()=>{
-  const [modalOpen, setModalOpen] = useState<boolean>(); // TODO : modal 사용 예시를 위해 넣어둠
+  const [loginModalOpen, setLoginModalOpen] = useState<boolean>();
+  const [selectCategory, setSelectCategory] = useState<string>();
+  const { push } = useRouter()
+  // TODO : api 완성 후 url 교체
+  const { data: getQuizSetData, isLoading, isError } = useQuery(['getQuizSet'], getQuizSetAPI);
 
-  const categoryListCard = useMemo(() => {
-      return categoryList.map((categoryName) => {
-          const isCommingSoon = categoryName === 'Comming Soon..'
-          const cardStyle = isCommingSoon ?
-              `${styles.card} ${styles.commingSoon}` :
-              styles.card
-          const cardUrl = `${categoryName}`
+  const quizSetList = useMemo(() => {
+      if(isLoading || isError) return
+
+      const baseLength = 4
+      const comingSoonArr = new Array(baseLength - getQuizSetData.length).fill({ category: 'Coming Soon..'});
+      const quizArr = [...getQuizSetData, ...comingSoonArr];
+
+      return quizArr.map((data: any, index: any) => {
+          const { category } = data;
+          const key = `${category}${index}`;
+          const isComingSoon = category === 'Coming Soon..';
+          const cardStyle = isComingSoon ?
+              `${styles.card} ${styles.comingSoon}` :
+              styles.card;
 
           return (
-              <button className={cardStyle} disabled={isCommingSoon} onClick={() => console.log(cardUrl)}>
-                  {categoryName}
+              <button key={key} className={cardStyle} disabled={isComingSoon} onClick={() => {
+                  setSelectCategory(category)
+                  setLoginModalOpen(true)
+              }}>
+                  {upperFirst(category)}
               </button>
           )
       })
-  }, [categoryList])
+  }, [getQuizSetData])
+
+    const modalSubmit = (value: string) => {
+      // TODO : 여기서 value를 활용해서 로그인 api 처리 후, then 메소드 내부로 퀴즈 풀기 페이지로 push
+        push(`${PLAY.href}?type=${selectCategory}&step=1`)
+        setLoginModalOpen(false)
+    }
 
     return (
         <div>
-            <div className={styles.categoryWrapper}>{categoryListCard}</div>
+            <div className={styles.categoryWrapper}>
+                {quizSetList}
+            </div>
+            {loginModalOpen && (
+                <LoginModal onSubmit={({ value }) => modalSubmit(value)} onClose={() => setLoginModalOpen(false)} />
+            )}
         </div>
     )
 }
