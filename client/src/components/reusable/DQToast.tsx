@@ -1,11 +1,12 @@
 import React, { FC, useEffect, ReactNode } from "react";
 import { createPortal } from "react-dom";
-// import cn from "clsx";
-// import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useAppSelector } from '~/hooks/useAppSelector';
 import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { RootState } from '~/store/store';
+import cn from "clsx";
 import { show,hide } from '~/store/slices/toast';
+import styles from '~/components/reusable/DQToast.module.scss';
 
 interface DQToastProps {
   config? : {
@@ -26,7 +27,6 @@ const DQToast : FC<DQToastProps> =({
 
   useEffect(() => {
     if (!duration || !show) {
-      console.log('??')
       return;
     }
 
@@ -39,33 +39,23 @@ const DQToast : FC<DQToastProps> =({
     };
   }, [show, duration, hide]);
 
-
-  return <>
-    {show && <div style={{
-      width:'500px',
-      height:'500px',
-      backgroundColor:'red',
-    }}><h1>test</h1></div>}
-  </>
-
-  // return createPortal(
-  //   <AnimatePresence>
-  //     {isShown && (
-  //       <motion.div
-  //         key={uniqueId}
-  //         layout
-  //         initial={{ opacity: 0, y: 50, scale: 0.3 }}
-  //         animate={{ opacity: 1, y: 0, scale: 1 }}
-  //         exit={{ opacity: 0, y: 20, scale: 0.5 }}
-  //         className={cn("toast", className)}
-  //         role={role}
-  //       >
-  //         {children}
-  //       </motion.div>
-  //     )}
-  //   </AnimatePresence>,
-  //   document.querySelector("#toasts-portal")
-  // );
+  return createPortal(
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          layout
+          initial={{ opacity: 0, y: 50, scale: 0.3 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.5 }}
+          className={cn(styles.toast, styles.primary)}
+          role={role}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.getElementById('toasts-portal') as HTMLElement
+  );
 }
 
 export { DQToast };
