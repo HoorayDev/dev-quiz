@@ -37,15 +37,15 @@ export class QuizSetController {
   // TODO: 퀴즈 Set 조회
   // TODO: 닉네임 생성 여부 체크
   // TODO: 확인 이후, 퀴즈 Set 조회 ( Detail, Quiz, Option )
-
   @ApiOperation({ summary: '퀴즈 Set 단일 조회' })
   @ApiResponse({
     status: 200,
     description: '퀴즈 Set 조회 성공',
     type: ReadOneQuizSetResponseWithQuizListDto,
   })
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.quizSetService.findOne(+id);
+  @Get(':quizSetId')
+  findOne(@Param('quizSetId') id: string) {
+    const quizSetId = Number(id);
+    return this.quizSetService.findOne(quizSetId);
   }
 }

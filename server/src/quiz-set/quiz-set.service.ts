@@ -1,28 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import {
-  CreateQuizSetDto,
-  UpdateQuizSetDto,
-} from '@api/quiz-set/dto/quiz-set.input.dto';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { QuizSetRepository } from '@api/quiz-set/quiz-set.repository';
 
 @Injectable()
 export class QuizSetService {
-  create(createQuizSetDto: CreateQuizSetDto) {
-    return 'This action adds a new quizSet';
-  }
-
+  constructor(private readonly quizSetRepository: QuizSetRepository) {}
   findAll() {
-    return `This action returns all quizSet`;
+    return 'a';
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} quizSet`;
-  }
-
-  update(id: number, updateQuizSetDto: UpdateQuizSetDto) {
-    return `This action updates a #${id} quizSet`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} quizSet`;
+  async findOne(quizSetId: number) {
+    const quizSet = await this.quizSetRepository.findOneWithKey(quizSetId);
+    if (!quizSet) throw new BadRequestException('존재하지 않는 퀴즈셋입니다.');
+    return quizSet;
   }
 }
