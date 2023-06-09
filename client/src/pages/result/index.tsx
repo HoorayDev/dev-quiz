@@ -8,7 +8,7 @@ import { useAppSelector } from '~/hooks/useAppSelector';
 import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { RootState } from '~/store/store';
 import { show,hide } from '~/store/slices/toast';
-import { DQToast } from '~/components/reusable/DQToast';
+import { DQToast } from '~/components/Portal/Toast/DQToast';
 
 const Result: FC = () => {
   const dispatch = useAppDispatch();

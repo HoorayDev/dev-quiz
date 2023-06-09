@@ -6,7 +6,7 @@ import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { RootState } from '~/store/store';
 import cn from "clsx";
 import { show,hide } from '~/store/slices/toast';
-import styles from '~/components/reusable/DQToast.module.scss';
+import styles from '~/components/Portal/Toast/DQToast.module.scss';
 
 interface DQToastProps {
   config? : {
@@ -40,20 +40,23 @@ const DQToast : FC<DQToastProps> =({
   }, [show, duration, hide]);
 
   return createPortal(
-    <AnimatePresence>
-      {show && (
-        <motion.div
-          layout
-          initial={{ opacity: 0, y: 50, scale: 0.3 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.5 }}
-          className={cn(styles.toast, styles.primary)}
-          role={role}
-        >
-          {children}
-        </motion.div>
-      )}
-    </AnimatePresence>,
+    <div className={styles.toastsWrapper}>
+      <AnimatePresence>
+        {show && (
+          <motion.div
+            layout
+            initial={{ opacity: 0, y: 50, scale: 0.3 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.5 }}
+            className={cn(styles.toast, styles.primary)}
+            role={role}
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+    ,
     document.getElementById('toasts-portal') as HTMLElement
   );
 }
