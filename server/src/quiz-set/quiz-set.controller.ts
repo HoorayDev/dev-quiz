@@ -4,7 +4,6 @@ import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Pagination } from '@app/share-library/dto/request.dto';
 import {
   ReadAllQuizSetResponseDto,
-  ReadOneQuizSetResponseDto,
   ReadOneQuizSetResponseWithQuizListDto,
 } from '@api/quiz-set/dto/quiz-set.response.dto';
 @ApiTags('quiz-set')
@@ -31,7 +30,7 @@ export class QuizSetController {
   })
   @Get()
   findAll(@Query() pagination: Pagination) {
-    return this.quizSetService.findAll();
+    return this.quizSetService.findAll(pagination);
   }
 
   // TODO: 퀴즈 Set 조회
