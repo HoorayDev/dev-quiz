@@ -1,5 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { QuizSetRepository } from '@api/quiz-set/quiz-set.repository';
+import { Pagination } from '@app/share-library/dto/request.dto';
+import { QuizSetMapper } from '@api/quiz-set/quiz-set.mapper';
 
 @Injectable()
 export class QuizSetService {
