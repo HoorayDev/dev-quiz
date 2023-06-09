@@ -1,7 +1,10 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '@app/share-library/entities/user/user.entity';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { RepositoryInterface } from '@app/share-library/type/class.interface';
+import {
+  ReadAllResponse,
+  RepositoryInterface,
+} from '@app/share-library/type/class.interface';
 import { UserLogicInterface } from '@api/user/type/user.logic.interface';
 import { CreateUserInputDto } from '@api/user/dto/user.input.dto';
 
@@ -29,8 +32,8 @@ export class UserRepository
     }
   }
 
-  findAll(filter: UserLogicInterface): Promise<UserEntity[]> {
-    return Promise.resolve([]);
+  findAll(filter: UserLogicInterface): Promise<ReadAllResponse<UserEntity>> {
+    return Promise.resolve(undefined);
   }
 
   findOneWithFilter(
