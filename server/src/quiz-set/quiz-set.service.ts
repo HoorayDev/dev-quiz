@@ -5,9 +5,13 @@ import { QuizSetMapper } from '@api/quiz-set/quiz-set.mapper';
 
 @Injectable()
 export class QuizSetService {
-  constructor(private readonly quizSetRepository: QuizSetRepository) {}
-  findAll() {
-    return 'a';
+  constructor(
+    private readonly quizSetRepository: QuizSetRepository,
+    private readonly quizSetMapper: QuizSetMapper,
+  ) {}
+  async findAll(pagination: Pagination) {
+    const quizSetList = await this.quizSetRepository.findAll({ pagination });
+    return this.quizSetMapper.entityListToQuizSetDtoList(quizSetList);
   }
   async findOne(quizSetId: number) {
     const quizSet = await this.quizSetRepository.findOneWithKey(quizSetId);
