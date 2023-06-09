@@ -5,8 +5,8 @@ import { RootState } from '~/store/store';
 import styles from '~/pages/index.module.scss'
 import QuizProgressBar from '~/components/quizProgressBar'
 import { useState } from 'react'
-import ModalPortal from '~/components/Modal/modalPortal';
-import LoginModal from '~/components/Modal/LoginModal/LoginModal';
+import ModalPortal from '~/components/Portal/modalPortal';
+import LoginModal from '~/components/Portal/LoginModal/LoginModal';
 import { DQButton } from '~/components/reusable/DQButton';
 
 const categoryList = ['Javascript', 'Comming Soon..', 'Comming Soon..', 'Comming Soon..']
