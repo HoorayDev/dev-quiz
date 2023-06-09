@@ -11,7 +11,6 @@ import {
 export class QuizSetController {
   constructor(private readonly quizSetService: QuizSetService) {}
 
-  // TODO: 기본적인 정보만 뿌려주는 API 화
   @ApiOperation({ summary: '퀴즈 Set 리스트   조회' })
   @ApiQuery({
     name: 'page',
@@ -33,9 +32,6 @@ export class QuizSetController {
     return this.quizSetService.findAll(pagination);
   }
 
-  // TODO: 퀴즈 Set 조회
-  // TODO: 닉네임 생성 여부 체크
-  // TODO: 확인 이후, 퀴즈 Set 조회 ( Detail, Quiz, Option )
   @ApiOperation({ summary: '퀴즈 Set 단일 조회' })
   @ApiResponse({
     status: 200,

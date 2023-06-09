@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { QuizSetEntity } from '@app/share-library/entities/question/quiz-set.entity';
 import { plainToInstance } from 'class-transformer';
-import { BaseQuizSetEntity } from '@api/quiz-set/dto/quiz-set.response.dto';
+import {
+  BaseQuizSetEntity,
+  ReadOneQuizSetResponseWithQuizListDto,
+} from '@api/quiz-set/dto/quiz-set.response.dto';
 import {
   ReadAllResponseQuizSet,
   ReadAllResponseQuizSetDto,
 } from '@api/quiz-set/type/quiz-set.class.interface';
+import { QuizSetWithQuizListDto } from '@api/quiz-set/type/quiz-set.logic';
 
 @Injectable()
 export class QuizSetMapper {
@@ -29,6 +33,26 @@ export class QuizSetMapper {
       createdAt: created_at,
       updatedAt: updated_at,
       ...data,
+    });
+  }
+
+  // QuizSetWithQuizListDto => ReadOneQuizSetResponseWithQuizListDto
+  toQuizSetDtoWithQuizList(
+    data: QuizSetWithQuizListDto,
+  ): ReadOneQuizSetResponseWithQuizListDto {
+    const quizIdList = data.quizIdList.split(',').map((value) => Number(value));
+    const quizCount = quizIdList.length;
+
+    return plainToInstance(ReadOneQuizSetResponseWithQuizListDto, {
+      id: data.id,
+      title: data.title,
+      category: data.category,
+      level: data.level,
+      description: data.description,
+      createdAt: data.created_at,
+      updatedAt: data.updated_at,
+      quizIdList: quizIdList,
+      quizCount: quizCount,
     });
   }
 }

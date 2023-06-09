@@ -14,8 +14,11 @@ export class QuizSetService {
     return this.quizSetMapper.entityListToQuizSetDtoList(quizSetList);
   }
   async findOne(quizSetId: number) {
-    const quizSet = await this.quizSetRepository.findOneWithKey(quizSetId);
-    if (!quizSet) throw new BadRequestException('존재하지 않는 퀴즈셋입니다.');
-    return quizSet;
+    const quizSet = await this.quizSetRepository.findOneAddQuizListWithKey(
+      quizSetId,
+    );
+    const result = this.quizSetMapper.toQuizSetDtoWithQuizList(quizSet);
+    if (!result) throw new BadRequestException('존재하지 않는 퀴즈셋입니다.');
+    return result;
   }
 }

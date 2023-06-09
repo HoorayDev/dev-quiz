@@ -1,4 +1,4 @@
-export class ReadAllResponse<T> {
+export abstract class ReadAllResponse<T> {
   list: T[];
   currentPage: number;
   totalPage: number;

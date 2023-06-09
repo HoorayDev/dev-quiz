@@ -4,8 +4,9 @@ import { QuizSetFilter } from '@api/quiz-set/type/quiz-set.logic';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QuizSetEntity } from '@app/share-library/entities/question/quiz-set.entity';
 import { Repository } from 'typeorm';
-import { plainToClass, plainToInstance } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { ReadAllResponseQuizSet } from '@api/quiz-set/type/quiz-set.class.interface';
+import { QuizEntity } from '@app/share-library/entities/question/quiz.entity';
 
 type QuizSetKey = number;
 
@@ -22,8 +23,26 @@ export class QuizSetRepository
     try {
       return await this.quizSetRepository
         .createQueryBuilder('quizSet')
-        .where({ id: key })
+        .where('quizSet.id = :id', { id: key })
         .getOne();
+    } catch (e) {
+      // TODO: ERROR LOG
+    }
+  }
+
+  async findOneAddQuizListWithKey(key: QuizSetKey) {
+    try {
+      return await this.quizSetRepository
+        .createQueryBuilder('quizSet')
+        .leftJoinAndSelect(QuizEntity, 'quiz', 'quiz.quiz_set_id = quizSet.id')
+        .select('quizSet.*')
+        .addSelect(
+          'GROUP_CONCAT(quiz.id ORDER BY quiz.created_at ASC)',
+          'quizIdList',
+        )
+        .where('quizSet.id = :id', { id: key })
+        .groupBy('quizSet.id')
+        .getRawOne();
     } catch (e) {
       // TODO: ERROR LOG
     }
