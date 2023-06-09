@@ -1,7 +1,10 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '@app/share-library/entities/user/user.entity';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { RepositoryInterface } from '@app/share-library/type/class.interface';
+import {
+  ReadAllResponse,
+  RepositoryInterface,
+} from '@app/share-library/type/class.interface';
 import { UserLogicInterface } from '@api/user/type/user.logic.interface';
 import { CreateUserInputDto } from '@api/user/dto/user.input.dto';
 
@@ -29,23 +32,32 @@ export class UserRepository
     }
   }
 
-  findAll(filter: UserLogicInterface): UserEntity[] {
-    return [];
+  findAll(filter: UserLogicInterface): Promise<ReadAllResponse<UserEntity>> {
+    return Promise.resolve(undefined);
   }
 
-  findOneWithKey(key: string): UserEntity {
-    return undefined;
+  findOneWithFilter(
+    key: string,
+    filter: UserLogicInterface,
+  ): Promise<UserEntity> {
+    return Promise.resolve(undefined);
   }
 
-  remove(key: string): UserEntity {
-    return undefined;
+  findOneWithKey(key: string): Promise<UserEntity> {
+    return Promise.resolve(undefined);
   }
 
-  update({ key, prop }: { key: string; prop: UserEntity }): UserEntity {
-    return undefined;
+  remove(key: string): Promise<string> {
+    return Promise.resolve(undefined);
   }
 
-  findOneWithFilter(key: string, filter: UserLogicInterface): UserEntity {
-    return undefined;
+  update({
+    key,
+    prop,
+  }: {
+    key: string;
+    prop: UserEntity;
+  }): Promise<UserEntity> {
+    return Promise.resolve(undefined);
   }
 }

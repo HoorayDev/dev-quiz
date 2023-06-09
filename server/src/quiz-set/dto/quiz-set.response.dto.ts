@@ -1,9 +1,9 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
-import { QuizSetEntity } from '@app/share-library/entities/question/quiz-set.entity';
 import { QuizSetCategory } from '@app/share-library/enum/quiz-set.enum';
 import { ResponseDto } from '@app/share-library/dto/response.dto';
+import { QuizSetEntity } from '@app/share-library/entities/question/quiz-set.entity';
 
-class BaseQuizSetEntity implements Partial<QuizSetEntity> {
+export class BaseQuizSetEntity implements Partial<QuizSetEntity> {
   @ApiProperty({
     description: '퀴즈 Set ID',
     example: 1,
@@ -38,13 +38,13 @@ class BaseQuizSetEntity implements Partial<QuizSetEntity> {
     description: '퀴즈 Set 생성일',
     example: '2021-01-01',
   })
-  created_at: Date;
+  createdAt: Date;
 
   @ApiProperty({
     description: '퀴즈 Set 수정일',
     example: '2021-01-01',
   })
-  updated_at: Date;
+  updatedAt: Date;
 }
 
 export class ReadOneQuizSetResponseDto extends PickType(BaseQuizSetEntity, [
@@ -53,7 +53,8 @@ export class ReadOneQuizSetResponseDto extends PickType(BaseQuizSetEntity, [
   'category',
   'level',
   'description',
-  'created_at',
+  'createdAt',
+  'updatedAt',
 ]) {}
 
 export class ReadOneQuizSetResponseWithQuizListDto extends BaseQuizSetEntity {
