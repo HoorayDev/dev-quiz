@@ -5,6 +5,7 @@ import { Pagination } from '@app/share-library/dto/request.dto';
 import {
   ReadAllQuizSetResponseDto,
   ReadOneQuizSetResponseDto,
+  ReadOneQuizSetResponseWithQuizListDto,
 } from '@api/quiz-set/dto/quiz-set.response.dto';
 @ApiTags('quiz-set')
 @Controller('quiz-set')
@@ -41,7 +42,7 @@ export class QuizSetController {
   @ApiResponse({
     status: 200,
     description: '퀴즈 Set 조회 성공',
-    type: ReadOneQuizSetResponseDto,
+    type: ReadOneQuizSetResponseWithQuizListDto,
   })
   @Get(':id')
   findOne(@Param('id') id: string) {

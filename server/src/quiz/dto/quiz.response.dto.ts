@@ -56,9 +56,32 @@ export class BaseQuizEntity implements Partial<QuizEntity> {
   })
   updated_at: Date;
 }
-export class ViewReadOneQuizDto extends OmitType(BaseQuizEntity, [
+class ViewReadOneQuizDto extends OmitType(BaseQuizEntity, [
   'commentary',
 ] as const) {}
+
+class ReadOneQuizDto extends BaseQuizEntity {
+  @ApiProperty({
+    description: '퀴즈 정답 여부',
+    example: true,
+  })
+  isCorrect: boolean;
+}
+
+export class ReadAllQuizResponseDto implements ResponseDto<ReadOneQuizDto[]> {
+  @ApiProperty({
+    description: '상태코드',
+    example: 200,
+  })
+  statusCode: number;
+
+  @ApiProperty({
+    description: '응답 메시지',
+    type: () => [ReadOneQuizDto],
+    isArray: true,
+  })
+  data: ReadOneQuizDto[];
+}
 
 export class ViewReadOneQuizResponseDto
   implements ResponseDto<ViewReadOneQuizDto>

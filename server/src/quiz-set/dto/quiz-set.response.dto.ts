@@ -56,6 +56,20 @@ export class ReadOneQuizSetResponseDto extends PickType(BaseQuizSetEntity, [
   'created_at',
 ]) {}
 
+export class ReadOneQuizSetResponseWithQuizListDto extends BaseQuizSetEntity {
+  @ApiProperty({
+    description: '퀴즈 IDs',
+    type: () => [Number],
+  })
+  quizIdList: number[];
+
+  @ApiProperty({
+    description: '퀴즈 개수',
+    example: 1,
+  })
+  quizCount: number;
+}
+
 export class ReadAllQuizSetResponse {
   @ApiProperty({
     description: '퀴즈 Set List',

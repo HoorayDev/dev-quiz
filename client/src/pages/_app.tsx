@@ -6,13 +6,15 @@ import Layout from '~/components/HOC/Layout';
 import { FC, useEffect, useState } from 'react';
 import Splash from '~/pages/splash';
 import '~/styles/index.scss'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface DefaultStaticProps {
   hasAppHeader?: boolean;
 }
 
-const _App: FC<AppProps> = ({ Component, pageProps: { hasAppHeader = false, ...pageProps } }: AppProps) => {
+const queryClient = new QueryClient();
 
+const _App: FC<AppProps> = ({ Component, pageProps: { hasAppHeader = false, ...pageProps } }: AppProps) => {
   //  TODO : here detech load
   const [load, setLoad] = useState(false)
 
@@ -22,11 +24,13 @@ const _App: FC<AppProps> = ({ Component, pageProps: { hasAppHeader = false, ...p
 
   if(!load) return <Splash />
 
-
   return (
-    <Layout hasAppHeader={hasAppHeader}>
-        <Component {...pageProps} />
-    </Layout>
+      <QueryClientProvider client={queryClient}>
+        <Layout hasAppHeader={hasAppHeader}>
+          <Component {...pageProps} />
+        </Layout>
+      </QueryClientProvider>
+
   )
 }
 

@@ -4,7 +4,7 @@
 
 .categoryWrapper {
   display:grid;
-  grid-template-columns: 440px 440px;
+  grid-template-columns: 1fr 1fr;
   grid-row: auto;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
@@ -21,8 +21,8 @@
     font-weight: bold;
   }
 
-  .commingSoon {
-    color: rgba(0, 0, 0, 0.15);
+  .comingSoon {
+    color: colors.$PRIME300;
   }
 }
 

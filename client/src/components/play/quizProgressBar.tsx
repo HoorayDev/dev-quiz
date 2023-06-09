@@ -1,4 +1,4 @@
-import styles from '~/components/quizProgressBar.module.scss'
+import styles from '~/components/play/quizProgressBar.module.scss'
 
 interface QuizProgressBarProps {
     maxValue: number;
