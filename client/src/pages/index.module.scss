@@ -9,10 +9,11 @@
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   margin-top: 140px;
+  width: 100%;
 
   .card {
     @include flexbox.flexbox;
-    width: 440px;
+    width: 100%;
     height: 370px;
     background-color: colors.$PRIMARY;
     border-radius: 5px;
