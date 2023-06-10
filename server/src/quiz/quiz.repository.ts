@@ -7,6 +7,7 @@ import {
   RepositoryInterface,
 } from '@app/share-library/type/class.interface';
 import { QuizPartial } from '@api/quiz/type/quiz.logic';
+import { QuizSetEntity } from '@app/share-library/entities/question/quiz-set.entity';
 
 type QuizKey = number;
 @Injectable()
@@ -30,8 +31,16 @@ export class QuizRepository
     return Promise.resolve(undefined);
   }
 
-  findOneWithKey(key: QuizKey): Promise<QuizEntity> {
-    return Promise.resolve(undefined);
+  async findOneWithKey(key: QuizKey): Promise<QuizEntity> {
+    const data = await this.quizRepository
+      .createQueryBuilder('quiz')
+      .leftJoin('quiz.quiz_set', 'quiz_set')
+      .select(['quiz', 'quiz_set.id'])
+      .where({
+        id: key,
+      })
+      .getOne();
+    return data;
   }
 
   remove(key: QuizKey): Promise<QuizKey> {

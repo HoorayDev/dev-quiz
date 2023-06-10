@@ -84,11 +84,11 @@ export class QuizController {
     type: ErrorResponseDto,
   })
   @Get(':quizId')
-  findOne(
+  async findOne(
     @Param() { quizSetId, quizId }: QuizParamInputDto,
     @CurrentUser() currentUser: CurrentUserDto,
   ) {
-    console.log({ quizId, currentUser, quizSetId });
+    // TODO: 추후 HistoryService 를 만들어서 퀴즈 조회시 히스토리를 남기도록 한다.
     return this.quizService.findOne(quizId);
   }
 }
