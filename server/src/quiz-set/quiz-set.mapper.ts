@@ -40,8 +40,11 @@ export class QuizSetMapper {
   toQuizSetDtoWithQuizList(
     data: QuizSetWithQuizListDto,
   ): ReadOneQuizSetResponseWithQuizListDto {
-    const quizIdList = data.quizIdList.split(',').map((value) => Number(value));
-    const quizCount = quizIdList.length;
+    const isExistQuizIdList = data?.quizIdList;
+    const quizIdList = isExistQuizIdList
+      ? data.quizIdList.split(',').map((value) => Number(value))
+      : [];
+    const quizCount = isExistQuizIdList ? quizIdList.length : 0;
 
     return plainToInstance(ReadOneQuizSetResponseWithQuizListDto, {
       id: data.id,
