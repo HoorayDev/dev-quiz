@@ -1,17 +1,23 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { SubscribeService } from './subscribe.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateResponseDto } from '@app/share-library/dto/response.dto';
+import { description } from '@app/share-library/enum/operation.enum';
+import { JwtGuard } from '@app/share-library/guard/jwt.guard';
+import { CurrentUser } from '@app/share-library/decorator/current-user';
+import { CurrentUserDto } from '@api/user/dto/user.input.dto';
+import { CreateSubscribeInputDto } from '@api/subscribe/dto/subscribe.input.dto';
 
 @ApiTags('subscribe')
+@UseGuards(JwtGuard)
 @Controller('subscribe')
 export class SubscribeController {
   constructor(private readonly subscribeService: SubscribeService) {}
 
-  @ApiOperation({ summary: 'Subscribe Create' })
+  @ApiOperation(description.SUBSCRIBE.CREATE)
   @ApiResponse({
     status: 201,
-    description: '구독 생성',
+    description: description.SUBSCRIBE.CREATE.description,
     type: CreateResponseDto,
     headers: {
       'Set-Cookie': {
@@ -19,10 +25,21 @@ export class SubscribeController {
       },
     },
   })
+  @ApiBody({
+    description: 'Subscribe 에는 User 의 Email 이 필요합니다.',
+    type: CreateSubscribeInputDto,
+  })
   @Post()
-  create() {
-    // TODO: 로그인 체크
-    // TODO: 구독 여부 체크 후 멱등성 유지
-    return this.subscribeService.create({});
+  async create(
+    @CurrentUser() currentUser: CurrentUserDto,
+    @Body() { email }: CreateSubscribeInputDto,
+  ) {
+    const result = await this.subscribeService.create({
+      email,
+      currentUser,
+    });
+    return {
+      result,
+    };
   }
 }
