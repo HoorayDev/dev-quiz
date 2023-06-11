@@ -6,7 +6,7 @@ import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { RootState } from '~/store/store';
 import cn from "clsx";
 import { show,hide } from '~/store/slices/toast';
-import styles from '~/components/Portal/Toast/DQToast.module.scss';
+import styles from '~/components/Portal/Toast/toast.module.scss';
 
 interface DQToastProps {
   config? : {
@@ -16,7 +16,7 @@ interface DQToastProps {
   children: ReactNode;
 }
 
-const DQToast : FC<DQToastProps> =({
+const Toast : FC<DQToastProps> =({
   config = {},
   children,
 }) => {
@@ -61,4 +61,4 @@ const DQToast : FC<DQToastProps> =({
   );
 }
 
-export { DQToast };
+export { Toast };
