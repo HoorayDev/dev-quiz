@@ -40,22 +40,20 @@ const Toast : FC<DQToastProps> =({
   }, [show, duration, hide]);
 
   return createPortal(
-    <div className={styles.toastsWrapper}>
-      <AnimatePresence>
-        {show && (
-          <motion.div
-            layout
-            initial={{ opacity: 0, y: 50, scale: 0.3 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.5 }}
-            className={cn(styles.toast, styles.primary)}
-            role={role}
-          >
-            {children}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          layout
+          initial={{ opacity: 0, y: 50, scale: 0.3 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.5 }}
+          className={cn(styles.toast, styles.primary)}
+          role={role}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
     ,
     document.getElementById('toasts-portal') as HTMLElement
   );
