@@ -1,8 +1,9 @@
+@use 'src/styles/constants/colors';
+
 .toast {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-
+  bottom: 1vh;
+  left: 50%;
   pointer-events: auto;
 
   border-radius: 4px;
@@ -10,5 +11,5 @@
 }
 
 .primary {
-  background-color: #bee3f8;
+  background-color: colors.$PRIMARY;
 }
