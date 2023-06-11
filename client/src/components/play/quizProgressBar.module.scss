@@ -1,0 +1,109 @@
+@use 'src/styles/constants/colors';
+@use 'src/styles/constants/sizes';
+
+.progressBarWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: colors.$GRAY100;
+  height: 12px;
+
+  .currentProgress {
+    background-color: colors.$PRIMARY;
+    height: 12px;
+    width: 0;
+
+    &.q1 {
+      width: 10%;
+    }
+
+    &.q2 {
+      width: 20%;
+    }
+
+    &.q3 {
+      width: 30%;
+    }
+
+    &.q4 {
+      width: 40%;
+    }
+
+    &.q5 {
+      width: 50%;
+    }
+
+    &.q6 {
+      width: 60%;
+    }
+
+    &.q7 {
+      width: 70%;
+    }
+
+    &.q8 {
+      width: 80%;
+    }
+
+    &.q9 {
+      width: 90%;
+    }
+
+    &.q10 {
+      width: 100%;
+    }
+  }
+
+  .tooltipWrapper{
+    width: 100%;
+    position: absolute;
+    margin-top: 5px;
+
+    .tooltip {
+      position: relative;
+      left: 0%;
+      //font-size: sizes.$FONT_MEDIUM;
+
+      &.q1 {
+        left: 10%;
+      }
+
+      &.q2 {
+        left: 20%;
+      }
+
+      &.q3 {
+        left: 30%;
+      }
+
+      &.q4 {
+        left: 40%;
+      }
+
+      &.q5 {
+        left: 50%;
+      }
+
+      &.q6 {
+        left: 60%;
+      }
+
+      &.q7 {
+        left: 70%;
+      }
+
+      &.q8 {
+        left: 80%;
+      }
+
+      &.q9 {
+        left: 90%;
+      }
+
+      &.q10 {
+        left: 100%;
+      }
+    }
+  }
+}

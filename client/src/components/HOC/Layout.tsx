@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import styles from '~/components/HOC/layouy.module.scss';
+import styles from '~/components/HOC/layout.module.scss';
 import { AppHeader } from '~/components/floating/appHeader';
 
 interface LayoutProps {

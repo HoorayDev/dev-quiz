@@ -13,3 +13,17 @@ export const INTRODUCTION = {
   text: 'INTRODUCTION',
 };
 
+export const PATCH_NOTE = {
+  href: '/patchNote',
+  text: 'PATCH_NOTE',
+};
+
+export const PLAY = {
+  href: '/play',
+  text: 'PLAY',
+};
+
+export const INCORRECT = {
+  href: '/incorrect',
+  text: 'INCORRECT',
+};

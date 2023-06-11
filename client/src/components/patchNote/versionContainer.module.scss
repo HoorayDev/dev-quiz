@@ -1,0 +1,40 @@
+
+.versionContainer {
+  margin: 47px 0 57px 0;
+
+  .versionTitle {
+    p {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 30px;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 40px;
+    }
+  }
+
+  .versionContent {
+    margin-top: 47px;
+  }
+
+  .update {
+    position: relative;
+    margin-bottom: 30px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 30px;
+
+    ul {
+      position: relative;
+      left: 15px;
+    }
+
+    li {
+      list-style: disc;
+    }
+
+  }
+}

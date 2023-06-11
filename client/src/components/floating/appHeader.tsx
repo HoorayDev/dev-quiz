@@ -6,7 +6,7 @@ interface AppHeaderProps {}
 
 const AppHeader: FC<AppHeaderProps> = () => {
   return <nav className={`${styles.nav} ${styles.flexRow}`}>
-    <Logo />
+    <Logo className={styles.logo}/>
     <div className={`${styles.flexRow} ${styles.navMenu}`}>
       <p>홈</p>
       <p>팀소개</p>
