@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
 import { DefaultStaticProps } from '~/pages/_app';
 import { FC, ReactNode, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { DQButton } from '~/components/reusable/DQButton';
 import styles from '~/pages/result/styles/index.module.scss';
 import Forward from '~/images/caret-forward.svg';
@@ -8,11 +9,13 @@ import { useAppSelector } from '~/hooks/useAppSelector';
 import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { RootState } from '~/store/store';
 import { show,hide } from '~/store/slices/toast';
+import { INCORRECT } from '~/constants/routing';
 import { Toast } from '~/components/Portal/Toast/toast';
 
 const Result: FC = () => {
   const dispatch = useAppDispatch();
   const value = useAppSelector((state:RootState) => state.toast);
+  const { push } = useRouter();
   console.log(value)
 
 
@@ -32,7 +35,7 @@ const Result: FC = () => {
     <div className={styles.buttonContainer}>
       <DQButton hasIcon onClick={()=> dispatch(show('test'))}>홈으로</DQButton>
       <DQButton hasIcon onClick={()=> dispatch(hide())}>결과 공유하기</DQButton>
-      <DQButton hasIcon onClick={()=>{}}>틀린문제 확인하기</DQButton>
+      <DQButton hasIcon onClick={()=> push(INCORRECT.href)}>틀린문제 확인하기</DQButton>
       <Toast
         config={{ duration: 3000 }}
       > TOAST TEST </Toast>

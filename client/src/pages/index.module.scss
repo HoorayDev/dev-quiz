@@ -4,15 +4,16 @@
 
 .categoryWrapper {
   display:grid;
-  grid-template-columns: 440px 440px;
+  grid-template-columns: 1fr 1fr;
   grid-row: auto;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   margin-top: 140px;
+  width: 100%;
 
   .card {
     @include flexbox.flexbox;
-    width: 440px;
+    width: 100%;
     height: 370px;
     background-color: colors.$PRIMARY;
     border-radius: 5px;
@@ -21,8 +22,8 @@
     font-weight: bold;
   }
 
-  .commingSoon {
-    color: rgba(0, 0, 0, 0.15);
+  .comingSoon {
+    color: colors.$PRIME300;
   }
 }
 
