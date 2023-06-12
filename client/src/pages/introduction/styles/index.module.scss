@@ -1,21 +1,32 @@
 @use 'src/styles/mixins/flexbox';
+@use 'src/styles/constants/colors';
+@use 'src/styles/constants/sizes';
 
 .pageLayout {
   @include flexbox.flexbox;
-  height: 100%;
+  height: sizes.$PAGE_EXCEPT_HEADER;
   width: 100%;
+  overflow-y: unset;
 
   .imageContainer {
     @include flexbox.flexbox('end');
-    padding: 20vh 32px;
+    padding: 10vh 32px;
     width: 50%;
+    border-right: colors.$GRAY100 3px solid;
   }
 
   .content {
+    padding: 10vh 32px;
     width: 50%;
+    height: 100%;
+    overflow-y: scroll;
+
+    p{
+      line-height: normal;
+    }
 
     .innerContent {
-      margin-bottom: 128px;
+      margin-bottom: 70px;
     }
 
     h2 {
@@ -34,6 +45,28 @@
     .underline {
     //  text underline style
 
+    }
+
+    .members {
+      h3{
+        font-size: 21px;
+        font-weight: 700;
+      }
+
+      .nameTitle{
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        margin-bottom: 8px;
+        justify-content: space-between;
+        a {
+          margin-left: 8px;
+        }
+      }
+
+      display: flex;
+      flex-direction: column;
+      gap:24px;
     }
   }
 }
