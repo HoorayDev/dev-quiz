@@ -6,7 +6,8 @@ import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { add } from '~/store/incorrectSlice';
 import { RootState } from '~/store/store'
 import styles from '~/pages/index.module.scss'
-import LoginModal from '~/components/Modal/LoginModal/LoginModal';
+import ModalPortal from '~/components/Portal/modalPortal';
+import LoginModal from '~/components/Portal/LoginModal/LoginModal';
 import { DQButton } from '~/components/reusable/DQButton';
 import { PLAY } from '~/constants/routing'
 import { useRouter } from 'next/router';
