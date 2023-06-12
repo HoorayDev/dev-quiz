@@ -4,7 +4,7 @@
 
 .quizCard {
   @include flexbox.flexbox;
-  width: 440px;
+  width: 100%;
   height: 240px;
   background-color: #d5d5d5;
   border-radius: 5px;
