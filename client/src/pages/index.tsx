@@ -6,7 +6,6 @@ import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { add } from '~/store/incorrectSlice';
 import { RootState } from '~/store/store'
 import styles from '~/pages/index.module.scss'
-import QuizProgressBar from '~/components/quizProgressBar'
 import ModalPortal from '~/components/Portal/modalPortal';
 import LoginModal from '~/components/Portal/LoginModal/LoginModal';
 import { DQButton } from '~/components/reusable/DQButton';

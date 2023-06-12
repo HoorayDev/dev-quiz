@@ -1,7 +1,7 @@
 import styles from './loginModal.module.scss';
 import { useForm } from "react-hook-form";
 import Input from '~/components/reusable/input'
-import ModalPortal from '~/components/Modal/modalPortal';
+import ModalPortal from '~/components/Portal/modalPortal';
 
 interface ILoginModalCloseBtnType {
     onSubmit: (data: any) => void;
