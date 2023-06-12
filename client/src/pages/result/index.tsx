@@ -1,3 +1,5 @@
+import { GetStaticProps } from 'next';
+import { DefaultStaticProps } from '~/pages/_app';
 import { FC, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { DQButton } from '~/components/reusable/DQButton';
@@ -8,11 +10,14 @@ import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { RootState } from '~/store/store';
 import { show,hide } from '~/store/slices/toast';
 import { INCORRECT } from '~/constants/routing';
+import { Toast } from '~/components/Portal/Toast/toast';
 
 const Result: FC = () => {
   const dispatch = useAppDispatch();
   const value = useAppSelector((state:RootState) => state.toast);
   const { push } = useRouter();
+  console.log(value)
+
 
   return <div>
     <h1 className={styles.title}>채점 결과를 확인해보세요!</h1>
@@ -31,6 +36,9 @@ const Result: FC = () => {
       <DQButton hasIcon onClick={()=> dispatch(show('test'))}>홈으로</DQButton>
       <DQButton hasIcon onClick={()=> dispatch(hide())}>결과 공유하기</DQButton>
       <DQButton hasIcon onClick={()=> push(INCORRECT.href)}>틀린문제 확인하기</DQButton>
+      <Toast
+        config={{ duration: 3000 }}
+      > TOAST TEST </Toast>
     </div>
     <div className={styles.inputContainer}>
       <input type="text" placeholder='문제 업데이트 시 알림 받을 이메일을 입력해주세요!' />
@@ -39,5 +47,9 @@ const Result: FC = () => {
   </div>;
 };
 
-// getStaticProps : hasAppBar , hasAppFooter
+const getStaticProps: GetStaticProps<DefaultStaticProps> = async () => ({
+  props: {
+    hasAppHeader: true,
+  },
+});
 export default Result;

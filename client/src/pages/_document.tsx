@@ -6,6 +6,7 @@ export default function Document() {
             <Head />
             <body>
             <div id='modal-root' />
+            <div id="toasts-portal" />
             <Main />
             <NextScript />
             </body>
