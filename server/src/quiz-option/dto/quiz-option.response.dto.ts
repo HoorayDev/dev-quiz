@@ -30,17 +30,17 @@ class BaseQuizOptionEntity implements Partial<QuizOptionEntity> {
     description: '퀴즈 Option 생성일',
     example: '2021-01-01',
   })
-  created_at: Date;
+  createdAt: Date;
 
   @ApiProperty({
     description: '퀴즈 Option 수정일',
     example: '2021-01-01',
   })
-  updated_at: Date;
+  updatedAt: Date;
 }
 export class ReadOneQuizOptionResponseDto extends PickType(
   BaseQuizOptionEntity,
-  ['id', 'content', 'value', 'created_at', 'updated_at'],
+  ['id', 'content', 'value', 'createdAt', 'updatedAt'],
 ) {}
 
 export class ReadAllQuizOptionResponseDto {

@@ -11,7 +11,7 @@ import { QuizParamInputDto } from '@api/quiz/dto/quiz.input.dto';
 import { ReadAllQuizOptionResponseDto } from '@api/quiz-option/dto/quiz-option.response.dto';
 import { JwtGuard } from '@app/share-library/guard/jwt.guard';
 
-@ApiTags('quiz-option')
+@ApiTags('/quiz-set/:quizSetId/quiz/:quizId/quiz-option')
 @ApiCookieAuth('id')
 @UseGuards(JwtGuard)
 @Controller('/quiz-set/:quizSetId/quiz/:quizId/quiz-option')
@@ -34,6 +34,7 @@ export class QuizOptionController {
   })
   @Get()
   findAll(@Param() { quizSetId, quizId }: QuizParamInputDto) {
-    return this.quizOptionService.findAll();
+    console.log(quizSetId, quizId);
+    return this.quizOptionService.findAll(quizId);
   }
 }
