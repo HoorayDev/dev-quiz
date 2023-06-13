@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QuizEntity } from '@app/share-library/entities/question/quiz.entity';
-import { Repository } from 'typeorm';
+import { JoinColumn, ManyToOne, Repository } from 'typeorm';
 import {
   ReadAllResponse,
   RepositoryInterface,
@@ -23,8 +23,21 @@ export class QuizRepository
     return Promise.resolve(undefined);
   }
 
-  findAll(filter: QuizPartial): Promise<ReadAllResponse<QuizEntity>> {
-    return Promise.resolve(undefined);
+  async findAll(filter: QuizPartial): Promise<ReadAllResponse<QuizEntity>> {
+    // TODO: 추후 다른 function 으로 분리 ( pagination x, isCorrect prop 필요 )
+
+    const [data, count] = await this.quizRepository
+      .createQueryBuilder('quiz')
+      .where('quiz.quiz_set_id = :quiz_set', { quiz_set: filter.quiz_set })
+      .leftJoin('quiz.quiz_set', 'quiz_set')
+      .select(['quiz', 'quiz_set.id'])
+      .getManyAndCount();
+    return {
+      count: count,
+      currentPage: 1,
+      list: data,
+      totalPage: 1,
+    };
   }
 
   findOneWithFilter(key: QuizKey, filter: QuizPartial): Promise<QuizEntity> {

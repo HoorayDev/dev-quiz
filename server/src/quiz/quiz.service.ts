@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { QuizRepository } from '@api/quiz/quiz.repository';
 import { QuizMapper } from '@api/quiz/quiz.mapper';
+import { ReadAllResponse } from '@app/share-library/type/class.interface';
+import { QuizEntity } from '@app/share-library/entities/question/quiz.entity';
 
 @Injectable()
 export class QuizService {
@@ -16,5 +18,13 @@ export class QuizService {
     const convertQuiz = this.quizMapper.toViewQuizDto(data);
     if (!convertQuiz) throw new BadRequestException('Quiz not found');
     return convertQuiz;
+  }
+  async findAll({
+    currentUser,
+    quizSetId,
+  }): Promise<ReadAllResponse<QuizEntity>> {
+    return await this.quizRepository.findAll({
+      quiz_set: quizSetId,
+    });
   }
 }

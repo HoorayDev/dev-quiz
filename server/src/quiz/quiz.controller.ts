@@ -16,6 +16,8 @@ import {
   ReadAllQuizResponseDto,
   ViewReadOneQuizResponseDto,
 } from '@api/quiz/dto/quiz.response.dto';
+import { ReadAllResponse } from '@app/share-library/type/class.interface';
+import { QuizEntity } from '@app/share-library/entities/question/quiz.entity';
 
 @ApiTags('quiz')
 @ApiCookieAuth('id')
@@ -50,12 +52,11 @@ export class QuizController {
     type: ErrorResponseDto,
   })
   @Get()
-  findAll(
-    @Param() { quizSetId, quizId }: QuizParamInputDto,
+  async findAll(
+    @Param('quizSetId') quizSetId: string,
     @CurrentUser() currentUser: CurrentUserDto,
-  ): string {
-    console.log({ quizId, currentUser, quizSetId });
-    return 'This action returns all cats';
+  ): Promise<ReadAllResponse<QuizEntity>> {
+    return await this.quizService.findAll({ currentUser, quizSetId });
   }
 
   @ApiOperation({ summary: 'quiz 단일 조회' })
