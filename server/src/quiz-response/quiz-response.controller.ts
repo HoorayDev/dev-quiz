@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Param } from '@nestjs/common';
 import { QuizResponseService } from './quiz-response.service';
 import {
   ApiBody,
@@ -10,11 +10,13 @@ import {
 import { JwtGuard } from '@app/share-library/guard/jwt.guard';
 import { QuizVoteResponseDto } from '@api/quiz-response/dto/quiz-response.response.dto';
 import { QuizVoteInputDto } from '@api/quiz-response/dto/quiz-response.input.dto';
+import { CurrentUser } from '@app/share-library/decorator/current-user';
+import { CurrentUserDto } from '@api/user/dto/user.input.dto';
 
 @ApiTags('QuizResponse')
 @ApiCookieAuth('id')
 @UseGuards(JwtGuard)
-@Controller('/quiz-set/:quizSetId')
+@Controller('/quiz-set/:quizSetId/response')
 export class QuizResponseController {
   constructor(private readonly quizResponseService: QuizResponseService) {}
 
@@ -33,7 +35,15 @@ export class QuizResponseController {
     type: () => [QuizVoteInputDto],
   })
   @Post()
-  create(@Body() quizVoteInputDto: QuizVoteInputDto) {
-    return this.quizResponseService.create(quizVoteInputDto);
+  async create(
+    @Param('quizSetId') quizSetId: number,
+    @Body() quizVoteInputDto: QuizVoteInputDto,
+    @CurrentUser() currentUserDto: CurrentUserDto,
+  ) {
+    return await this.quizResponseService.create({
+      quizSetId,
+      quizVoteInputDto,
+      currentUserDto,
+    });
   }
 }
