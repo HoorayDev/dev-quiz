@@ -6,7 +6,11 @@ import {
   RepositoryInterface,
 } from '@app/share-library/type/class.interface';
 import { UserLogicInterface } from '@api/user/type/user.logic.interface';
-import { CreateUserInputDto } from '@api/user/dto/user.input.dto';
+import {
+  CreateUserInputDto,
+  UpdateUserInputDto,
+} from '@api/user/dto/user.input.dto';
+import { EntityManager } from 'typeorm';
 
 @Injectable()
 export class UserRepository
@@ -59,5 +63,14 @@ export class UserRepository
     prop: UserEntity;
   }): Promise<UserEntity> {
     return Promise.resolve(undefined);
+  }
+
+  async updateSubscribeEmailWithTransaction(
+    updateUserDto: UpdateUserInputDto,
+    entityManager: EntityManager,
+  ) {
+    return await entityManager.update(UserEntity, updateUserDto.id, {
+      email: updateUserDto.email,
+    });
   }
 }

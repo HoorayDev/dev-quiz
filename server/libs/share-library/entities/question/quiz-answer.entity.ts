@@ -1,9 +1,9 @@
 import {
   BaseEntity,
-  Column,
   Entity,
   JoinColumn,
-  ManyToOne,
+  OneToOne,
+  JoinTable,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { QuizEntity } from '@app/share-library/entities/question/quiz.entity';
@@ -14,14 +14,14 @@ export class QuizAnswerEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => QuizEntity, {
+  @OneToOne(() => QuizEntity, {
     createForeignKeyConstraints: false,
     nullable: true,
   })
   @JoinColumn({ name: 'quiz_id' })
   quiz: QuizEntity;
 
-  @ManyToOne(() => QuizOptionEntity, {
+  @OneToOne(() => QuizOptionEntity, {
     createForeignKeyConstraints: false,
     nullable: false,
   })

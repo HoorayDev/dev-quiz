@@ -23,12 +23,12 @@ export class QuizResponseEntity extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
-  @ManyToOne(() => QuizSetEntity, {
-    createForeignKeyConstraints: false,
-    nullable: false,
-  })
-  @JoinColumn({ name: 'quiz_set_id' })
-  quiz_set: QuizSetEntity;
+  // @ManyToOne(() => QuizSetEntity, {
+  //   createForeignKeyConstraints: false,
+  //   nullable: false,
+  // })
+  // @JoinColumn({ name: 'quiz_set_id' })
+  // quiz_set: QuizSetEntity;
 
   @ManyToOne(() => QuizEntity, {
     createForeignKeyConstraints: false,

@@ -9,6 +9,7 @@ import {
 } from '@app/share-library/dto/response.dto';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { description } from '@app/share-library/enum/operation.enum';
 
 @ApiTags('user')
 @Controller('user')
@@ -21,7 +22,7 @@ export class UserController {
     this.cookieName = this.configService.get('COOKIE_SECRET');
   }
 
-  @ApiOperation({ summary: 'user' })
+  @ApiOperation(description.USER.CREATE)
   @ApiResponse({
     status: 201,
     description: '유저 생성',
