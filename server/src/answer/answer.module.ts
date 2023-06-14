@@ -8,5 +8,6 @@ import { AnswerMapper } from '@api/answer/answer.mapper';
 @Module({
   imports: [TypeOrmModule.forFeature([QuizAnswerEntity])],
   providers: [AnswerService, AnswerRepository, AnswerMapper],
+  exports: [AnswerService],
 })
 export class AnswerModule {}
