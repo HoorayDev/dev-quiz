@@ -13,7 +13,7 @@ import { QuizVoteInputDto } from '@api/quiz-response/dto/quiz-response.input.dto
 import { CurrentUser } from '@app/share-library/decorator/current-user';
 import { CurrentUserDto } from '@api/user/dto/user.input.dto';
 
-@ApiTags('QuizResponse')
+@ApiTags('quiz-response')
 @ApiCookieAuth('id')
 @UseGuards(JwtGuard)
 @Controller('/quiz-set/:quizSetId/response')
