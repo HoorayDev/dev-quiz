@@ -15,7 +15,6 @@ export class QuizResponseService {
     quizVoteInputDto,
     currentUserDto,
   }: CreateQuizAnswer) {
-    console.log(currentUserDto);
     // 점수 측정
     const data = await this.answerService.scoring(quizSetId, quizVoteInputDto);
 
