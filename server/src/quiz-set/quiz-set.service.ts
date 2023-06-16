@@ -17,6 +17,8 @@ export class QuizSetService {
     const quizSet = await this.quizSetRepository.findOneAddQuizListWithKey(
       quizSetId,
     );
+    if (!quizSet) throw new BadRequestException('존재하지 않는 퀴즈셋입니다.');
+
     const result = this.quizSetMapper.toQuizSetDtoWithQuizList(quizSet);
     if (!result) throw new BadRequestException('존재하지 않는 퀴즈셋입니다.');
     return result;

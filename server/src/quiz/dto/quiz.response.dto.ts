@@ -48,15 +48,15 @@ export class BaseQuizEntity implements Partial<QuizEntity> {
     description: '퀴즈 생성일',
     example: '2021-01-01',
   })
-  created_at: Date;
+  createdAt: Date;
 
   @ApiProperty({
     description: '퀴즈 수정일',
     example: '2021-01-01',
   })
-  updated_at: Date;
+  updatedAt: Date;
 }
-class ViewReadOneQuizDto extends OmitType(BaseQuizEntity, [
+export class ViewReadOneQuizDto extends OmitType(BaseQuizEntity, [
   'commentary',
 ] as const) {}
 

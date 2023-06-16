@@ -16,6 +16,8 @@ import {
   ReadAllQuizResponseDto,
   ViewReadOneQuizResponseDto,
 } from '@api/quiz/dto/quiz.response.dto';
+import { ReadAllResponse } from '@app/share-library/type/class.interface';
+import { QuizEntity } from '@app/share-library/entities/question/quiz.entity';
 
 @ApiTags('quiz')
 @ApiCookieAuth('id')
@@ -50,12 +52,11 @@ export class QuizController {
     type: ErrorResponseDto,
   })
   @Get()
-  findAll(
-    @Param() { quizSetId, quizId }: QuizParamInputDto,
+  async findAll(
+    @Param('quizSetId') quizSetId: string,
     @CurrentUser() currentUser: CurrentUserDto,
-  ): string {
-    console.log({ quizId, currentUser, quizSetId });
-    return 'This action returns all cats';
+  ): Promise<ReadAllResponse<QuizEntity>> {
+    return await this.quizService.findAll({ currentUser, quizSetId });
   }
 
   @ApiOperation({ summary: 'quiz 단일 조회' })
@@ -84,11 +85,11 @@ export class QuizController {
     type: ErrorResponseDto,
   })
   @Get(':quizId')
-  findOne(
+  async findOne(
     @Param() { quizSetId, quizId }: QuizParamInputDto,
     @CurrentUser() currentUser: CurrentUserDto,
   ) {
-    console.log({ quizId, currentUser, quizSetId });
+    // TODO: 추후 HistoryService 를 만들어서 퀴즈 조회시 히스토리를 남기도록 한다.
     return this.quizService.findOne(quizId);
   }
 }

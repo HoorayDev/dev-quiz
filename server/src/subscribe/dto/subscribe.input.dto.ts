@@ -1,4 +1,8 @@
 import { PartialType } from '@nestjs/mapped-types';
+import { IsEmail } from 'class-validator';
 
-export class CreateSubscribeDto {}
-export class UpdateSubscribeDto extends PartialType(CreateSubscribeDto) {}
+export class CreateSubscribeInputDto {
+  @IsEmail()
+  email: string;
+}
+export class UpdateSubscribeDto extends PartialType(CreateSubscribeInputDto) {}

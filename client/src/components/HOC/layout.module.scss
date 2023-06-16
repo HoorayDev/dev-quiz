@@ -1,9 +1,9 @@
 @use 'src/styles/mixins/responsive';
+@use 'src/styles/constants/sizes';
 
 .wrapper {
   display: flex;
   justify-content: center;
-  height: 100vh;
 
   .layout {
     width: 900px;

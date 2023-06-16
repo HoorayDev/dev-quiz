@@ -6,9 +6,12 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 import { UserEntity } from '@app/share-library/entities/user/user.entity';
+
 @Entity('t_subscribe')
+@Unique(['user'])
 export class SubscribeEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
