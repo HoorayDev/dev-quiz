@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import styles from '~/components/Input/input.module.scss'
+import styles from '~/components/reusable/DQInput.module.scss'
 
 interface InputProps {
     type: "login" | "subscription"
@@ -11,7 +11,7 @@ const placeholder = {
     subscription: '문제 업데이트 시 알림 받을 이메일을 입력해주세요!',
 }
 
-const Input = (props: InputProps) => {
+const DQInput = (props: InputProps) => {
     const { type, onSubmit } = props
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
@@ -29,4 +29,4 @@ const Input = (props: InputProps) => {
     )
 }
 
-export default Input
+export { DQInput }
