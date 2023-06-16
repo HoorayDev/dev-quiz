@@ -15,9 +15,8 @@ import { DQInput } from '~/components/reusable/DQInput';
 
 const Result: FC = () => {
   const dispatch = useAppDispatch();
-  const value = useAppSelector((state:RootState) => state.toast);
+  const { message } = useAppSelector((state:RootState) => state.toast);
   const { push } = useRouter();
-  console.log(value)
 
 
   return <div>
@@ -37,14 +36,18 @@ const Result: FC = () => {
       <DQButton hasIcon onClick={()=> push(HOME.href)}>홈으로</DQButton>
       <DQButton hasIcon onClick={()=> dispatch(show('test'))}>결과 공유하기</DQButton>
       <DQButton hasIcon onClick={()=> push(INCORRECT.href)}>틀린문제 확인하기</DQButton>
-      <Toast
-        config={{ duration: 3000 }}
-      > TOAST TEST </Toast>
     </div>
     <div className={styles.inputContainer}>
-      <DQInput type="subscription" onSubmit={()=>{console.log('구독!')}} />
+      <DQInput type="subscription" onSubmit={()=>{
+        // TODO : API call
+        dispatch(show('🤓 문제지 구독 감사합니다!'))
+      }}
+      />
       <p>・ 문제 업데이트 시 알림 받을 이메일을 입력</p>
     </div>
+    <Toast
+      config={{ duration: 3000 }}
+    >{message} </Toast>
   </div>;
 };
 
