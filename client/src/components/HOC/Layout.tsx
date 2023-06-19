@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import styles from '~/components/HOC/layout.module.scss';
 import { AppHeader } from '~/components/floating/appHeader';
+import cn from "clsx";
 
 interface LayoutProps {
     children : ReactNode;
@@ -12,7 +13,7 @@ const Layout = ({children, hasAppHeader} : LayoutProps) => {
         <>
         {hasAppHeader && <AppHeader/>}
         <div className={styles.wrapper}>
-            <div className={styles.layout}>{children}</div>
+            <div className={cn(styles.layout, hasAppHeader ? styles.hasAppHeader : styles.withoutAppHeader )}>{children}</div>
         </div>
         </>
     )
