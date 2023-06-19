@@ -1,6 +1,6 @@
 import styles from './loginModal.module.scss';
 import { useForm } from "react-hook-form";
-import Input from '~/components/reusable/input'
+import { DQInput } from '~/components/reusable/DQInput';
 import ModalPortal from '~/components/Portal/modalPortal';
 
 interface ILoginModalCloseBtnType {
@@ -17,7 +17,7 @@ const LoginModal = ({ onSubmit, onClose }: ILoginModalCloseBtnType) => {
                 <div className={styles.contentWrapper}>
                     <h1 className={styles.title}>닉네임을 입력해주세요!</h1>
                     <div className={styles.inputWrapper}>
-                        <Input type={'login'} onSubmit={onSubmit}/>
+                        <DQInput type={'login'} onSubmit={onSubmit}/>
                     </div>
                     <button type='button' className={styles.closeBtn} onClick={onClose}>
                         닫기
