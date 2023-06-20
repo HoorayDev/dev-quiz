@@ -12,7 +12,7 @@ import { DQButton } from '~/components/reusable/DQButton';
 import { PLAY } from '~/constants/routing'
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { getQuizSetAPI } from '~/apis/initial';
+import { getQuizSetAPI, setUserIdAPI } from '~/apis/initial';
 import { upperFirst } from 'lodash';
 
 const Index =()=>{
@@ -49,9 +49,12 @@ const Index =()=>{
   }, [getQuizSetData])
 
     const modalSubmit = (value: string) => {
-      // TODO : 여기서 value를 활용해서 로그인 api 처리 후, then 메소드 내부로 퀴즈 풀기 페이지로 push
-        push(`${PLAY.href}?type=${selectCategory}&step=1`)
-        setLoginModalOpen(false)
+        setUserIdAPI(value)
+            .then(data => {
+                setLoginModalOpen(false)
+                push(`${PLAY.href}?type=${selectCategory}&step=1`)
+            })
+            .catch(err => console.error(err));
     }
 
     return (
