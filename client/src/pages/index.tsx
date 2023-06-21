@@ -12,22 +12,33 @@ import { DQButton } from '~/components/reusable/DQButton';
 import { PLAY } from '~/constants/routing'
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { getQuizSetAPI, setUserIdAPI } from '~/apis/initial';
+import { getQuizSetListAPI, setLoginAPI, getQuizSetAPI } from '~/apis/initial';
 import { upperFirst } from 'lodash';
+import { Toast } from '~/components/Portal/Toast/toast';
+import { show,hide } from '~/store/slices/toast';
 
 const Index =()=>{
+  const dispatch = useAppDispatch();
+  const { message } = useAppSelector((state:RootState) => state.toast);
+  const { push } = useRouter()
+
   const [loginModalOpen, setLoginModalOpen] = useState<boolean>();
   const [selectCategory, setSelectCategory] = useState<string>();
-  const { push } = useRouter()
-  // TODO : api 완성 후 url 교체
-  const { data: getQuizSetData, isLoading, isError } = useQuery(['getQuizSet'], getQuizSetAPI);
+
+
+  const { data: getQuizSetData, isLoading, isError } = useQuery(['getQuizSet'], () => getQuizSetListAPI(), {
+      staleTime: 3000,
+      cacheTime: Infinity,
+      retry: 3,
+  });
 
   const quizSetList = useMemo(() => {
       if(isLoading || isError) return
 
+      const quizSetList = getQuizSetData.data.list;
       const baseLength = 4
-      const comingSoonArr = new Array(baseLength - getQuizSetData.length).fill({ category: 'Coming Soon..'});
-      const quizArr = [...getQuizSetData, ...comingSoonArr];
+      const comingSoonArr = new Array(baseLength - quizSetList.length).fill({ category: 'Coming Soon..'});
+      const quizArr = [...quizSetList, ...comingSoonArr];
 
       return quizArr.map((data: any, index: any) => {
           const { category } = data;
@@ -49,12 +60,21 @@ const Index =()=>{
   }, [getQuizSetData])
 
     const modalSubmit = (value: string) => {
-        setUserIdAPI(value)
+        setLoginAPI(value)
             .then(data => {
                 setLoginModalOpen(false)
                 push(`${PLAY.href}?type=${selectCategory}&step=1`)
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err)
+                setLoginModalOpen(false)
+
+                if(err.response.status === 400){
+                  return dispatch(show('이미 존재하는 유저입니다.'))
+                }
+
+                return dispatch(show('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.'))
+            });
     }
 
     return (
@@ -65,6 +85,9 @@ const Index =()=>{
             {loginModalOpen && (
                 <LoginModal onSubmit={({ value }) => modalSubmit(value)} onClose={() => setLoginModalOpen(false)} />
             )}
+            <Toast
+                config={{ duration: 3000 }}
+            >{message} </Toast>
         </div>
     )
 }
