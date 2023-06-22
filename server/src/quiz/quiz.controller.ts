@@ -31,11 +31,6 @@ export class QuizController {
     name: 'quizSetId',
     type: Number,
   })
-  @ApiParam({
-    name: 'quizId',
-    type: Number,
-    description: '퀴즈 ID',
-  })
   @ApiResponse({
     status: 200,
     description: '퀴즈 전체 조회 성공 - 정답 포함',
