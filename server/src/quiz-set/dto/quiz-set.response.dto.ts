@@ -57,7 +57,7 @@ export class ReadOneQuizSetResponseDto extends PickType(BaseQuizSetEntity, [
   'updatedAt',
 ]) {}
 
-export class ReadOneQuizSetResponseWithQuizListDto extends BaseQuizSetEntity {
+export class ReadOneQuizSetResponseWithQuizList extends BaseQuizSetEntity {
   @ApiProperty({
     description: '퀴즈 IDs',
     type: () => [Number],
@@ -69,6 +69,22 @@ export class ReadOneQuizSetResponseWithQuizListDto extends BaseQuizSetEntity {
     example: 1,
   })
   quizCount: number;
+}
+
+export class ReadOneQuizSetResponseWithQuizListDto
+  implements ResponseDto<ReadOneQuizSetResponseWithQuizList>
+{
+  @ApiProperty({
+    example: 200,
+    description: '상태 코드',
+  })
+  statusCode: number;
+
+  @ApiProperty({
+    description: '응답 Data',
+    type: () => ReadOneQuizSetResponseWithQuizList,
+  })
+  data: ReadOneQuizSetResponseWithQuizList;
 }
 
 export class ReadAllQuizSetResponse {
