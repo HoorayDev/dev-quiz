@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QuizEntity } from '@app/share-library/entities/question/quiz.entity';
-import { JoinColumn, ManyToOne, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import {
   ReadAllResponse,
   RepositoryInterface,
 } from '@app/share-library/type/class.interface';
 import { QuizPartial } from '@api/quiz/type/quiz.logic';
-import { QuizSetEntity } from '@app/share-library/entities/question/quiz-set.entity';
 
 type QuizKey = number;
 @Injectable()

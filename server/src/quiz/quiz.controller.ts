@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { JwtGuard } from '@app/share-library/guard/jwt.guard';
 import { CurrentUser } from '@app/share-library/decorator/current-user';
