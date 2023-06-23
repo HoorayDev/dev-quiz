@@ -2,18 +2,21 @@ import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { DefaultStaticProps } from '~/pages/_app';
 import styles from './styles/index.module.scss';
-import membersImage from '~/images/members.webp'
 import LinkedIn from '~/images/linkedin_logo.svg';
 import Tistory from '~/images/tistory_logo.svg';
 
 const Index = ()=>{
+  const image = 'https://d32kg0ommnjq4u.cloudfront.net/public/members.webp';
+  const blur = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8+ftnPQAJUANuKf/F0wAAAABJRU5ErkJggg==';
 return <div className={styles.pageLayout}>
   <div className={styles.imageContainer}>
     <Image
-      src={membersImage}
+      src={image}
       placeholder="blur"
       width={405}
+      height={405}
       quality={100}
+      blurDataURL={blur}
       alt="Picture of the author"
     />
   </div>
