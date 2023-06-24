@@ -1,21 +1,21 @@
 import { useState, useMemo, useEffect } from "react";
 import { useRouter } from 'next/router';
-import { useQuery, useQueries } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { isEmpty } from 'lodash';
 import styles from '~/components/play/quizCardList.module.scss';
 import QuizCard, { QuizCardType } from '~/components/play/quizCard';
 import QuizProgressBar from '~/components/play/quizProgressBar';
 import { DQButton } from '~/components/reusable/DQButton'
 import { RESULT } from '~/constants/routing';
-import { getQuizQuestionAPI, getQuizOptionListAPI } from '~/apis/initial';
+import { getQuizQuestionAPI, getQuizOptionListAPI, setUserAnswerAPI, getQuizAnwserListAPI } from '~/apis/initial';
 import { useAppSelector } from '~/hooks/useAppSelector';
 import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { RootState } from '~/store/store'
-import { add } from '~/store/userAnswerListSlice';
-
+import { addUserAnswerList, resetUserAnswerList, userAnswerValue } from '~/store/slices/userAnswerListSlice';
 import ForwardArrow from '~/images/caret-forward.svg';
 import UpArrow from '~/images/caret-up.svg';
 import DownArrow from '~/images/caret-down.svg';
+import { setQuizResult, resetQuizResult } from '~/store/slices/quizResultSlice';
 
 enum QuizCardListType {
   play = 'play',
@@ -24,57 +24,84 @@ enum QuizCardListType {
 
 interface QuizCardListProps {
   type: QuizCardListType;
-  quizId: string;
-  quizSetId: string;
-  maxValue: number;
+  maxValue?: number;
 }
 
-const quizCardList = ({ type, quizId, quizSetId, maxValue }: QuizCardListProps) => {
+const QuizCardList = ({ type, maxValue }: QuizCardListProps) => {
   const { asPath, push, query: { step } } = useRouter()
   const dispatch = useAppDispatch();
-  const { value } = useAppSelector((state:RootState) => state.userAnswerList);
+  const {
+    userAnswerList: {
+      value: userAnswerListValue
+    },
+    inProgressQuizId: {
+      value: { quizSetId, quizId },
+    }
+  } = useAppSelector((state:RootState) => state);
   const [selectOption, setSelectOption] = useState<number[]>([])
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isPlay = type === QuizCardListType.play;
-
-  const playQueryOption = {
-    retry: 3,
-    enabled: isPlay,
-  }
+  const isIncorrect = type === QuizCardListType.incorrect;
 
   const { data: getQuizQuestionData, isLoading: isQuestionLoad, isError: isQuestionError, refetch: questionRefetch } = useQuery(
       ['getQuizQuestionAPI'],
       () => getQuizQuestionAPI(quizSetId, quizId),
-      playQueryOption,
+      { retry: 3, enabled: isPlay },
   );
   const { data: getQuizOptionListData, isLoading: isOptionListLoad, isError: isOptionListError, refetch: optionListRefetch } = useQuery(
       ['getQuizOptionListAPI'],
       () => getQuizOptionListAPI(quizSetId, quizId),
-      playQueryOption,
+      { retry: 3, enabled: isPlay },
   );
+  const { data: getQuizAnwserListData, isLoading: isQuizAnwserListLoad, isError: isQuizAnwserListError, refetch: quizAnwserListRefetch } = useQuery(
+      ['getQuizAnwserListAPI'],
+      () => getQuizAnwserListAPI(quizSetId),
+      { retry: 3, enabled: isIncorrect },
+  );
+  const { mutate : setUserAnswerAPIMutation } = useMutation((value: userAnswerValue[]) => setUserAnswerAPI(quizSetId, value), {
+    onSuccess: ({ data: { correctCount, inCorrectCount } }) => dispatch(setQuizResult({ correctCount, inCorrectCount })),
+  });
 
-  useEffect(() => {
+  useEffect(function refetchQuizData(){
     questionRefetch();
     optionListRefetch();
   }, [quizSetId, quizId])
 
-  useEffect(() => {
-    // console.log('하이')
-    setSelectOption([])
+  useEffect(function resetSelectOption(){
+    setSelectOption([]);
   }, [quizSetId, quizId])
 
-  const nextPage = () => {
+  useEffect(function submitUserAnswer (){
+    if(userAnswerListValue.length !== maxValue) return;
+
+    setUserAnswerAPIMutation(userAnswerListValue);
+    dispatch(resetUserAnswerList());
+  }, [userAnswerListValue])
+
+  const setUserAnswer = () => {
     const checkMultiSelect = selectOption.length === 1 ? selectOption[0] : selectOption
-    dispatch(add({ quizId, selectedOption: checkMultiSelect }));
+    dispatch(addUserAnswerList({ quizId, selectedOption: checkMultiSelect }));
+  }
 
-    if(Number(step) === maxValue){
-      return push(RESULT.href)
-    }
-
+  const moveNextPage = () => {
     const baseUrl = asPath.slice(0, -1)
     const nextStep = Number(step) + 1
 
     return push(`${baseUrl}${nextStep}`)
+  }
+
+  const moveResultPage = () => {
+    return push(RESULT.href);
+  }
+
+  const clickedNextButton = () => {
+    setUserAnswer();
+
+    if(Number(step) === maxValue){
+      moveResultPage();
+    } else {
+      moveNextPage();
+    }
   }
 
   const quizOption = useMemo(() => {
@@ -104,7 +131,7 @@ const quizCardList = ({ type, quizId, quizSetId, maxValue }: QuizCardListProps) 
   const bottomButton = useMemo(() => {
     if(isPlay){
       return (
-        <DQButton onClick={nextPage} disabled={isEmpty(selectOption)}>
+        <DQButton onClick={clickedNextButton} disabled={isEmpty(selectOption)}>
           <ForwardArrow />
           <span className={styles.buttonTitle}>다음 문제 풀기</span>
         </DQButton>
@@ -140,5 +167,5 @@ const quizCardList = ({ type, quizId, quizSetId, maxValue }: QuizCardListProps) 
   )
 }
 
-export default quizCardList
+export default QuizCardList
 export { QuizCardListType }

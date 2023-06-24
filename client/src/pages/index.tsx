@@ -15,6 +15,7 @@ import { getQuizSetListAPI, setLoginAPI, getQuizSetAPI } from '~/apis/initial';
 import { upperFirst } from 'lodash';
 import { Toast } from '~/components/Portal/Toast/toast';
 import { show,hide } from '~/store/slices/toast';
+import { setQuizInfo, resetQuizInfo } from '~/store/slices/inProgressQuizIdSlice';
 
 const Index =()=>{
   const dispatch = useAppDispatch();
@@ -48,6 +49,7 @@ const Index =()=>{
 
           return (
               <button key={key} className={cardStyle} disabled={isComingSoon} onClick={() => {
+                  dispatch(resetQuizInfo());
                   setSelectQuizSetId(id)
                   setLoginModalOpen(true)
               }}>
@@ -60,18 +62,19 @@ const Index =()=>{
     const modalSubmit = (value: string) => {
         setLoginAPI(value)
             .then(data => {
-                setLoginModalOpen(false)
-                push(`${PLAY.href}?id=${selectQuizSetId}&step=1`)
+                dispatch(setQuizInfo({ quizSetId: selectQuizSetId }));
+                setLoginModalOpen(false);
+                push(`${PLAY.href}?step=1`);
             })
             .catch(err => {
                 console.error(err)
-                setLoginModalOpen(false)
+                setLoginModalOpen(false);
 
                 if(err.response.status === 400){
-                  return dispatch(show('이미 존재하는 유저입니다.'))
+                  return dispatch(show('이미 존재하는 유저입니다.'));
                 }
 
-                return dispatch(show('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.'))
+                return dispatch(show('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.'));
             });
     }
 

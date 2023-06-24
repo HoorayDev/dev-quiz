@@ -9,20 +9,27 @@ import { DQButton } from '~/components/reusable/DQButton'
 import { useEffect,useMemo, useState } from "react";
 import ForwardArrow from '~/images/caret-forward.svg';
 import Splash from '~/pages/splash';
+import { useAppDispatch } from '~/hooks/useAppDispatch';
+import { useAppSelector } from '~/hooks/useAppSelector';
+import { RootState } from '~/store/store'
+import { setQuizInfo } from '~/store/slices/inProgressQuizIdSlice';
 
 const Play = () => {
+    const dispatch = useAppDispatch();
+    const { value: { quizSetId } } = useAppSelector((state:RootState) => state.inProgressQuizId);
     const { query: { step, id } } = useRouter()
-    const { data: getQuizSetData, isLoading, isError } = useQuery(['getQuizSetAPI'], () => getQuizSetAPI(id as string), {
+    const { data: getQuizSetData, isLoading, isError, refetch } = useQuery(['getQuizSetAPI'], () => getQuizSetAPI(quizSetId), {
         staleTime: 3000,
         cacheTime: Infinity,
         retry: 3,
+        onSuccess: ({ data: { quizIdList } }) => dispatch(setQuizInfo({ quizId: quizIdList[Number(step) - 1], quizSetId })),
     });
 
-    const quizIdList: string[] = useMemo(() => {
-        if(isLoading || isError) return []
+    useEffect(function updateQuizIdInQuizInfo(){
+        if(isLoading || isError) return
 
-        return getQuizSetData.data.quizIdList
-    }, [getQuizSetData])
+        dispatch(setQuizInfo({ quizId: getQuizSetData.data.quizIdList[Number(step) - 1], quizSetId }));
+    }, [step])
 
     return (
         <div>
@@ -30,14 +37,12 @@ const Play = () => {
             {!isLoading && (
                 <>
                     <QuizProgressBar
-                        maxValue={quizIdList.length}
+                        maxValue={[...getQuizSetData.data.quizIdList].length}
                         currentValue={Number(step)}
                     />
                     <QuizCardList
+                        maxValue={[...getQuizSetData.data.quizIdList].length}
                         type={QuizCardListType.play}
-                        quizSetId={id as string}
-                        maxValue={quizIdList.length}
-                        quizId={quizIdList[Number(step) - 1]}
                     />
                 </>
             )}

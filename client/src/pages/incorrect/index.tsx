@@ -7,7 +7,7 @@ import { QuizCardListType } from '~/components/play/quizCardList';
 const Incorrect = () => {
     return (
         <div>
-            <QuizCardList type={QuizCardListType.incorrect} />
+            <QuizCardList type={QuizCardListType.incorrect} maxValue={10} />
         </div>
     )
 }

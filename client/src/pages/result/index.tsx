@@ -15,20 +15,19 @@ import { DQInput } from '~/components/reusable/DQInput';
 
 const Result: FC = () => {
   const dispatch = useAppDispatch();
-  const { message } = useAppSelector((state:RootState) => state.toast);
+  const { toast: { message }, quizResult: { value: { correctCount, inCorrectCount }} } = useAppSelector((state:RootState) => state);
   const { push } = useRouter();
-
 
   return <div>
     <h1 className={styles.title}>채점 결과를 확인해보세요!</h1>
     <div className={styles.resultGrid}>
       <div className={`${styles.block} ${styles.correct}`}>
         <p className={styles.blockText}>정답</p>
-        <p className={styles.blockNumber}>3</p>
+        <p className={styles.blockNumber}>{correctCount}</p>
       </div>
       <div className={`${styles.block} ${styles.wrong}`}>
         <p className={styles.blockText}>오답</p>
-        <p className={styles.blockNumber}>7</p>
+        <p className={styles.blockNumber}>{inCorrectCount}</p>
       </div>
     </div>
 
