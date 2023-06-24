@@ -1,14 +1,17 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useRouter } from 'next/router';
+import { useQuery, useQueries } from '@tanstack/react-query';
+import { isEmpty } from 'lodash';
 import styles from '~/components/play/quizCardList.module.scss';
 import QuizCard, { QuizCardType } from '~/components/play/quizCard';
 import QuizProgressBar from '~/components/play/quizProgressBar';
 import { DQButton } from '~/components/reusable/DQButton'
 import { RESULT } from '~/constants/routing';
-import { isEmpty } from 'lodash';
-
+import { getQuizQuestionAPI, getQuizOptionListAPI } from '~/apis/initial';
 import { useAppSelector } from '~/hooks/useAppSelector';
+import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { RootState } from '~/store/store'
+import { add } from '~/store/userAnswerListSlice';
 
 import ForwardArrow from '~/images/caret-forward.svg';
 import UpArrow from '~/images/caret-up.svg';
@@ -21,19 +24,50 @@ enum QuizCardListType {
 
 interface QuizCardListProps {
   type: QuizCardListType;
+  quizId: string;
+  quizSetId: string;
+  maxValue: number;
 }
 
-const quizCardList = ({ type }: QuizCardListProps) => {
+const quizCardList = ({ type, quizId, quizSetId, maxValue }: QuizCardListProps) => {
   const { asPath, push, query: { step } } = useRouter()
+  const dispatch = useAppDispatch();
+  const { value } = useAppSelector((state:RootState) => state.userAnswerList);
   const [selectOption, setSelectOption] = useState<number[]>([])
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isPlay = type === QuizCardListType.play;
 
-  const nextPage = () => {
-    // TODO : 정답 체크 api 호출 후 then 내부에 state 초기화를 위해 setSelectOption([]) 추가
-    setSelectOption([])
+  const playQueryOption = {
+    retry: 3,
+    enabled: isPlay,
+  }
 
-    if(Number(step) === 10){
+  const { data: getQuizQuestionData, isLoading: isQuestionLoad, isError: isQuestionError, refetch: questionRefetch } = useQuery(
+      ['getQuizQuestionAPI'],
+      () => getQuizQuestionAPI(quizSetId, quizId),
+      playQueryOption,
+  );
+  const { data: getQuizOptionListData, isLoading: isOptionListLoad, isError: isOptionListError, refetch: optionListRefetch } = useQuery(
+      ['getQuizOptionListAPI'],
+      () => getQuizOptionListAPI(quizSetId, quizId),
+      playQueryOption,
+  );
+
+  useEffect(() => {
+    questionRefetch();
+    optionListRefetch();
+  }, [quizSetId, quizId])
+
+  useEffect(() => {
+    // console.log('하이')
+    setSelectOption([])
+  }, [quizSetId, quizId])
+
+  const nextPage = () => {
+    const checkMultiSelect = selectOption.length === 1 ? selectOption[0] : selectOption
+    dispatch(add({ quizId, selectedOption: checkMultiSelect }));
+
+    if(Number(step) === maxValue){
       return push(RESULT.href)
     }
 
@@ -47,11 +81,11 @@ const quizCardList = ({ type }: QuizCardListProps) => {
     if(isPlay){
       return (
         <>
-          {['1', '2', '3', '4'].map((e, index) => {
-            const key = `${e}${index}`
-            const type = selectOption.includes(index) ? QuizCardType.select : QuizCardType.default
+          {getQuizOptionListData?.data.map((quizOption: any, index: any) => {
+            const key = `${quizOption}${index}`
+            const type = selectOption.includes(quizOption.value) ? QuizCardType.select : QuizCardType.default
 
-            return <QuizCard key={key} type={type} title={e} onClick={() => setSelectOption([index])}/>
+            return <QuizCard key={key} type={type} title={quizOption.content} onClick={() => setSelectOption([quizOption.value])}/>
           })}
         </>
       )
@@ -65,7 +99,7 @@ const quizCardList = ({ type }: QuizCardListProps) => {
         <QuizCard title={'4'} disabeld/>
       </>
     )
-  }, [isPlay, selectOption])
+  }, [isPlay, getQuizOptionListData, selectOption])
 
   const bottomButton = useMemo(() => {
     if(isPlay){
@@ -88,7 +122,7 @@ const quizCardList = ({ type }: QuizCardListProps) => {
   return (
     <div>
       <div className={styles.playWrapper}>
-        <h1 className={styles.quizTitle}>실행 컨텍스트(Execution context)가 쌓이는 위치는 어디일까요?</h1>
+        <h1 className={styles.quizTitle}>{getQuizQuestionData?.data.title}</h1>
         <div className={styles.quizCardWrapper}>{quizOption}</div>
         <div className={styles.buttonWrapper}>{bottomButton}</div>
 

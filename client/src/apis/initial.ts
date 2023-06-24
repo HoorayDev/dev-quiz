@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const endPoint = 'http://api.devquiz.co.kr';
+
+const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https'
+const endPoint = `${protocol}://api.devquiz.co.kr`;
 const user = '/api/user'
 const quizSetList = '/api/quiz-set'
 
@@ -35,16 +37,18 @@ export const getQuizAnwserListAPI = async (quizSetId: string) => {
 
 // 퀴즈 문제 단일 조회 : 디테일 페이지 사용
 export const getQuizQuestionAPI = async (quizSetId: string, quizId: string) => {
+  const configOption = { withCredentials: true };
   const url = `${endPoint}${quizSetList}/${quizSetId}/quiz/${quizId}`;
 
-  return await axios.get(url).then(res => res.data);
+  return await axios.get(url, configOption).then(res => res.data);
 }
 
 // 퀴즈 옵션 전체(한 문제의 옵션 전체) 조회 : 디테일 페이지 사용
 export const getQuizOptionListAPI = async (quizSetId: string, quizId: string) => {
+  const configOption = { withCredentials: true };
   const url = `${endPoint}${quizSetList}/${quizSetId}/quiz/${quizId}/quiz-option`;
 
-  return await axios.get(url).then(res => res.data);
+  return await axios.get(url, configOption).then(res => res.data);
 }
 
 // 사용자 정답 제출 : 디테일 페이지 마지막 문제 풀이 시 사용
