@@ -21,12 +21,11 @@ export class AnswerService {
     const answers = await this.getAnswer(quizSetId);
     this.scoreLogicGuard(answers, userVoteList);
     const userVoteToJson = this.answerMapper.userVoteToJson(userVoteList);
-
     const scoreCheck = answers.reduce(
       (acc, answer) => {
-        const { quiz_id, answer_value } = answer;
+        const { quiz_id, quiz_answer_id } = answer;
         const userVote = userVoteToJson[quiz_id];
-        const isCorrect = userVote === answer_value;
+        const isCorrect = userVote === quiz_answer_id;
         if (isCorrect) {
           acc.correctCount += 1;
         } else {
