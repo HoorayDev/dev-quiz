@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { AnswerService } from '@api/answer/answer.service';
 import { QuizResponseRepository } from '@api/quiz-response/quiz-response.repository';
 import { QuizResponseEntity } from '@app/share-library/entities/question/quiz-response.entity';
-import { CreateQuizAnswer } from '@api/quiz-response/type/quiz-reponse.logic';
+import {
+  CreateQuizAnswer,
+  ReadUserResponse,
+} from '@api/quiz-response/type/quiz-reponse.logic';
+import { QuizOptionService } from '@api/quiz-option/quiz-option.service';
 
 @Injectable()
 export class QuizResponseService {
@@ -27,7 +31,7 @@ export class QuizResponseService {
         quiz: {
           id: value.quizId,
         },
-        quiz_option: value.selectedOption,
+        quiz_option: value.selectedOptionId,
         user_is_correct: data.correctMap[value.quizId],
       });
     });
@@ -36,4 +40,7 @@ export class QuizResponseService {
     // 점수 값 반환
     return data;
   }
+
+  // TODO: 추후 Quiz API 에서 SRP 원칙 준수
+  // readAll({ quizSetId, currentUserDto }: ReadUserResponse) {}
 }

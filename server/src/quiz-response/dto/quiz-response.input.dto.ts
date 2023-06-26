@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNotEmpty } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class QuizVoteDto {
   @ApiProperty({
@@ -10,11 +10,12 @@ export class QuizVoteDto {
   quizId: number;
 
   @ApiProperty({
-    description: '유저 선택 옵션',
+    description: '유저 선택 옵션의 ID',
     type: Number,
     example: 1,
   })
-  selectedOption: number;
+  @IsNumber()
+  selectedOptionId: number;
 }
 export class QuizVoteInputDto {
   @IsArray()

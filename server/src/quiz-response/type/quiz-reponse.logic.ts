@@ -6,3 +6,8 @@ export interface CreateQuizAnswer {
   quizVoteInputDto: QuizVoteInputDto;
   currentUserDto: CurrentUserDto;
 }
+
+export interface ReadUserResponse {
+  quizSetId: number;
+  currentUserDto: CurrentUserDto;
+}
