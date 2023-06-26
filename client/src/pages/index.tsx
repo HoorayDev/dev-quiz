@@ -3,7 +3,6 @@ import { DefaultStaticProps } from '~/pages/_app';
 import { useMemo, useEffect, useState } from "react";
 import { useAppSelector } from '~/hooks/useAppSelector';
 import { useAppDispatch } from '~/hooks/useAppDispatch';
-import { add } from '~/store/incorrectSlice';
 import { RootState } from '~/store/store'
 import styles from '~/pages/index.module.scss'
 import ModalPortal from '~/components/Portal/modalPortal';
@@ -16,17 +15,17 @@ import { getQuizSetListAPI, setLoginAPI, getQuizSetAPI } from '~/apis/initial';
 import { upperFirst } from 'lodash';
 import { Toast } from '~/components/Portal/Toast/toast';
 import { show,hide } from '~/store/slices/toast';
+import { setQuizInfo, resetQuizInfo } from '~/store/slices/inProgressQuizIdSlice';
 
 const Index =()=>{
   const dispatch = useAppDispatch();
   const { message } = useAppSelector((state:RootState) => state.toast);
   const { push } = useRouter()
 
-  const [loginModalOpen, setLoginModalOpen] = useState<boolean>();
-  const [selectCategory, setSelectCategory] = useState<string>();
+  const [loginModalOpen, setLoginModalOpen] = useState<boolean>(false);
+  const [selectQuizSetId, setSelectQuizSetId] = useState<string>();
 
-
-  const { data: getQuizSetData, isLoading, isError } = useQuery(['getQuizSet'], () => getQuizSetListAPI(), {
+  const { data: getQuizSetListData, isLoading, isError } = useQuery(['getQuizSet'], () => getQuizSetListAPI(), {
       staleTime: 3000,
       cacheTime: Infinity,
       retry: 3,
@@ -35,13 +34,13 @@ const Index =()=>{
   const quizSetList = useMemo(() => {
       if(isLoading || isError) return
 
-      const quizSetList = getQuizSetData.data.list;
+      const quizSetList = getQuizSetListData.data.list;
       const baseLength = 4
       const comingSoonArr = new Array(baseLength - quizSetList.length).fill({ category: 'Coming Soon..'});
       const quizArr = [...quizSetList, ...comingSoonArr];
 
       return quizArr.map((data: any, index: any) => {
-          const { category } = data;
+          const { category, id } = data;
           const key = `${category}${index}`;
           const isComingSoon = category === 'Coming Soon..';
           const cardStyle = isComingSoon ?
@@ -50,30 +49,32 @@ const Index =()=>{
 
           return (
               <button key={key} className={cardStyle} disabled={isComingSoon} onClick={() => {
-                  setSelectCategory(category)
+                  dispatch(resetQuizInfo());
+                  setSelectQuizSetId(id)
                   setLoginModalOpen(true)
               }}>
                   {upperFirst(category)}
               </button>
           )
       })
-  }, [getQuizSetData])
+  }, [getQuizSetListData])
 
     const modalSubmit = (value: string) => {
         setLoginAPI(value)
             .then(data => {
-                setLoginModalOpen(false)
-                push(`${PLAY.href}?type=${selectCategory}&step=1`)
+                dispatch(setQuizInfo({ quizSetId: selectQuizSetId }));
+                setLoginModalOpen(false);
+                push(`${PLAY.href}?step=1`);
             })
             .catch(err => {
                 console.error(err)
-                setLoginModalOpen(false)
+                setLoginModalOpen(false);
 
                 if(err.response.status === 400){
-                  return dispatch(show('이미 존재하는 유저입니다.'))
+                  return dispatch(show('이미 존재하는 유저입니다.'));
                 }
 
-                return dispatch(show('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.'))
+                return dispatch(show('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.'));
             });
     }
 

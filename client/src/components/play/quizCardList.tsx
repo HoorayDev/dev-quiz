@@ -1,18 +1,21 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useRouter } from 'next/router';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { isEmpty } from 'lodash';
 import styles from '~/components/play/quizCardList.module.scss';
 import QuizCard, { QuizCardType } from '~/components/play/quizCard';
 import QuizProgressBar from '~/components/play/quizProgressBar';
 import { DQButton } from '~/components/reusable/DQButton'
 import { RESULT } from '~/constants/routing';
-import { isEmpty } from 'lodash';
-
+import { getQuizQuestionAPI, getQuizOptionListAPI, setUserAnswerAPI, getQuizAnwserListAPI } from '~/apis/initial';
 import { useAppSelector } from '~/hooks/useAppSelector';
+import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { RootState } from '~/store/store'
-
+import { addUserAnswerList, resetUserAnswerList, userAnswerValue } from '~/store/slices/userAnswerListSlice';
 import ForwardArrow from '~/images/caret-forward.svg';
 import UpArrow from '~/images/caret-up.svg';
 import DownArrow from '~/images/caret-down.svg';
+import { setQuizResult, resetQuizResult } from '~/store/slices/quizResultSlice';
 
 enum QuizCardListType {
   play = 'play',
@@ -21,37 +24,95 @@ enum QuizCardListType {
 
 interface QuizCardListProps {
   type: QuizCardListType;
+  maxValue?: number;
 }
 
-const quizCardList = ({ type }: QuizCardListProps) => {
+const QuizCardList = ({ type, maxValue }: QuizCardListProps) => {
   const { asPath, push, query: { step } } = useRouter()
+  const dispatch = useAppDispatch();
+  const {
+    userAnswerList: {
+      value: userAnswerListValue
+    },
+    inProgressQuizId: {
+      value: { quizSetId, quizId },
+    }
+  } = useAppSelector((state:RootState) => state);
   const [selectOption, setSelectOption] = useState<number[]>([])
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isPlay = type === QuizCardListType.play;
+  const isIncorrect = type === QuizCardListType.incorrect;
 
-  const nextPage = () => {
-    // TODO : 정답 체크 api 호출 후 then 내부에 state 초기화를 위해 setSelectOption([]) 추가
-    setSelectOption([])
+  const { data: getQuizQuestionData, isLoading: isQuestionLoad, isError: isQuestionError, refetch: questionRefetch } = useQuery(
+      ['getQuizQuestionAPI'],
+      () => getQuizQuestionAPI(quizSetId, quizId),
+      { retry: 3, enabled: isPlay },
+  );
+  const { data: getQuizOptionListData, isLoading: isOptionListLoad, isError: isOptionListError, refetch: optionListRefetch } = useQuery(
+      ['getQuizOptionListAPI'],
+      () => getQuizOptionListAPI(quizSetId, quizId),
+      { retry: 3, enabled: isPlay },
+  );
+  const { data: getQuizAnwserListData, isLoading: isQuizAnwserListLoad, isError: isQuizAnwserListError, refetch: quizAnwserListRefetch } = useQuery(
+      ['getQuizAnwserListAPI'],
+      () => getQuizAnwserListAPI(quizSetId),
+      { retry: 3, enabled: isIncorrect },
+  );
+  const { mutate : setUserAnswerAPIMutation } = useMutation((value: userAnswerValue[]) => setUserAnswerAPI(quizSetId, value), {
+    onSuccess: ({ data: { correctCount, inCorrectCount } }) => dispatch(setQuizResult({ correctCount, inCorrectCount })),
+  });
 
-    if(Number(step) === 10){
-      return push(RESULT.href)
-    }
+  useEffect(function refetchQuizData(){
+    questionRefetch();
+    optionListRefetch();
+  }, [quizSetId, quizId])
 
+  useEffect(function resetSelectOption(){
+    setSelectOption([]);
+  }, [quizSetId, quizId])
+
+  useEffect(function submitUserAnswer (){
+    if(userAnswerListValue.length !== maxValue) return;
+
+    setUserAnswerAPIMutation(userAnswerListValue);
+    dispatch(resetUserAnswerList());
+  }, [userAnswerListValue])
+
+  const setUserAnswer = () => {
+    const checkMultiSelect = selectOption.length === 1 ? selectOption[0] : selectOption
+    dispatch(addUserAnswerList({ quizId, selectedOption: checkMultiSelect }));
+  }
+
+  const moveNextPage = () => {
     const baseUrl = asPath.slice(0, -1)
     const nextStep = Number(step) + 1
 
     return push(`${baseUrl}${nextStep}`)
   }
 
+  const moveResultPage = () => {
+    return push(RESULT.href);
+  }
+
+  const clickedNextButton = () => {
+    setUserAnswer();
+
+    if(Number(step) === maxValue){
+      moveResultPage();
+    } else {
+      moveNextPage();
+    }
+  }
+
   const quizOption = useMemo(() => {
     if(isPlay){
       return (
         <>
-          {['1', '2', '3', '4'].map((e, index) => {
-            const key = `${e}${index}`
-            const type = selectOption.includes(index) ? QuizCardType.select : QuizCardType.default
+          {getQuizOptionListData?.data.map((quizOption: any, index: any) => {
+            const key = `${quizOption}${index}`
+            const type = selectOption.includes(quizOption.value) ? QuizCardType.select : QuizCardType.default
 
-            return <QuizCard key={key} type={type} title={e} onClick={() => setSelectOption([index])}/>
+            return <QuizCard key={key} type={type} title={quizOption.content} onClick={() => setSelectOption([quizOption.value])}/>
           })}
         </>
       )
@@ -65,12 +126,12 @@ const quizCardList = ({ type }: QuizCardListProps) => {
         <QuizCard title={'4'} disabeld/>
       </>
     )
-  }, [isPlay, selectOption])
+  }, [isPlay, getQuizOptionListData, selectOption])
 
   const bottomButton = useMemo(() => {
     if(isPlay){
       return (
-        <DQButton onClick={nextPage} disabled={isEmpty(selectOption)}>
+        <DQButton onClick={clickedNextButton} disabled={isEmpty(selectOption)}>
           <ForwardArrow />
           <span className={styles.buttonTitle}>다음 문제 풀기</span>
         </DQButton>
@@ -88,7 +149,7 @@ const quizCardList = ({ type }: QuizCardListProps) => {
   return (
     <div>
       <div className={styles.playWrapper}>
-        <h1 className={styles.quizTitle}>실행 컨텍스트(Execution context)가 쌓이는 위치는 어디일까요?</h1>
+        <h1 className={styles.quizTitle}>{getQuizQuestionData?.data.title}</h1>
         <div className={styles.quizCardWrapper}>{quizOption}</div>
         <div className={styles.buttonWrapper}>{bottomButton}</div>
 
@@ -106,5 +167,5 @@ const quizCardList = ({ type }: QuizCardListProps) => {
   )
 }
 
-export default quizCardList
+export default QuizCardList
 export { QuizCardListType }
