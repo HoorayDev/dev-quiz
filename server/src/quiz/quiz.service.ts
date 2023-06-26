@@ -3,6 +3,7 @@ import { QuizRepository } from '@api/quiz/quiz.repository';
 import { QuizMapper } from '@api/quiz/quiz.mapper';
 import { ReadAllResponse } from '@app/share-library/type/class.interface';
 import { QuizEntity } from '@app/share-library/entities/question/quiz.entity';
+import { ReadOneQuizDto } from '@api/quiz/dto/quiz.response.dto';
 
 @Injectable()
 export class QuizService {
@@ -22,9 +23,10 @@ export class QuizService {
   async findAll({
     currentUser,
     quizSetId,
-  }): Promise<ReadAllResponse<QuizEntity>> {
-    return await this.quizRepository.findAll({
+  }): Promise<ReadAllResponse<ReadOneQuizDto>> {
+    return await this.quizRepository.findAllWithResponse({
       quiz_set: quizSetId,
+      currentUser,
     });
   }
 }
