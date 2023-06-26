@@ -51,6 +51,7 @@ export class QuizController {
     @Param('quizSetId') quizSetId: string,
     @CurrentUser() currentUser: CurrentUserDto,
   ): Promise<ReadAllResponse<QuizEntity>> {
+    // TODO: 추후 퀴즈 셋에서 UserResponse Property 에 대한 역할 분리 -> option or response 가 권한을 가져야 함
     return await this.quizService.findAll({ currentUser, quizSetId });
   }
 
