@@ -5,10 +5,15 @@
   @include flexbox.columnFlexbox;
 }
 
-.quizTitle{
-  margin: 140px 0;
-  font-size: sizes.$FONT_LARGE;
-  font-weight: bold;
+.quizTitleCodeBlockWrapper{
+  width: 100%;
+  margin: 140px 0 60px 0;
+
+  .quizTitle{
+    text-align: center;
+    font-size: sizes.$FONT_LARGE;
+    font-weight: bold;
+  }
 }
 
 .quizCardWrapper {
