@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const endPoint = 'http://api.devquiz.co.kr';
-const user = '/api/user'
-const quizSetList = '/api/quiz-set'
+const endPoint = 'http://api.devquiz.co.kr/api';
+const user = '/user'
+const quizSetList = '/quiz-set'
 
 // 유저 로그인 : 메인 페이지 사용
 export const setLoginAPI = async (name: string) => {
@@ -53,3 +53,9 @@ export const setUserAnswerAPI = async (quizSetId: string, userVoteList: { quizId
 
   return await axios.post(url, { userVoteList });
 }
+
+// 퀴즈 업데이트 구독 : 결과 페이지에서 요청
+export const subscribeAPI = async (email:string) => {
+  const url = `${endPoint}/subscribe`;
+  return await axios.post(url, { email })
+};

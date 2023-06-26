@@ -12,11 +12,25 @@ import { show,hide } from '~/store/slices/toast';
 import { INCORRECT, HOME } from '~/constants/routing';
 import { Toast } from '~/components/Portal/Toast/toast';
 import { DQInput } from '~/components/reusable/DQInput';
+import { subscribeAPI } from '~/apis/initial';
+import { useQuery } from '@tanstack/react-query';
+
+//{
+//   "statusCode": 400,
+//   "data": {
+//     "statusCode": 400,
+//     "message": "에러 메세지",
+//     "error": "Bad Request"
+//   }
+// }
 
 const Result: FC = () => {
   const dispatch = useAppDispatch();
   const { message } = useAppSelector((state:RootState) => state.toast);
   const { push } = useRouter();
+
+  // TODO : here
+  // const {data, isLoading, isError } = useQuery([])
 
 
   return <div>
