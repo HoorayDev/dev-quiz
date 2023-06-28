@@ -8,14 +8,6 @@ interface CodeBlockProps {
   code: string;
 }
 
-const exampleCode = `
-  function greeting(name) {
-    console.log("Hello, " + name + "!");
-  }
-
-  greeting("World");
-`;
-
 const customStyle = {
   width: '100%',
   marginTop: '60px',
