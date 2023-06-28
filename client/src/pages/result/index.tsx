@@ -34,7 +34,7 @@ const Result: FC = () => {
     <div className={styles.buttonContainer}>
       <DQButton hasIcon onClick={()=> push(HOME.href)}>홈으로</DQButton>
       <DQButton hasIcon onClick={()=> dispatch(show('test'))}>결과 공유하기</DQButton>
-      <DQButton hasIcon onClick={()=> push(INCORRECT.href)}>틀린문제 확인하기</DQButton>
+      <DQButton hasIcon onClick={()=> push(INCORRECT.href)}>문제 해설 보기</DQButton>
     </div>
     <div className={styles.inputContainer}>
       <DQInput type="subscription" onSubmit={()=>{
