@@ -3,7 +3,7 @@ import { isEqual } from 'lodash';
 
 interface userAnswerValue {
     quizId: string;
-    selectedOption: string;
+    selectedOptionId: string;
 }
 interface userAnswerListState{
     value: userAnswerValue[]
@@ -22,7 +22,7 @@ export const userAnswerListSlice = createSlice({
             const existingAnswer = state.value.find(obj => obj.quizId === newAnswer.quizId);
 
             if (existingAnswer) {
-                existingAnswer.selectedOption = newAnswer.selectedOption;
+                existingAnswer.selectedOptionId = newAnswer.selectedOptionId;
             } else {
                 state.value.push(newAnswer);
             }
