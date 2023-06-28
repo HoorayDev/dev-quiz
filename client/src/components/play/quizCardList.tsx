@@ -16,6 +16,7 @@ import ForwardArrow from '~/images/caret-forward.svg';
 import UpArrow from '~/images/caret-up.svg';
 import DownArrow from '~/images/caret-down.svg';
 import { setQuizResult, resetQuizResult } from '~/store/slices/quizResultSlice';
+import CodeBlock from '~/components/play/CodeBlock';
 
 enum QuizCardListType {
   play = 'play',
@@ -149,7 +150,10 @@ const QuizCardList = ({ type, maxValue }: QuizCardListProps) => {
   return (
     <div>
       <div className={styles.playWrapper}>
-        <h1 className={styles.quizTitle}>{getQuizQuestionData?.data.title}</h1>
+        <div className={styles.quizTitleCodeBlockWrapper}>
+          <h1 className={styles.quizTitle}>{getQuizQuestionData?.data.title}</h1>
+          {getQuizQuestionData?.data.code && <CodeBlock code={getQuizQuestionData.data.code} />}
+        </div>
         <div className={styles.quizCardWrapper}>{quizOption}</div>
         <div className={styles.buttonWrapper}>{bottomButton}</div>
 
