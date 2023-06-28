@@ -79,8 +79,8 @@ const QuizCardList = ({ type, maxValue }: QuizCardListProps) => {
   }, [userAnswerListValue])
 
   const setUserAnswer = () => {
-    const checkMultiSelect = selectOption.length === 1 ? selectOption[0] : selectOption
-    dispatch(addUserAnswerList({ quizId, selectedOption: checkMultiSelect }));
+    const selectOptionValue = selectOption.length === 1 ? selectOption[0] : selectOption
+    dispatch(addUserAnswerList({ quizId, selectedOptionId: selectOptionValue }));
   }
 
   const moveNextPage = () => {
