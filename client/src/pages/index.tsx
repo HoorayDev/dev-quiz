@@ -16,6 +16,7 @@ import { upperFirst } from 'lodash';
 import { Toast } from '~/components/Portal/Toast/toast';
 import { show,hide } from '~/store/slices/toast';
 import { setQuizInfo, resetQuizInfo } from '~/store/slices/inProgressQuizIdSlice';
+import { resetUserAnswerList } from '~/store/slices/userAnswerListSlice';
 
 const Index =()=>{
   const dispatch = useAppDispatch();
@@ -62,6 +63,7 @@ const Index =()=>{
     const modalSubmit = (value: string) => {
         setLoginAPI(value)
             .then(data => {
+                dispatch(resetUserAnswerList());
                 dispatch(setQuizInfo({ quizSetId: selectQuizSetId }));
                 setLoginModalOpen(false);
                 push(`${PLAY.href}?step=1`);
