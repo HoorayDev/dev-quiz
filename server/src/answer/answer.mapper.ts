@@ -9,7 +9,7 @@ export class AnswerMapper {
   userVoteToJson(userVoteList: QuizVoteDto[]): UserVoteToJson {
     return userVoteList.reduce<UserVoteToJson>((acc, userVote) => {
       const quizKey = userVote.quizId;
-      acc[quizKey] = userVote.selectedOption;
+      acc[quizKey] = userVote.selectedOptionId;
       return acc;
     }, {});
   }

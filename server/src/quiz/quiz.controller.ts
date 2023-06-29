@@ -14,10 +14,10 @@ import { ErrorResponseDto } from '@app/share-library/dto/response.dto';
 import { QuizParamInputDto } from '@api/quiz/dto/quiz.input.dto';
 import {
   ReadAllQuizResponseDto,
+  ReadOneQuizDto,
   ViewReadOneQuizResponseDto,
 } from '@api/quiz/dto/quiz.response.dto';
 import { ReadAllResponse } from '@app/share-library/type/class.interface';
-import { QuizEntity } from '@app/share-library/entities/question/quiz.entity';
 
 @ApiTags('quiz')
 @ApiCookieAuth('id')
@@ -50,7 +50,8 @@ export class QuizController {
   async findAll(
     @Param('quizSetId') quizSetId: string,
     @CurrentUser() currentUser: CurrentUserDto,
-  ): Promise<ReadAllResponse<QuizEntity>> {
+  ): Promise<ReadAllResponse<ReadOneQuizDto>> {
+    // TODO: 추후 퀴즈 셋에서 UserResponse Property 에 대한 역할 분리 -> option or response 가 권한을 가져야 함
     return await this.quizService.findAll({ currentUser, quizSetId });
   }
 

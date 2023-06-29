@@ -12,7 +12,7 @@ export class BaseQuizEntity implements Partial<QuizEntity> {
     description: '퀴즈 Set ID',
     example: 1,
   })
-  quiz_set_id: number;
+  quizSetId: number;
 
   @ApiProperty({
     description: '퀴즈 제목',
@@ -60,12 +60,24 @@ export class ViewReadOneQuizDto extends OmitType(BaseQuizEntity, [
   'commentary',
 ] as const) {}
 
-class ReadOneQuizDto extends BaseQuizEntity {
+export class ReadOneQuizDto extends BaseQuizEntity {
   @ApiProperty({
     description: '퀴즈 정답 여부',
     example: true,
   })
   isCorrect: boolean;
+
+  @ApiProperty({
+    description: '퀴즈 정답 ID',
+    example: 1,
+  })
+  answerOptionId: number;
+
+  @ApiProperty({
+    description: '유저 답안 ID',
+    example: 1,
+  })
+  userAnswerOptionId: number;
 }
 
 export class ReadAllQuizResponseDto implements ResponseDto<ReadOneQuizDto[]> {

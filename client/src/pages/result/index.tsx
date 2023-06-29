@@ -26,7 +26,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const Result: FC = () => {
   const dispatch = useAppDispatch();
-  const { message } = useAppSelector((state:RootState) => state.toast);
+  const { toast: { message }, quizResult: { value: { correctCount, inCorrectCount }} } = useAppSelector((state:RootState) => state);
   const { push } = useRouter();
 
   // TODO : here
@@ -38,18 +38,18 @@ const Result: FC = () => {
     <div className={styles.resultGrid}>
       <div className={`${styles.block} ${styles.correct}`}>
         <p className={styles.blockText}>정답</p>
-        <p className={styles.blockNumber}>3</p>
+        <p className={styles.blockNumber}>{correctCount}</p>
       </div>
       <div className={`${styles.block} ${styles.wrong}`}>
         <p className={styles.blockText}>오답</p>
-        <p className={styles.blockNumber}>7</p>
+        <p className={styles.blockNumber}>{inCorrectCount}</p>
       </div>
     </div>
 
     <div className={styles.buttonContainer}>
       <DQButton hasIcon onClick={()=> push(HOME.href)}>홈으로</DQButton>
       <DQButton hasIcon onClick={()=> dispatch(show('test'))}>결과 공유하기</DQButton>
-      <DQButton hasIcon onClick={()=> push(INCORRECT.href)}>틀린문제 확인하기</DQButton>
+      <DQButton hasIcon onClick={()=> push(INCORRECT.href)}>문제 해설 보기</DQButton>
     </div>
     <div className={styles.inputContainer}>
       <DQInput type="subscription" onSubmit={()=>{
