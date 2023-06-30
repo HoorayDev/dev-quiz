@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import { DefaultStaticProps } from '~/pages/_app';
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { DQButton } from '~/components/reusable/DQButton';
 import styles from '~/pages/result/styles/index.module.scss';
@@ -26,11 +26,20 @@ import { useQuery } from '@tanstack/react-query';
 
 const Result: FC = () => {
   const dispatch = useAppDispatch();
-  const { toast: { message }, quizResult: { value: { correctCount, inCorrectCount }} } = useAppSelector((state:RootState) => state);
+  const {
+    toast: { message },
+    quizResult: { value: { correctCount, inCorrectCount } }
+  } = useAppSelector((state: RootState) => state);
   const { push } = useRouter();
+  const [subEamil, setSubEmail] = useState<string|undefined>(undefined);
 
-  // TODO : here
-  // const {data, isLoading, isError } = useQuery([])
+
+
+  const { data, isLoading, isError } = useQuery(['subscription', subEamil], () => {
+    subEamil && subscribeAPI(subEamil);
+  }, {
+    enabled: !!subEamil
+  });
 
 
   return <div>
@@ -47,14 +56,15 @@ const Result: FC = () => {
     </div>
 
     <div className={styles.buttonContainer}>
-      <DQButton hasIcon onClick={()=> push(HOME.href)}>홈으로</DQButton>
-      <DQButton hasIcon onClick={()=> dispatch(show('test'))}>결과 공유하기</DQButton>
-      <DQButton hasIcon onClick={()=> push(INCORRECT.href)}>문제 해설 보기</DQButton>
+      <DQButton hasIcon onClick={() => push(HOME.href)}>홈으로</DQButton>
+      <DQButton hasIcon onClick={() => dispatch(show('test'))}>결과 공유하기</DQButton>
+      <DQButton hasIcon onClick={() => push(INCORRECT.href)}>문제 해설 보기</DQButton>
     </div>
     <div className={styles.inputContainer}>
-      <DQInput type="subscription" onSubmit={()=>{
-        // TODO : API call
-        dispatch(show('🤓 문제지 구독 감사합니다!'))
+      <DQInput type='subscription' onSubmit={({ value }) => {
+        // TODO : Email 주소 validation
+        setSubEmail(value)
+        dispatch(show('🤓 문제지 구독 감사합니다!'));
       }}
       />
       <p>・ 문제 업데이트 시 알림 받을 이메일을 입력</p>

@@ -62,6 +62,7 @@ export const setUserAnswerAPI = async (quizSetId: string, userVoteList: userAnsw
 
 // 퀴즈 업데이트 구독 : 결과 페이지에서 요청
 export const subscribeAPI = async (email:string) => {
+  const configOption = { withCredentials: true };
   const url = `${endPoint}/subscribe`;
-  return await axios.post(url, { email })
+  return await axios.post(url, { email },configOption)
 };
