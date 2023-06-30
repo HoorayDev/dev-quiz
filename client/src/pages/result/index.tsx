@@ -15,15 +15,6 @@ import { DQInput } from '~/components/reusable/DQInput';
 import { subscribeAPI } from '~/apis/initial';
 import { useQuery } from '@tanstack/react-query';
 
-//{
-//   "statusCode": 400,
-//   "data": {
-//     "statusCode": 400,
-//     "message": "에러 메세지",
-//     "error": "Bad Request"
-//   }
-// }
-
 const Result: FC = () => {
   const dispatch = useAppDispatch();
   const {
