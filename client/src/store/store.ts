@@ -13,7 +13,8 @@ import rootReducer from '~/store/reducer';
 const makeStore = () =>
   configureStore({
     reducer : rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+    // NOTE : logger toggle
+    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
   });
 
 const store = makeStore();
