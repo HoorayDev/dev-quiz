@@ -48,7 +48,8 @@ const Result: FC = () => {
 
     <div className={styles.buttonContainer}>
       <DQButton hasIcon onClick={() => push(HOME.href)}>홈으로</DQButton>
-      <DQButton hasIcon onClick={() => dispatch(show('test'))}>결과 공유하기</DQButton>
+      {/* TODO : reveal on next feature */}
+      {/*<DQButton hasIcon onClick={() => dispatch(show('test'))}>결과 공유하기</DQButton>유*/}
       <DQButton hasIcon onClick={() => push(INCORRECT.href)}>문제 해설 보기</DQButton>
     </div>
     <div className={styles.inputContainer}>
@@ -58,7 +59,6 @@ const Result: FC = () => {
         dispatch(show('🤓 문제지 구독 감사합니다!'));
       }}
       />
-      <p>・ 문제 업데이트 시 알림 받을 이메일을 입력</p>
     </div>
     <Toast
       config={{ duration: 3000 }}

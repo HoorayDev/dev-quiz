@@ -8,7 +8,7 @@ interface InputProps {
 
 const placeholder = {
     login: '닉네임을 입력해주세요!',
-    subscription: '문제 업데이트 시 알림 받을 이메일을 입력해주세요!',
+    subscription: '문제 업데이트 소식을 메일로 보내드릴게요.',
 }
 
 const DQInput = (props: InputProps) => {
