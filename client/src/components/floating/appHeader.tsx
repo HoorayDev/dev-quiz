@@ -9,11 +9,17 @@ interface AppHeaderProps {}
 const AppHeader: FC<AppHeaderProps> = () => {
   const { push } = useRouter();
   return <nav className={`${styles.nav} ${styles.flexRow}`}>
-    <Logo className={styles.logo}/>
+    <Logo className={styles.logo} onClick={()=>push(HOME.href)}/>
     <div className={`${styles.flexRow} ${styles.navMenu}`}>
-      <p onClick={()=>push(HOME.href)}>홈</p>
-      <p onClick={()=>push(INTRODUCTION.href)}>팀소개</p>
-      <p onClick={()=>push(PATCH_NOTE.href)}>패치노트</p>
+      <div onClick={()=>push(HOME.href)}>
+        <p>홈</p>
+      </div>
+      <div onClick={()=>push(INTRODUCTION.href)}>
+        <p>팀소개</p>
+      </div>
+      <div onClick={()=>push(PATCH_NOTE.href)}>
+        <p>패치노트</p>
+      </div>
     </div>
   </nav>
 }
