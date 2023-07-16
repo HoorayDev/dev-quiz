@@ -1,4 +1,5 @@
 @use 'src/styles/constants/colors';
+@use 'src/styles/mixins/flexbox';
 
 .nav {
   height: 70px;
@@ -15,14 +16,20 @@
   }
 
   .navMenu {
-    gap:71px;
+    @include flexbox.flexbox('between');
+    height: 100%;
+    width: 40%;
 
-    p {
+    div{
+      @include flexbox.flexbox;
+      height: 100%;
+      width: 30%;
       cursor: pointer;
     }
   }
 
   .logo {
+    cursor: pointer;
     color: colors.$PRIMARY;
   }
 }
