@@ -10,11 +10,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface DefaultStaticProps {
   hasAppHeader?: boolean;
+  hasAppFooter?: boolean;
 }
 
 const queryClient = new QueryClient();
 
-const _App: FC<AppProps> = ({ Component, pageProps: { hasAppHeader = false, ...pageProps } }: AppProps) => {
+// TODO : hasAppFooter = false
+const _App: FC<AppProps> = ({ Component, pageProps: { hasAppHeader = false, hasAppFooter = true, ...pageProps } }: AppProps) => {
   //  TODO : here detech load
   const [load, setLoad] = useState(false)
 
@@ -26,7 +28,7 @@ const _App: FC<AppProps> = ({ Component, pageProps: { hasAppHeader = false, ...p
 
   return (
       <QueryClientProvider client={queryClient}>
-        <Layout hasAppHeader={hasAppHeader}>
+        <Layout hasAppHeader={hasAppHeader} hasAppFooter={hasAppFooter}>
           <Component {...pageProps} />
         </Layout>
       </QueryClientProvider>
