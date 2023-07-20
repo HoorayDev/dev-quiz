@@ -8,65 +8,87 @@
   width: 100%;
   overflow-y: unset;
 
-  .imageContainer {
-    @include flexbox.flexbox('end');
-    padding: 10vh 32px;
-    width: 50%;
-    border-right: colors.$GRAY100 3px solid;
+  .imageContainer{
+    position: relative;
+    height: inherit;
   }
 
-  .content {
-    padding: 10vh 32px;
-    width: 50%;
-    height: 100%;
-    overflow-y: scroll;
-
-    p{
-      line-height: normal;
+  @media screen and (max-width: 395px) {
+    flex-direction: column;
+    .imageContainer {
+      margin-top: 20px;
+      width: 80%;
     }
 
-    .innerContent {
-      margin-bottom: 70px;
+  }
+
+  @media screen and (min-width: 396px) {
+    overflow-y: unset;
+
+    .imageContainer {
+      @include flexbox.flexbox('end');
+      padding: 10vh 32px;
+      width: 50%;
+
+      border-right: colors.$GRAY100 3px solid;
     }
 
-    h2 {
-      font-weight: 700;
-      font-size: 30px;
+    .content {
+      width: 50%;
     }
 
-    .title {
-      margin-bottom: 38px;
+  }
+    .content {
+      padding: 10vh 32px;
+      height: 100%;
+      overflow-y: scroll;
+
+      p{
+        line-height: normal;
+      }
+
+      h2 {
+        font-weight: 700;
+        font-size: 30px;
+      }
     }
 
-    .innerTitle {
-      @include flexbox.flexbox('start')
-    }
+  .innerContent {
+    margin-bottom: 70px;
+  }
 
-    .underline {
+  .title {
+    margin-bottom: 38px;
+  }
+
+  .innerTitle {
+    @include flexbox.flexbox('start')
+  }
+
+  .underline {
     //  text underline style
 
+  }
+
+  .members {
+    h3{
+      font-size: 21px;
+      font-weight: 700;
     }
 
-    .members {
-      h3{
-        font-size: 21px;
-        font-weight: 700;
-      }
-
-      .nameTitle{
-        display: flex;
-        gap: 4px;
-        align-items: center;
-        margin-bottom: 8px;
-        justify-content: space-between;
-        a {
-          margin-left: 8px;
-        }
-      }
-
+    .nameTitle{
       display: flex;
-      flex-direction: column;
-      gap:24px;
+      gap: 4px;
+      align-items: center;
+      margin-bottom: 8px;
+      justify-content: space-between;
+      a {
+        margin-left: 8px;
+      }
     }
+
+    display: flex;
+    flex-direction: column;
+    gap:24px;
   }
 }
