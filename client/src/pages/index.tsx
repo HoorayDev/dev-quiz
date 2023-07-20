@@ -33,9 +33,8 @@ const Index =()=>{
   });
 
   const quizSetList = useMemo(() => {
-      if(isLoading || isError) return
 
-      const quizSetList = getQuizSetListData.data.list;
+      const quizSetList = getQuizSetListData?.data?.list ?? [];
       const baseLength = 4
       const comingSoonArr = new Array(baseLength - quizSetList.length).fill({ category: 'Coming Soon..'});
       const quizArr = [...quizSetList, ...comingSoonArr];
