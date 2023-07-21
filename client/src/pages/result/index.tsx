@@ -33,7 +33,7 @@ const Result: FC = () => {
   });
 
 
-  return <div>
+  return <div className={styles.pageLayout}>
     <h1 className={styles.title}>채점 결과를 확인해보세요!</h1>
     <div className={styles.resultGrid}>
       <div className={`${styles.block} ${styles.correct}`}>

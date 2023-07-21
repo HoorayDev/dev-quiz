@@ -1,5 +1,9 @@
 @use 'src/styles/constants/colors';
 
+.pageLayout {
+  margin-bottom: 50px;
+}
+
 .title{
   margin: 142px 0 128px 0;
   font-weight: 700;
@@ -10,10 +14,10 @@
 
 .resultGrid {
   margin-bottom: 63px;
-  display: grid;
-  grid-auto-flow: column;
-  gap:37px;
-  height: 330px;
+  display: flex;
+  flex-direction: row;
+  max-height: 40vh;
+  gap:5%;
 
   .block {
     display: flex;
@@ -21,16 +25,26 @@
     gap: 20px;
     justify-content: center;
     align-items: center;
+    width: 50%;
+    position: relative;
 
     .blockText{
+      position: absolute;
       font-weight: 700;
       font-size: 24px;
     }
 
     .blockNumber{
+      position: absolute;
       font-weight: 700;
       font-size: 60px;
     }
+  }
+
+  .block:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
   }
 
   .correct {
