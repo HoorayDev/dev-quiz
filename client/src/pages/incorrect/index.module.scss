@@ -1,0 +1,6 @@
+@use 'src/styles/mixins/flexbox';
+
+.spinnerContainer {
+  height: 100vh;
+  @include flexbox.flexbox();
+}

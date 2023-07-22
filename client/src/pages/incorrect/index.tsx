@@ -9,6 +9,7 @@ import { useAppSelector } from '~/hooks/useAppSelector';
 import Splash from '~/pages/splash';
 import QuizCardList from '~/components/play/quizCardList';
 import { QuizCardListType, QuizOptionType } from '~/components/play/quizCardList';
+import Spinner from '~/components/reusable/Spinner';
 
 interface IncorrectListType {
     answerOptionId: number;
@@ -52,7 +53,11 @@ const Incorrect = () => {
 
     return (
         <div>
-            {isLoading && <Splash />}
+            {isLoading && (
+                <div className={styles.spinnerContainer}>
+                    <Spinner />
+                </div>
+            )}
             {!isLoading && icorrectList}
         </div>
     )
