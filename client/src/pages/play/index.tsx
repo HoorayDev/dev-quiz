@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import styles from '~/pages/play/index.module.scss';
-import Splash from '~/pages/splash';
+import Spinner from '~/components/reusable/Spinner';
 import QuizProgressBar from '~/components/play/quizProgressBar';
 import QuizCardList from '~/components/play/quizCardList';
 import { QuizCardListType, QuizOptionType } from '~/components/play/quizCardList';
@@ -57,7 +57,14 @@ const Play = () => {
 
     return (
         <div>
-            {isLoading && <Splash />}
+            <div className={styles.spinnerContainer}>
+                <Spinner />
+            </div>
+            {isLoading && (
+                <div className={styles.spinnerContainer}>
+                    <Spinner />
+                </div>
+            )}
             {!isLoading && (
                 <>
                     <QuizProgressBar
