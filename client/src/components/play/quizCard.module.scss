@@ -22,4 +22,8 @@
     background-color: colors.$WHITE;
     border: 5px solid colors.$PRIMARY;
   }
+
+  &:disabled {
+    cursor: default;
+  }
 }
