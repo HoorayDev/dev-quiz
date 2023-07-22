@@ -128,7 +128,7 @@ const QuizCardList = ({ type, title, options, code, commentary, isLast, quizId, 
 
          return options?.map((quizOption: any, index: any) => {
             const key = `${quizOption}${index}`
-            const type = selectOptionId.includes(quizOption.id) ? QuizCardType.select : QuizCardType.default
+            const type = selectOptionId.includes(quizOption.id) ? QuizCardType.answer : QuizCardType.default
 
             return <QuizCard key={key} type={type} title={quizOption.content} onClick={() => setSelectOptionId([quizOption.id])}/>
         })
