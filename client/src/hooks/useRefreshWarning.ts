@@ -9,7 +9,7 @@ const RefreshWarningModal = ({ isOpen } : RefreshWarningModalProps) => {
 
     const handleBeforeUnload = (e:BeforeUnloadEvent) => {
         e.preventDefault();
-        e.returnValue = "경고 메세지 커스텀";
+        e.returnValue = "";
     }
 
     useEffect(() => {
