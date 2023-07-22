@@ -35,13 +35,13 @@ const Incorrect = () => {
     );
 
     const icorrectList = useMemo(() => {
-        return getQuizAnwserListData?.data.list.map(({ id, code , commentary, content, answerOptionId, userAnswerOptionId }: IncorrectListType) => {
+        return getQuizAnwserListData?.data.list.map(({ id, code , commentary, title, answerOptionId, userAnswerOptionId }: IncorrectListType) => {
             return (
                 <QuizCardList
                     type={QuizCardListType.incorrect}
                     code={code}
                     commentary={commentary}
-                    title={content}
+                    title={title}
                     answerOptionId={answerOptionId}
                     userAnswerOptionId={userAnswerOptionId}
                     quizId={String(id)}
