@@ -57,9 +57,6 @@ const Play = () => {
 
     return (
         <div>
-            <div className={styles.spinnerContainer}>
-                <Spinner />
-            </div>
             {isLoading && (
                 <div className={styles.spinnerContainer}>
                     <Spinner />
