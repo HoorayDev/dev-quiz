@@ -13,8 +13,8 @@ return <div className={styles.pageLayout}>
     <Image
       src={image}
       placeholder="blur"
-      width={405}
-      height={405}
+      objectFit="contain"
+      layout="fill"
       quality={100}
       blurDataURL={blur}
       alt="Picture of the author"
