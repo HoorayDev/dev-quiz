@@ -112,13 +112,14 @@ const QuizCardList = ({ type, title, options, code, commentary, isLast, quizId, 
     const quizOptionList = useMemo(() => {
         if(isIncorrect && !isOptionListLoad && !isOptionListError){
             return getQuizOptionListData?.data.map(({ id: optionId, content, value }: QuizOptionType) => {
-                if(userAnswerOptionId === optionId){
-                    return <QuizCard title={content} type={QuizCardType.select} disabeld />;
-                }
-
                 if(answerOptionId === optionId){
                     setAnswerOptionValue(content);
+
                     return <QuizCard title={content} type={QuizCardType.answer} disabeld />;
+                }
+
+                if(userAnswerOptionId === optionId){
+                    return <QuizCard title={content} type={QuizCardType.select} disabeld />;
                 }
 
                 return <QuizCard title={content} disabeld/>
@@ -131,7 +132,7 @@ const QuizCardList = ({ type, title, options, code, commentary, isLast, quizId, 
 
             return <QuizCard key={key} type={type} title={quizOption.content} onClick={() => setSelectOptionId([quizOption.id])}/>
         })
-    }, [isPlay, options, selectOptionId, getQuizOptionListData])
+    }, [isPlay, options, selectOptionId, getQuizOptionListData, isCommentaryOpen])
 
     const bottomButton = useMemo(() => {
         if(isPlay){
