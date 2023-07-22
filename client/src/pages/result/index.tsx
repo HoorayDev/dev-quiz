@@ -14,6 +14,7 @@ import { Toast } from '~/components/Portal/Toast/toast';
 import { DQInput } from '~/components/reusable/DQInput';
 import { subscribeAPI } from '~/apis/initial';
 import { useQuery } from '@tanstack/react-query';
+import RefreshWarningModal from '~/hooks/useRefreshWarning';
 
 const Result: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,46 +25,52 @@ const Result: FC = () => {
   const { push } = useRouter();
   const [subEamil, setSubEmail] = useState<string|undefined>(undefined);
 
-
-
   const { data, isLoading, isError } = useQuery(['subscription', subEamil], () => {
     subEamil && subscribeAPI(subEamil);
   }, {
     enabled: !!subEamil
   });
 
+  useEffect(function redirectHome(){
+    if(correctCount || inCorrectCount) return
 
-  return <div className={styles.pageLayout}>
-    <h1 className={styles.title}>채점 결과를 확인해보세요!</h1>
-    <div className={styles.resultGrid}>
-      <div className={`${styles.block} ${styles.correct}`}>
-        <p className={styles.blockText}>정답</p>
-        <p className={styles.blockNumber}>{correctCount}</p>
-      </div>
-      <div className={`${styles.block} ${styles.wrong}`}>
-        <p className={styles.blockText}>오답</p>
-        <p className={styles.blockNumber}>{inCorrectCount}</p>
-      </div>
-    </div>
+    push(HOME.href);
+  }, [correctCount, inCorrectCount])
 
-    <div className={styles.buttonContainer}>
-      <DQButton hasIcon onClick={() => push(HOME.href)}>홈으로</DQButton>
-      {/* TODO : reveal on next feature */}
-      {/*<DQButton hasIcon onClick={() => dispatch(show('test'))}>결과 공유하기</DQButton>유*/}
-      <DQButton hasIcon onClick={() => push(INCORRECT.href)}>문제 해설 보기</DQButton>
-    </div>
-    <div className={styles.inputContainer}>
-      <DQInput type='subscription' onSubmit={({ value }) => {
-        // TODO : Email 주소 validation
-        setSubEmail(value)
-        dispatch(show('🤓 문제지 구독 감사합니다!'));
-      }}
-      />
-    </div>
-    <Toast
-      config={{ duration: 3000 }}
-    >{message} </Toast>
-  </div>;
+  return (
+      <div className={styles.pageLayout}>
+        <RefreshWarningModal isOpen={true}/>
+        <h1 className={styles.title}>채점 결과를 확인해보세요!</h1>
+        <div className={styles.resultGrid}>
+          <div className={`${styles.block} ${styles.correct}`}>
+            <p className={styles.blockText}>정답</p>
+            <p className={styles.blockNumber}>{correctCount}</p>
+          </div>
+          <div className={`${styles.block} ${styles.wrong}`}>
+            <p className={styles.blockText}>오답</p>
+            <p className={styles.blockNumber}>{inCorrectCount}</p>
+          </div>
+        </div>
+
+        <div className={styles.buttonContainer}>
+          <DQButton hasIcon onClick={() => push(HOME.href)}>홈으로</DQButton>
+          {/* TODO : reveal on next feature */}
+          {/*<DQButton hasIcon onClick={() => dispatch(show('test'))}>결과 공유하기</DQButton>유*/}
+          <DQButton hasIcon onClick={() => push(INCORRECT.href)}>문제 해설 보기</DQButton>
+        </div>
+        <div className={styles.inputContainer}>
+          <DQInput type='subscription' onSubmit={({ value }) => {
+            // TODO : Email 주소 validation
+            setSubEmail(value)
+            dispatch(show('🤓 문제지 구독 감사합니다!'));
+          }}
+          />
+        </div>
+        <Toast
+            config={{ duration: 3000 }}
+        >{message} </Toast>
+      </div>
+  )
 };
 
 const getStaticProps: GetStaticProps<DefaultStaticProps> = async () => ({
