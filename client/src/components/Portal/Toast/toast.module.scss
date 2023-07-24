@@ -4,7 +4,6 @@
   display: flex;
   justify-content: center;
   position: fixed;
-  width: 432px;
   bottom: -50px;
   left: 50%;
   transform: translateX( -50% );
@@ -14,6 +13,14 @@
   padding: 10px 20px;
 
   transition: all 0.2s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+}
+
+@media screen and (max-width: 395px) {
+  .toast {width: 360px;}
+}
+
+@media screen and (min-width: 396px) {
+  .toast {width: 432px;}
 }
 
 .show {
