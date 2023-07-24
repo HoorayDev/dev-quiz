@@ -15,7 +15,7 @@ import { setQuizInfo } from '~/store/slices/inProgressQuizIdSlice';
 const Play = () => {
     const dispatch = useAppDispatch();
     const { value: { quizSetId } } = useAppSelector((state:RootState) => state.inProgressQuizId);
-    const { query: { step } } = useRouter()
+    const { query: { step } } = useRouter();
     const { value: userAnswerListValue } = useAppSelector((state:RootState) => state.userAnswerList);
     const { data: getQuizSetData, isLoading: isQuizSetLoad, isError: isQuizSetError, refetch: isQuizSetRefetch } = useQuery(
         ['getQuizSetAPI'],
@@ -74,7 +74,7 @@ const Play = () => {
                         code={getQuizQuestionData?.data.code}
                         options={getQuizOptionListData?.data}
                         quizId={getQuizQuestionData?.data.id}
-                        isLast={Number(step) === getQuizSetData?.data.quizIdList.length}
+                        quizLen={getQuizSetData?.data.quizIdList.length}
                     />
                 </>
             )}

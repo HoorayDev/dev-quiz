@@ -38,12 +38,12 @@ interface QuizCardListProps {
     options?: QuizOptionType[];
     code?: string;
     commentary?: string;
-    isLast?: boolean;
     answerOptionId?: number;
     userAnswerOptionId?: number;
+    quizLen?: number;
 }
 
-const QuizCardList = ({ type, title, options, code, commentary, isLast, quizId, answerOptionId, userAnswerOptionId }: QuizCardListProps) => {
+const QuizCardList = ({ type, title, options, code, commentary, quizId, answerOptionId, userAnswerOptionId, quizLen }: QuizCardListProps) => {
     const { asPath, push, query: { step } } = useRouter()
     const dispatch = useAppDispatch();
     const {
@@ -77,10 +77,13 @@ const QuizCardList = ({ type, title, options, code, commentary, isLast, quizId, 
     }, [quizId])
 
     useEffect(function submitUserAnswer (){
-        if(!isLast) return;
+        const isLastStep = Number(step) === quizLen;
+        const isSolvedAllQuizs = userAnswerListValue.length === quizLen
+
+        if(!isLastStep || !isSolvedAllQuizs) return;
 
         setUserAnswerAPIMutation(userAnswerListValue);
-    }, [userAnswerListValue, isLast])
+    }, [userAnswerListValue, quizLen])
 
     const setUserAnswer = () => {
         const optionId = selectOptionId.length === 1 ? selectOptionId[0] : selectOptionId
@@ -102,7 +105,7 @@ const QuizCardList = ({ type, title, options, code, commentary, isLast, quizId, 
     const clickedNextButton = () => {
         setUserAnswer();
 
-        if(isLast){
+        if(Number(step) === quizLen){
             moveResultPage();
         } else {
             moveNextPage();
