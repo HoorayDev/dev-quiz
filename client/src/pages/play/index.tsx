@@ -70,7 +70,7 @@ const Play = () => {
                     />
                     <QuizCardList
                         type={QuizCardListType.play}
-                        title={getQuizQuestionData?.data.content}
+                        title={getQuizQuestionData?.data.title}
                         code={getQuizQuestionData?.data.code}
                         options={getQuizOptionListData?.data}
                         quizId={getQuizQuestionData?.data.id}
