@@ -21,21 +21,22 @@
 
   .block {
     display: flex;
-    flex-direction: column;
     gap: 20px;
     justify-content: center;
     align-items: center;
     width: 50%;
     position: relative;
 
-    .blockText{
+    .texts{
       position: absolute;
+    }
+
+    .blockText{
       font-weight: 700;
       font-size: 24px;
     }
 
     .blockNumber{
-      position: absolute;
       font-weight: 700;
       font-size: 60px;
     }
