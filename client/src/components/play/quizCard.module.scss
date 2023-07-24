@@ -22,4 +22,8 @@
     background-color: colors.$GRAY200;
     color: colors.$WHITE;
   }
+
+  &:disabled {
+    cursor: default;
+  }
 }
