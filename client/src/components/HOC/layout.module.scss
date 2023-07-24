@@ -4,6 +4,7 @@
 .wrapper {
   display: flex;
   justify-content: center;
+  padding-top: sizes.$HEADER;
 
   .layout {
     width: 900px;
