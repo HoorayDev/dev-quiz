@@ -7,7 +7,6 @@ import { RootState } from '~/store/store'
 import styles from '~/pages/incorrect/index.module.scss';
 import { getQuizAnwserListAPI, getQuizOptionListAPI } from '~/apis/initial';
 import { useAppSelector } from '~/hooks/useAppSelector';
-import Splash from '~/pages/splash';
 import QuizCardList from '~/components/play/quizCardList';
 import { QuizCardListType, QuizOptionType } from '~/components/play/quizCardList';
 import Spinner from '~/components/reusable/Spinner';

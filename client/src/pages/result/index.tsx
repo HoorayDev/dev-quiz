@@ -37,41 +37,43 @@ const Result: FC = () => {
     push(HOME.href);
   }, [correctCount, inCorrectCount])
 
-  return <div className={styles.pageLayout}>
-    <h1 className={styles.title}>채점 결과를 확인해보세요!</h1>
-    <div className={styles.resultGrid}>
-      <div className={`${styles.block} ${styles.correct}`}>
-        <div className={styles.texts}>
-          <p className={styles.blockText}>정답</p>
-          <p className={styles.blockNumber}>{correctCount}</p>
+  return (
+      <div className={styles.pageLayout}>
+        <h1 className={styles.title}>채점 결과를 확인해보세요!</h1>
+        <div className={styles.resultGrid}>
+          <div className={`${styles.block} ${styles.correct}`}>
+            <div className={styles.texts}>
+              <p className={styles.blockText}>정답</p>
+              <p className={styles.blockNumber}>{correctCount}</p>
+            </div>
+          </div>
+          <div className={`${styles.block} ${styles.wrong}`}>
+            <div className={styles.texts}>
+              <p className={styles.blockText}>오답</p>
+              <p className={styles.blockNumber}>{inCorrectCount}</p>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className={`${styles.block} ${styles.wrong}`}>
-        <div className={styles.texts}>
-          <p className={styles.blockText}>오답</p>
-          <p className={styles.blockNumber}>{inCorrectCount}</p>
-        </div>
-      </div>
-    </div>
 
-    <div className={styles.buttonContainer}>
-      <DQButton hasIcon onClick={() => push(HOME.href)}>홈으로</DQButton>
-      {/* TODO : reveal on next feature */}
-      {/*<DQButton hasIcon onClick={() => dispatch(show('test'))}>결과 공유하기</DQButton>유*/}
-      <DQButton hasIcon onClick={() => push(INCORRECT.href)}>문제 해설 보기</DQButton>
-    </div>
-    <div className={styles.inputContainer}>
-      <DQInput type='subscription' onSubmit={({ value }) => {
-        // TODO : Email 주소 validation
-        setSubEmail(value)
-        dispatch(show('🤓 문제지 구독 감사합니다!'));
-      }}
-      />
-    </div>
-    <Toast
-      config={{ duration: 3000 }}
-    />
-  </div>;
+        <div className={styles.buttonContainer}>
+          <DQButton hasIcon onClick={() => push(HOME.href)}>홈으로</DQButton>
+          {/* TODO : reveal on next feature */}
+          {/*<DQButton hasIcon onClick={() => dispatch(show('test'))}>결과 공유하기</DQButton>유*/}
+          <DQButton hasIcon onClick={() => push(INCORRECT.href)}>문제 해설 보기</DQButton>
+        </div>
+        <div className={styles.inputContainer}>
+          <DQInput type='subscription' onSubmit={({ value }) => {
+            // TODO : Email 주소 validation
+            setSubEmail(value)
+            dispatch(show('🤓 문제지 구독 감사합니다!'));
+          }}
+          />
+        </div>
+        <Toast
+            config={{ duration: 3000 }}
+        />
+      </div>
+  )
 };
 
 const getStaticProps: GetStaticProps<DefaultStaticProps> = async () => ({
