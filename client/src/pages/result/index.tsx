@@ -62,7 +62,7 @@ const Result: FC = () => {
     </div>
     <Toast
       config={{ duration: 3000 }}
-    >{message} </Toast>
+    />
   </div>;
 };
 

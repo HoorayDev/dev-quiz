@@ -88,7 +88,7 @@ const Index =()=>{
             )}
             <Toast
                 config={{ duration: 3000 }}
-            >{message} </Toast>
+            />
         </div>
     )
 }
