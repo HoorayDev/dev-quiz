@@ -16,8 +16,9 @@
   @media screen and (max-width: 395px) {
     flex-direction: column;
     .imageContainer {
-      margin-top: 20px;
-      width: 80%;
+      margin-top: 30px;
+      height: 30%;
+      width: inherit;
     }
 
   }
