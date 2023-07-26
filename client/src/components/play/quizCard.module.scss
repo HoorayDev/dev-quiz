@@ -6,20 +6,24 @@
   @include flexbox.flexbox;
   width: 100%;
   height: 240px;
-  background-color: #d5d5d5;
+  background-color: colors.$GRAY100;
   border-radius: 5px;
   box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
   font-size: sizes.$FONT_LARGE;
   font-weight: bold;
   padding: 30px;
 
-  &.select {
+  &.answer {
     background-color: colors.$PRIMARY;
     color: colors.$WHITE;
   }
 
-  &.answer {
-    background-color: colors.$WHITE;
-    border: 5px solid colors.$PRIMARY;
+  &.select {
+    background-color: colors.$GRAY200;
+    color: colors.$WHITE;
+  }
+
+  &:disabled {
+    cursor: default;
   }
 }

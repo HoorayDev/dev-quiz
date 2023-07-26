@@ -33,7 +33,6 @@ const Index =()=>{
   });
 
   const quizSetList = useMemo(() => {
-
       const quizSetList = getQuizSetListData?.data?.list ?? [];
       const baseLength = 4
       const comingSoonArr = new Array(baseLength - quizSetList.length).fill({ category: 'Coming Soon..'});
@@ -89,7 +88,7 @@ const Index =()=>{
             )}
             <Toast
                 config={{ duration: 3000 }}
-            >{message} </Toast>
+            />
         </div>
     )
 }

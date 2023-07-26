@@ -1,15 +1,34 @@
 @use 'src/styles/constants/colors';
 
 .toast {
+  display: flex;
+  justify-content: center;
   position: fixed;
-  bottom: 1vh;
+  bottom: -50px;
   left: 50%;
+  transform: translateX( -50% );
   pointer-events: auto;
 
   border-radius: 4px;
   padding: 10px 20px;
+
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+}
+
+@media screen and (max-width: 395px) {
+  .toast {width: 360px;}
+}
+
+@media screen and (min-width: 396px) {
+  .toast {width: 432px;}
+}
+
+.show {
+  transform: translate( -50%, -70px );
 }
 
 .primary {
   background-color: colors.$PRIMARY;
 }
+
+

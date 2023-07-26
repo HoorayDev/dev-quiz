@@ -10,6 +10,7 @@ import { useAppSelector } from '~/hooks/useAppSelector';
 import Splash from '~/pages/splash';
 import QuizCardList from '~/components/play/quizCardList';
 import { QuizCardListType, QuizOptionType } from '~/components/play/quizCardList';
+import Spinner from '~/components/reusable/Spinner';
 import RefreshWarningModal from '~/hooks/useRefreshWarning';
 import { HOME } from '~/constants/routing';
 
@@ -45,13 +46,13 @@ const Incorrect = () => {
     }, [isError])
 
     const icorrectList = useMemo(() => {
-        return getQuizAnwserListData?.data.list.map(({ id, code , commentary, content, answerOptionId, userAnswerOptionId }: IncorrectListType) => {
+        return getQuizAnwserListData?.data.list.map(({ id, code , commentary, title, answerOptionId, userAnswerOptionId }: IncorrectListType) => {
             return (
                 <QuizCardList
                     type={QuizCardListType.incorrect}
                     code={code}
                     commentary={commentary}
-                    title={content}
+                    title={title}
                     answerOptionId={answerOptionId}
                     userAnswerOptionId={userAnswerOptionId}
                     quizId={String(id)}
@@ -60,12 +61,14 @@ const Incorrect = () => {
         })
     }, [getQuizAnwserListData])
 
-
-
     return (
         <div>
             <RefreshWarningModal isOpen={true}/>
-            {isLoading && <Splash />}
+            {isLoading && (
+                <div className={styles.spinnerContainer}>
+                    <Spinner />
+                </div>
+            )}
             {!isLoading && !isError && icorrectList}
         </div>
     )
