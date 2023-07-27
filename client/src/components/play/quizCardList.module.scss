@@ -18,7 +18,6 @@
 
 .quizCardWrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-row: auto;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
@@ -55,3 +54,23 @@
     line-height: 1.4em;
   }
 }
+
+@media screen and (min-width: 396px) {
+  .quizCardWrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quizTitle{
+    font-size: sizes.$FONT_LARGE;
+  }
+}
+@media screen and (max-width: 395px) {
+  .quizCardWrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .quizTitle{
+    font-size: sizes.$FONT_MEDIUM;
+  }
+}
+
