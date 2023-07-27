@@ -4,6 +4,7 @@ import styles from '~/components/patchNote/versionContainer.module.scss';
 interface VersionDataObject {
   date: string;
   version: string;
+  title?: string;
   update: {
     version?: string;
     content: string[];
@@ -14,11 +15,12 @@ interface VersionContainerProps {
   data : VersionDataObject;
 }
 
-const VersionContainer = ({ data: { date, version, update } }: VersionContainerProps)=>{
+const VersionContainer = ({ data: { date, version, update, title } }: VersionContainerProps)=>{
   return <div className={styles.versionContainer}>
     <div className={styles.versionTitle}>
       <p>{date}</p>
       <h2>Version {version}</h2>
+      {title &&<h3>{title}</h3>}
     </div>
     <div className={styles.versionContent}>
       {update.map(({version,content}, index)=>
