@@ -11,31 +11,33 @@ import { useAppDispatch } from '~/hooks/useAppDispatch';
 import { useAppSelector } from '~/hooks/useAppSelector';
 import { RootState } from '~/store/store'
 import { setQuizInfo } from '~/store/slices/inProgressQuizIdSlice';
+import RefreshWarningModal from '~/hooks/useRefreshWarning';
+import { HOME } from '~/constants/routing';
 
 const Play = () => {
     const dispatch = useAppDispatch();
     const { value: { quizSetId } } = useAppSelector((state:RootState) => state.inProgressQuizId);
-    const { query: { step } } = useRouter();
+    const { query: { step }, push } = useRouter()
     const { value: userAnswerListValue } = useAppSelector((state:RootState) => state.userAnswerList);
     const { data: getQuizSetData, isLoading: isQuizSetLoad, isError: isQuizSetError, refetch: isQuizSetRefetch } = useQuery(
         ['getQuizSetAPI'],
         () => getQuizSetAPI(quizSetId), {
             staleTime: 3000,
             cacheTime: Infinity,
-            retry: 3,
+            retry: 2,
             onSuccess: ({ data: { quizIdList } }) => dispatch(setQuizInfo({ quizId: quizIdList[Number(step) - 1], quizSetId })),
         }
     );
     const { data: getQuizQuestionData, isLoading: isQuestionLoad, isError: isQuestionError, refetch: questionRefetch } = useQuery(
         ['getQuizQuestionAPI', quizSetId, getQuizSetData?.data.quizIdList[Number(step) - 1]],
         () => getQuizQuestionAPI(quizSetId, getQuizSetData?.data.quizIdList[Number(step) - 1]), {
-            retry: 3
+            retry: 2,
         },
     );
     const { data: getQuizOptionListData, isLoading: isOptionListLoad, isError: isOptionListError, refetch: optionListRefetch } = useQuery(
         ['getQuizOptionListAPI', quizSetId, getQuizSetData?.data.quizIdList[Number(step) - 1]],
         () => getQuizOptionListAPI(quizSetId, getQuizSetData?.data.quizIdList[Number(step) - 1]), {
-            retry: 3
+            retry: 2,
         },
     );
 
@@ -55,14 +57,21 @@ const Play = () => {
         optionListRefetch();
     }, [step])
 
+    useEffect(function redirectHome(){
+        if(!isError) return
+
+        push(HOME.href);
+    }, [isError])
+
     return (
         <div>
+            <RefreshWarningModal isOpen={true}/>
             {isLoading && (
                 <div className={styles.spinnerContainer}>
                     <Spinner />
                 </div>
             )}
-            {!isLoading && (
+            {!isLoading && !isError && (
                 <>
                     <QuizProgressBar
                         maxValue={[...getQuizSetData?.data.quizIdList].length}
