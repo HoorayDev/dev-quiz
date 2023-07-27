@@ -9,7 +9,7 @@
   z-index: 1;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10%;
+  padding: 0 5vw;
   position: fixed;
   width: 100%;
 
@@ -21,7 +21,8 @@
   .navMenu {
     @include flexbox.flexbox('between');
     height: 100%;
-    width: 40%;
+    width: inherit;
+    max-width: 50vw;
 
     div{
       @include flexbox.flexbox;
@@ -35,6 +36,5 @@
     cursor: pointer;
     color: colors.$PRIMARY;
   }
-}
 
-// TODO : cursor pointer
+}
