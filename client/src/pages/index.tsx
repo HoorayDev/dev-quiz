@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getQuizSetListAPI, setLoginAPI, getQuizSetAPI } from '~/apis/initial';
 import { upperFirst } from 'lodash';
-import { Toast } from '~/components/Portal/Toast/toast';
+import { Toast, ToastType } from '~/components/Portal/Toast/toast';
 import { show,hide } from '~/store/slices/toast';
 import { setQuizInfo, resetQuizInfo } from '~/store/slices/inProgressQuizIdSlice';
 import { resetUserAnswerList } from '~/store/slices/userAnswerListSlice';
@@ -87,6 +87,7 @@ const Index =()=>{
                 <LoginModal onSubmit={({ value }) => modalSubmit(value)} onClose={() => setLoginModalOpen(false)} />
             )}
             <Toast
+                type={ToastType.error}
                 config={{ duration: 3000 }}
             />
         </div>
