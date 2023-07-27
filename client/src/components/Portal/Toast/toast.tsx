@@ -7,7 +7,13 @@ import cn from "clsx";
 import { show,hide } from '~/store/slices/toast';
 import styles from '~/components/Portal/Toast/toast.module.scss';
 
+enum ToastType {
+  primary = 'primary',
+  error = 'error',
+}
+
 interface DQToastProps {
+  type?: ToastType,
   config? : {
     duration? : number;
     role? : 'status' | 'error';
@@ -15,6 +21,7 @@ interface DQToastProps {
 }
 
 const Toast : FC<DQToastProps> =({
+  type = ToastType.primary,
   config = {},
 }) => {
   const dispatch = useAppDispatch();
@@ -37,7 +44,7 @@ const Toast : FC<DQToastProps> =({
   }, [show, duration, hide]);
 
   return createPortal(
-    <div className={cn(styles.toast, styles.primary, show && styles.show )}>
+    <div className={cn(styles.toast, styles[type], show && styles.show )}>
         <p>
           {message}
         </p>
@@ -47,4 +54,4 @@ const Toast : FC<DQToastProps> =({
   );
 }
 
-export { Toast };
+export { Toast, ToastType };

@@ -8,6 +8,7 @@
   left: 50%;
   transform: translateX( -50% );
   pointer-events: auto;
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
 
   border-radius: 4px;
   padding: 10px 20px;
@@ -25,6 +26,11 @@
 
 .show {
   transform: translate( -50%, -70px );
+}
+
+.error {
+  color: colors.$WHITE;
+  background-color: colors.$ERROR;
 }
 
 .primary {
