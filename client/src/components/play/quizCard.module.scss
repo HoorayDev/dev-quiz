@@ -13,6 +13,14 @@
   font-weight: bold;
   padding: 30px;
 
+  @media screen and (min-width: 396px) {
+    height: 240px;
+  }
+
+  @media screen and (max-width: 395px) {
+    height: inherit;
+  }
+
   &.answer {
     background-color: colors.$PRIMARY;
     color: colors.$WHITE;
