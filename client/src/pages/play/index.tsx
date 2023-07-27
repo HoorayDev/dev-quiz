@@ -31,12 +31,14 @@ const Play = () => {
     const { data: getQuizQuestionData, isLoading: isQuestionLoad, isError: isQuestionError, refetch: questionRefetch } = useQuery(
         ['getQuizQuestionAPI', quizSetId, getQuizSetData?.data.quizIdList[Number(step) - 1]],
         () => getQuizQuestionAPI(quizSetId, getQuizSetData?.data.quizIdList[Number(step) - 1]), {
+            enabled: !!getQuizSetData?.data.quizIdList[Number(step) - 1],
             retry: 2,
         },
     );
     const { data: getQuizOptionListData, isLoading: isOptionListLoad, isError: isOptionListError, refetch: optionListRefetch } = useQuery(
         ['getQuizOptionListAPI', quizSetId, getQuizSetData?.data.quizIdList[Number(step) - 1]],
         () => getQuizOptionListAPI(quizSetId, getQuizSetData?.data.quizIdList[Number(step) - 1]), {
+            enabled: !!getQuizSetData?.data.quizIdList[Number(step) - 1],
             retry: 2,
         },
     );
