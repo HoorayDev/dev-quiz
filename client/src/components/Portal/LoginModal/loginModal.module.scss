@@ -1,5 +1,7 @@
 @use 'src/styles/mixins/flexbox';
 @use 'src/styles/constants/colors';
+@use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/responsive';
 
 .loginModalWrapper {
   @include flexbox.flexbox;
@@ -18,6 +20,11 @@
     text-align: center;
     background: colors.$WHITE;
     border-radius: 5px;
+
+    @include responsive.mobileOnly{
+      width: 100%;
+      margin: 0 sizes.$OUTLINE_PADDING_S;
+    }
 
     .title {
       font-size: 20px;

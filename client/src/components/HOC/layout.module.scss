@@ -11,7 +11,11 @@
 
     @include responsive.before(MD){
       width: 100%;
-      padding: 0 20px;
+      padding: 0 sizes.$OUTLINE_PADDING_M;
+    }
+
+    @include responsive.mobileOnly{
+      padding: 0 sizes.$OUTLINE_PADDING_S;
     }
   }
 
