@@ -4,6 +4,83 @@ $OUTLINE_PADDING_M : 20px;
 $OUTLINE_PADDING_S : 10px;
 // TODO : $PAGE_EXCEPT_HEADER & FOOTER
 
-$FONT_LARGE: 30px;
-$FONT_MEDIUM: 16px;
-$FONT_SMALL: 12px;
+@function getFontSize($name){
+  @if $name == display5 {
+    @return 44px
+  } @else if($name == display4){
+    @return 40px
+  } @else if($name == display3){
+    @return 36px
+  } @else if($name == display2){
+    @return 32px
+  } @else if($name == display1){
+    @return 24px
+  } @else if($name == headline){
+    @return 20px
+  } @else if($name == subhead3){
+    @return 16px
+  } @else if($name == subhead2){
+    @return 14px
+  } @else if($name == subhead1){
+    @return 12px
+  } @else if($name == body3){
+    @return 16px
+  } @else if($name == body2){
+    @return 14px
+  } @else if($name == body1){
+    @return 12px
+  } @else {
+    @return 12px
+  }
+}
+
+@function getLineHeight($name){
+  @if $name == display5 {
+    @return 56px
+  } @else if($name == display4){
+    @return 52px
+  } @else if($name == display3){
+    @return 46px
+  } @else if($name == display2){
+    @return 42px
+  } @else if($name == display1){
+    @return 34px
+  } @else if($name == headline){
+    @return 30px
+  } @else if($name == subhead3){
+    @return 22px
+  } @else if($name == subhead2){
+    @return 20px
+  } @else if($name == subhead1){
+    @return 18px
+  } @else if($name == body3){
+    @return 24px
+  } @else if($name == body2){
+    @return 22px
+  } @else if($name == body1){
+    @return 18px
+  } @else {
+    @return 18px
+  }
+}
+
+@function getFontWeight($name){
+  @if $name == display4
+    or $name == display3
+    or $name == display2
+    or $name == display1
+    or $name == headline
+    or $name == subhead3
+    or $name == subhead2
+    or $name == subhead1 {
+      @return bold;
+    } @else {
+      @return normal;
+    }
+}
+
+@mixin font($name){
+  font-size: getFontSize($name);
+  line-height: getLineHeight($name);
+  font-weight: getFontWeight($name);
+}
