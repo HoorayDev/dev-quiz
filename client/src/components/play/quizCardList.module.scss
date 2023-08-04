@@ -48,9 +48,8 @@
   }
 
   .description{
+    @include sizes.font(body3);
     white-space: pre-line;
-    font-size: sizes.$FONT_MEDIUM;
-    line-height: 1.4em;
   }
 }
 
@@ -60,7 +59,7 @@
   }
 
   .quizTitle{
-    font-size: sizes.$FONT_LARGE;
+    @include sizes.font(display2);
   }
 }
 @media screen and (max-width: 395px) {
@@ -69,7 +68,7 @@
   }
 
   .quizTitle{
-    font-size: sizes.$FONT_MEDIUM;
+    @include sizes.font(subhead3);
   }
 }
 

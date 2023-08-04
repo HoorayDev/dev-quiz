@@ -27,8 +27,7 @@
     }
 
     .title {
-      font-size: 20px;
-      font-weight: bold;
+      @include sizes.font(headline);
     }
 
     .inputWrapper {
@@ -36,8 +35,8 @@
     }
 
     .closeBtn {
+      @include sizes.font(body2);
       padding: 10px 30px;
-      font-size: 14px;
       color: colors.$WHITE;
       background-color: colors.$BLACK;
       border-radius: 5px;

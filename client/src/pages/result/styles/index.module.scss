@@ -1,14 +1,13 @@
 @use 'src/styles/constants/colors';
+@use 'src/styles/constants/sizes';
 
 .pageLayout {
   margin-bottom: 50px;
 }
 
 .title{
+  @include sizes.font(display2);
   margin: 142px 0 128px 0;
-  font-weight: 700;
-  font-size: 30px;
-  line-height: 40px;
   text-align: center;
 }
 
@@ -32,13 +31,11 @@
     }
 
     .blockText{
-      font-weight: 700;
-      font-size: 24px;
+      @include sizes.font(display1);
     }
 
     .blockNumber{
-      font-weight: 700;
-      font-size: 60px;
+      @include sizes.font(display4);
     }
   }
 
@@ -75,8 +72,7 @@
   gap:20px;
 
   p {
-    font-weight: 400;
-    font-size: 12px;
+    @include sizes.font(body1);
   }
 }
 

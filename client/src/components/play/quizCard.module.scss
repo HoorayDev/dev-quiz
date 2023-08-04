@@ -4,13 +4,12 @@
 
 .quizCard {
   @include flexbox.flexbox;
+  @include sizes.font(display2);
   width: 100%;
   height: 240px;
   background-color: colors.$GRAY100;
   border-radius: 5px;
   box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
-  font-size: sizes.$FONT_LARGE;
-  font-weight: bold;
   padding: 30px;
 
   @media screen and (min-width: 396px) {

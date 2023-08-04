@@ -13,12 +13,11 @@
 
   .card {
     @include flexbox.flexbox;
+    @include sizes.font(headline);
     width: 100%;
     background-color: colors.$PRIMARY;
     border-radius: 5px;
     box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
-    font-size: sizes.$FONT_LARGE;
-    font-weight: bold;
   }
 
   .card:after {

@@ -1,24 +1,19 @@
+@use 'src/styles/constants/sizes';
 
 .versionContainer {
   margin: 47px 0 57px 0;
 
   .versionTitle {
     p {
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 30px;
+      @include sizes.font(subhead3);
     }
 
     h2 {
-      font-weight: 700;
-      font-size: 28px;
-      line-height: 40px;
+      @include sizes.font(headline);
     }
 
     h3 {
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 40px;
+      @include sizes.font(subhead2);
     }
   }
 
@@ -27,12 +22,9 @@
   }
 
   .update {
-
+    @include sizes.font(body3);
     position: relative;
     margin-bottom: 30px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 30px;
 
     ul {
       position: relative;

@@ -61,9 +61,9 @@
     margin-top: 5px;
 
     .tooltip {
+      @include sizes.font(body3);
       position: relative;
       left: 0%;
-      //font-size: sizes.$FONT_MEDIUM;
 
       &.q1 {
         left: 10%;

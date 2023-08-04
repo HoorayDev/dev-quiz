@@ -45,12 +45,11 @@
       overflow-y: scroll;
 
       p{
-        line-height: normal;
+        @include sizes.font(body2);
       }
 
       h2 {
-        font-weight: 700;
-        font-size: 30px;
+        @include sizes.font(display1);
       }
     }
 
@@ -86,8 +85,7 @@
 
   .members {
     h3{
-      font-size: 21px;
-      font-weight: 700;
+      @include sizes.font(headline);
     }
 
     .nameTitle {
