@@ -1,19 +1,20 @@
 @use 'src/styles/mixins/flexbox';
 @use 'src/styles/constants/colors';
 @use 'src/styles/mixins/animation';
+@use 'src/styles/constants/sizes';
 
 .inputWrapper {
   display: flex;
 
   .input {
+    @include sizes.font(body3);
     padding: 0 16px;
-    font-size: 16px;
     height: 40px;
     background-color: rgba(34, 34, 34, 0.1);
     border-radius: 3px 0 0 3px;
 
     &::placeholder {
-      font-size: 16px;
+      @include sizes.font(body3);
       color: rgba(34, 34, 34, 0.3);
     }
 
