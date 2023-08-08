@@ -1,5 +1,6 @@
 @use 'src/styles/constants/colors';
 @use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/responsive';
 
 .dqButton {
   // TODO : refactor Button && modify display style
@@ -22,5 +23,11 @@
 
   &:disabled {
     background-color: colors.$GRAY100;
+  }
+}
+
+@include responsive.mobileOnly {
+  .dqButton {
+    @include sizes.font(body2);
   }
 }

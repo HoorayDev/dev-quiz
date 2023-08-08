@@ -1,6 +1,8 @@
 @use 'src/styles/mixins/flexbox';
 @use 'src/styles/constants/colors';
 @use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/responsive';
+
 
 .pageLayout {
   @include flexbox.flexbox;
@@ -11,47 +13,26 @@
   .imageContainer{
     position: relative;
     height: inherit;
+    @include flexbox.flexbox('end');
+    padding: 10vh 32px;
+    width: 50%;
+    border-right: colors.$GRAY100 3px solid;
   }
 
-  @media screen and (max-width: 395px) {
-    flex-direction: column;
-    .imageContainer {
-      margin-top: 30px;
-      height: 30%;
-      width: inherit;
+  .content {
+    width: 50%;
+    padding: 10vh 32px;
+    height: 100%;
+    overflow-y: scroll;
+
+    p{
+      @include sizes.font(body2);
     }
 
+    h2 {
+      @include sizes.font(display1);
+    }
   }
-
-  @media screen and (min-width: 396px) {
-    overflow-y: unset;
-
-    .imageContainer {
-      @include flexbox.flexbox('end');
-      padding: 10vh 32px;
-      width: 50%;
-
-      border-right: colors.$GRAY100 3px solid;
-    }
-
-    .content {
-      width: 50%;
-    }
-
-  }
-    .content {
-      padding: 10vh 32px;
-      height: 100%;
-      overflow-y: scroll;
-
-      p{
-        @include sizes.font(body2);
-      }
-
-      h2 {
-        @include sizes.font(display1);
-      }
-    }
 
   .innerContent {
     margin-bottom: 70px;
@@ -106,5 +87,22 @@
     display: flex;
     flex-direction: column;
     gap:24px;
+  }
+}
+
+// responsive: mobile
+@include responsive.mobileOnly{
+  .pageLayout {
+    flex-direction: column;
+
+    .imageContainer {
+      margin-top: 30px;
+      height: 30%;
+      width: inherit;
+    }
+
+    .content {
+      width: 100%;
+    }
   }
 }

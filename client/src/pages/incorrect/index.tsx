@@ -61,7 +61,7 @@ const Incorrect = () => {
     }, [getQuizAnwserListData])
 
     return (
-        <div>
+        <div className={styles.incorrectWrap}>
             <RefreshWarningModal isOpen={true}/>
             {isLoading && (
                 <div className={styles.spinnerContainer}>

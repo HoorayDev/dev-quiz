@@ -28,10 +28,10 @@
   }
 }
 
-// mobile
+// responsive: mobile
 @include responsive.mobileOnly{
   .quizCard {
-    height: inherit;
+    height: 50px;
     @include sizes.font(subhead3);
   }
 }

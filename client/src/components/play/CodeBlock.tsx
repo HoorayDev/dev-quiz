@@ -10,7 +10,6 @@ interface CodeBlockProps {
 
 const defaultStyle = {
   width: '100%',
-  marginTop: '60px',
 }
 
 const responsiveStyle = {

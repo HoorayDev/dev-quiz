@@ -1,6 +1,19 @@
 @use 'src/styles/mixins/flexbox';
+@use 'src/styles/mixins/responsive';
+
+.incorrectWrap{
+  display: grid;
+  gap: 140px;
+}
 
 .spinnerContainer {
   height: 100vh;
   @include flexbox.flexbox();
+}
+
+// mobile
+@include responsive.mobileOnly{
+  .incorrectWrap{
+    gap: 60px;
+  }
 }

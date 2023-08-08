@@ -16,25 +16,27 @@ interface VersionContainerProps {
 }
 
 const VersionContainer = ({ data: { date, version, update, title } }: VersionContainerProps)=>{
-  return <div className={styles.versionContainer}>
-    <div className={styles.versionTitle}>
-      <p>{date}</p>
-      <h2>Version {version}</h2>
-      {title &&<h3>{title}</h3>}
-    </div>
-    <div className={styles.versionContent}>
-      {update.map(({version,content}, index)=>
-        <div key={index} className={styles.update}>
-          {version && <p>{version}</p>}
-          <ul>
-            {content.map((text, index)=>
-              <li key={index}>{text}</li>
-            )}
-          </ul>
+  return (
+      <div className={styles.versionContainer}>
+        <div className={styles.versionTitle}>
+          <p>{date}</p>
+          <h2>Version {version}</h2>
+          {title &&<h3>{title}</h3>}
         </div>
-      )}
-    </div>
-  </div>
+        <div className={styles.versionContent}>
+          {update.map(({version,content}, index)=>
+              <div key={index} className={styles.update}>
+                {version && <p>{version}</p>}
+                <ul>
+                  {content.map((text, index)=>
+                      <li key={index}>{text}</li>
+                  )}
+                </ul>
+              </div>
+          )}
+        </div>
+      </div>
+  )
 };
 
 export default VersionContainer;

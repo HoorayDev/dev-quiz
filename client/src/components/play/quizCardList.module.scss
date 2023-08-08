@@ -8,11 +8,16 @@
 
 .quizTitleCodeBlockWrapper{
   width: 100%;
-  margin: 140px 0 60px 0;
+  margin-bottom: 0;
+
+  &.hasCode {
+    margin-bottom: 60px;
+  }
 
   .quizTitle{
     text-align: center;
     font-weight: bold;
+    margin-bottom: 60px;
   }
 }
 
@@ -25,7 +30,7 @@
 }
 
 .buttonWrapper {
-  margin: 60px 0;
+  margin-top: 60px;
 
   .buttonTitle{
     margin-left: 15px;
@@ -34,7 +39,7 @@
 
 .commentaryWrapper{
   width: 100%;
-  margin-bottom: 60px;
+  margin-top: 60px;
   border: 1px solid rgba(0, 0, 0, 30%);
   padding: 45px;
 
@@ -62,24 +67,37 @@
   @include sizes.font(display2);
 }
 
-// mobile
+// responsive: mobile
 @include responsive.mobileOnly{
   .quizTitleCodeBlockWrapper {
-    margin: 60px 0 60px 0;
+    .quizTitle{
+      @include sizes.font(subhead3);
+      margin-bottom: 30px;
+    }
+
+    &.hasCode {
+      margin-bottom: 30px;
+    }
   }
 
   .quizCardWrapper {
     grid-template-columns: 1fr;
   }
 
-  .quizTitle{
-    @include sizes.font(subhead3);
+  .buttonWrapper {
+    margin-top: 40px;
+
+    .buttonTitle{
+      margin-left: 3px;
+    }
   }
 
   .commentaryWrapper{
+    margin-top: 40px;
+    padding: 30px;
+
     .description{
-      @include sizes.font(subhead3);
+      @include sizes.font(body3);
     }
   }
 }
-

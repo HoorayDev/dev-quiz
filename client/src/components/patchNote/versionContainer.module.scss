@@ -1,8 +1,6 @@
 @use 'src/styles/constants/sizes';
 
 .versionContainer {
-  margin: 47px 0 57px 0;
-
   .versionTitle {
     p {
       @include sizes.font(subhead3);
@@ -34,6 +32,5 @@
     li {
       list-style: disc;
     }
-
   }
 }

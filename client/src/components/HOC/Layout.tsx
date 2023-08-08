@@ -14,7 +14,7 @@ const Layout = ({children, hasAppHeader, hasAppFooter} : LayoutProps) => {
     return (
         <>
         {hasAppHeader && <AppHeader/>}
-        <div className={styles.wrapper}>
+        <div className={cn(styles.wrapper, { [styles.hasAppHeaderWrapper]: hasAppHeader }, { [styles.hasAppFooterWrapper]: hasAppFooter })}>
             <div className={cn(styles.layout, hasAppHeader ? styles.hasAppHeader : styles.withoutAppHeader )}>{children}</div>
         </div>
         {hasAppFooter && <DQFooter/>}

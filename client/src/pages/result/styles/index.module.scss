@@ -1,13 +1,9 @@
 @use 'src/styles/constants/colors';
 @use 'src/styles/constants/sizes';
 
-.pageLayout {
-  margin-bottom: 50px;
-}
-
 .title{
   @include sizes.font(display2);
-  margin: 142px 0 128px 0;
+  margin-bottom: 60px;
   text-align: center;
 }
 
@@ -36,6 +32,7 @@
 
     .blockNumber{
       @include sizes.font(display4);
+      text-align: center;
     }
   }
 

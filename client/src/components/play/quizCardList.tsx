@@ -17,6 +17,7 @@ import UpArrow from '~/images/caret-up.svg';
 import DownArrow from '~/images/caret-down.svg';
 import { setQuizResult, resetQuizResult } from '~/store/slices/quizResultSlice';
 import CodeBlock from '~/components/play/CodeBlock';
+import cn from "clsx";
 
 interface QuizOptionType {
     "id": number,
@@ -172,7 +173,7 @@ const QuizCardList = ({ type, title, options, code, commentary, quizId, answerOp
     return (
         <div>
             <div className={styles.playWrapper}>
-                <div className={styles.quizTitleCodeBlockWrapper}>
+                <div className={cn(styles.quizTitleCodeBlockWrapper, { [styles.hasCode]: code })}>
                     <h1 className={styles.quizTitle}>{title}</h1>
                     {code && <CodeBlock code={code} />}
                 </div>
