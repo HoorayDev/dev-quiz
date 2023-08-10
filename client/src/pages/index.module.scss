@@ -1,6 +1,7 @@
 @use 'src/styles/constants/colors';
 @use 'src/styles/mixins/flexbox';
 @use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/responsive';
 
 .categoryWrapper {
   display:grid;
@@ -8,12 +9,10 @@
   grid-row: auto;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
-  margin: 140px 0;
-  width: 100%;
 
   .card {
     @include flexbox.flexbox;
-    @include sizes.font(headline);
+    @include sizes.font(display2);
     width: 100%;
     background-color: colors.$PRIMARY;
     border-radius: 5px;
@@ -35,4 +34,11 @@
   }
 }
 
-
+// mobile
+@include responsive.mobileOnly{
+  .categoryWrapper{
+    .card {
+      @include sizes.font(subhead3);
+    }
+  }
+}

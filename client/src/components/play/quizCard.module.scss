@@ -1,6 +1,7 @@
 @use 'src/styles/constants/colors';
 @use 'src/styles/mixins/flexbox';
 @use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/responsive';
 
 .quizCard {
   @include flexbox.flexbox;
@@ -11,14 +12,6 @@
   border-radius: 5px;
   box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
   padding: 30px;
-
-  @media screen and (min-width: 396px) {
-    height: 240px;
-  }
-
-  @media screen and (max-width: 395px) {
-    height: inherit;
-  }
 
   &.answer {
     background-color: colors.$PRIMARY;
@@ -32,5 +25,13 @@
 
   &:disabled {
     cursor: default;
+  }
+}
+
+// responsive: mobile
+@include responsive.mobileOnly{
+  .quizCard {
+    height: 50px;
+    @include sizes.font(subhead3);
   }
 }

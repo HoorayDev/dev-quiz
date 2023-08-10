@@ -21,11 +21,6 @@
     background: colors.$WHITE;
     border-radius: 5px;
 
-    @include responsive.mobileOnly{
-      width: 100%;
-      margin: 0 sizes.$OUTLINE_PADDING_S;
-    }
-
     .title {
       @include sizes.font(headline);
     }
@@ -40,6 +35,16 @@
       color: colors.$WHITE;
       background-color: colors.$BLACK;
       border-radius: 5px;
+    }
+  }
+}
+
+// mobile
+@include responsive.mobileOnly{
+  .loginModalWrapper {
+    .contentWrapper {
+      width: 100%;
+      margin: 0 10px;
     }
   }
 }

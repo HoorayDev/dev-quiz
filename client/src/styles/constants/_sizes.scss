@@ -1,8 +1,16 @@
 $HEADER : 70px;
-$PAGE_EXCEPT_HEADER : calc(100vh - 70px);
-$OUTLINE_PADDING_M : 20px;
-$OUTLINE_PADDING_S : 10px;
-// TODO : $PAGE_EXCEPT_HEADER & FOOTER
+$FOOTER : 50px;
+$PAGE_EXCEPT_HEADER : calc(100vh - $HEADER);
+
+@function getPadding($gap){
+  @if $gap == desktop {
+    @return 140px 0px
+  } @else if($gap == tablet){
+    @return 140px 20px
+  } @else if($gap == mobile){
+    @return 70px 10px
+  }
+}
 
 @function getFontSize($name){
   @if $name == display5 {
@@ -83,4 +91,8 @@ $OUTLINE_PADDING_S : 10px;
   font-size: getFontSize($name);
   line-height: getLineHeight($name);
   font-weight: getFontWeight($name);
+}
+
+@mixin padding($gap){
+  padding: getPadding($gap);
 }

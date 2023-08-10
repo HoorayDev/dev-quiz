@@ -4,19 +4,19 @@
 .wrapper {
   display: flex;
   justify-content: center;
-  padding-top: sizes.$HEADER;
+  align-items: center;
+
+  &.hasAppHeaderWrapper{
+    padding-top: sizes.$HEADER;
+  }
+
+  &.hasAppFooterWrapper{
+    padding-bottom: sizes.$FOOTER;
+  }
 
   .layout {
     width: 900px;
-
-    @include responsive.before(MD){
-      width: 100%;
-      padding: 0 sizes.$OUTLINE_PADDING_M;
-    }
-
-    @include responsive.mobileOnly{
-      padding: 0 sizes.$OUTLINE_PADDING_S;
-    }
+    @include sizes.padding(desktop);
   }
 
   .hasAppHeader{
@@ -28,4 +28,23 @@
   }
 }
 
+// responsive: tablet
+@include responsive.before(MD){
+  .wrapper {
+    .layout{
+      width: 100%;
+      @include sizes.padding(tablet);
+    }
+  }
+}
+
+// responsive: mobile
+@include responsive.mobileOnly{
+  .wrapper {
+    .layout{
+      width: 100%;
+      @include sizes.padding(mobile);
+    }
+  }
+}
 
