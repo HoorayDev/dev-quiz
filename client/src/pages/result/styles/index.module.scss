@@ -1,5 +1,7 @@
 @use 'src/styles/constants/colors';
 @use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/flexbox';
+@use 'src/styles/mixins/responsive';
 
 .title{
   @include sizes.font(display2);
@@ -54,22 +56,43 @@
 }
 
 .buttonContainer {
+  @include flexbox.flexbox;
   margin-bottom: 34px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 20px;
 }
 
 .inputContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  @include flexbox.flexbox;
   gap:20px;
 
   p {
     @include sizes.font(body1);
+  }
+
+  .agreementInputDuo {
+    @include flexbox.flexbox;
+  }
+
+  .agreeCheckbox {
+    display: inline-block;
+    appearance: auto;
+    width: 15px;
+    height: 15px;
+    border: 2px solid colors.$GRAY200;
+    margin: 5px;
+    cursor: pointer;
+  }
+
+  .agreeLabel {
+    @include sizes.font(body1);
+    text-decoration-line: underline;
+    cursor: pointer;
+  }
+}
+
+@include responsive.mobileOnly{
+  .inputContainer {
+    flex-direction: column;
   }
 }
 

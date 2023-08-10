@@ -15,6 +15,7 @@ import { DQInput } from '~/components/reusable/DQInput';
 import { subscribeAPI } from '~/apis/initial';
 import { useQuery } from '@tanstack/react-query';
 import RefreshWarningModal from '~/hooks/useRefreshWarning';
+import InfoCollectionAgreementModal from '~/components/Portal/InfoCollectionAgreementModal/InfoCollectionAgreementModal';
 
 const Result: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,8 @@ const Result: FC = () => {
   } = useAppSelector((state: RootState) => state);
   const { push } = useRouter();
   const [subEamil, setSubEmail] = useState<string|undefined>(undefined);
+  const [agree, setAgree] = useState<boolean>(false);
+  const [infoCollectionModalOpen, setInfoCollectionModalOpen] = useState<boolean>(false);
 
   const { data, isLoading, isError } = useQuery(['subscription', subEamil], () => {
     subEamil && subscribeAPI(subEamil);
@@ -64,11 +67,32 @@ const Result: FC = () => {
         <div className={styles.inputContainer}>
           <DQInput type='subscription' onSubmit={({ value }) => {
             // TODO : Email 주소 validation
-            setSubEmail(value)
-            dispatch(show('🤓 문제지 구독 감사합니다!'));
+            if(!agree) dispatch(show('⚠️ 개인정보 수집동의가 필요해요!'));
+            else {
+              setSubEmail(value)
+              dispatch(show('🤓 문제지 구독 감사합니다!'));
+            }
           }}
           />
+          <div className={styles.agreementInputDuo}>
+            <input type="checkbox"
+              value="agree"
+              className={styles.agreeCheckbox}
+              checked={agree}
+              onClick={() => setAgree(value =>!value) }
+            />
+            <label
+              htmlFor="agreement"
+              className={styles.agreeLabel}
+              onClick={()=>setInfoCollectionModalOpen(true)}
+            >
+              개인정보 수집동의
+            </label>
+          </div>
         </div>
+        {infoCollectionModalOpen && (
+          <InfoCollectionAgreementModal onClose={() => setInfoCollectionModalOpen(false)} />
+        )}
         <Toast
             config={{ duration: 3000 }}
         />
