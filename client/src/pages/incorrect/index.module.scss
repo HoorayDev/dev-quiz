@@ -2,7 +2,8 @@
 @use 'src/styles/mixins/responsive';
 
 .incorrectWrap{
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 140px;
 }
 
@@ -11,7 +12,7 @@
   @include flexbox.flexbox();
 }
 
-// mobile
+// responsive : mobile
 @include responsive.mobileOnly{
   .incorrectWrap{
     gap: 60px;

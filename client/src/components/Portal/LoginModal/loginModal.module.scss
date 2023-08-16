@@ -39,12 +39,19 @@
   }
 }
 
-// mobile
+// responsive : mobile
 @include responsive.mobileOnly{
   .loginModalWrapper {
     .contentWrapper {
-      width: 100%;
-      margin: 0 10px;
+      width: calc(100% - 20px);
+
+      .title {
+        @include sizes.font(subhead3);
+      }
+
+      .closeBtn {
+        padding: 7px 30px;
+      }
     }
   }
 }

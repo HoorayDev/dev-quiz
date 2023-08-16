@@ -90,9 +90,33 @@
   }
 }
 
+// responsive : mobile
 @include responsive.mobileOnly{
-  .inputContainer {
-    flex-direction: column;
+  .pageLayout{
+    .title{
+      @include sizes.font(subhead3);
+      margin-bottom: 30px;
+    }
+
+    .resultGrid{
+      margin-bottom: 30px;
+
+      .block{
+        .texts{
+          .blockText{
+            @include sizes.font(subhead3);
+          }
+
+          .blockNumber{
+            @include sizes.font(display1);
+          }
+        }
+      }
+    }
+
+    .inputContainer {
+      flex-direction: column;
+    }
   }
 }
 

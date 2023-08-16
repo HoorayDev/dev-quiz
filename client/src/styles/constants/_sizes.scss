@@ -1,14 +1,16 @@
 $HEADER : 70px;
 $FOOTER : 50px;
 $PAGE_EXCEPT_HEADER : calc(100vh - $HEADER);
+$PAGE_VERTICAL_PADDING_TABLET : 20px;
+$PAGE_VERTICAL_PADDING_MOBILE : 10px;
 
 @function getPadding($gap){
   @if $gap == desktop {
-    @return 140px 0px
+    @return 140px 0
   } @else if($gap == tablet){
-    @return 140px 20px
+    @return 140px $PAGE_VERTICAL_PADDING_TABLET
   } @else if($gap == mobile){
-    @return 70px 10px
+    @return 70px $PAGE_VERTICAL_PADDING_MOBILE
   }
 }
 

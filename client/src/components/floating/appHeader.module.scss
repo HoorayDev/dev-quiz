@@ -1,6 +1,7 @@
 @use 'src/styles/constants/colors';
 @use 'src/styles/mixins/flexbox';
 @use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/responsive';
 
 .nav {
   height: sizes.$HEADER;
@@ -25,16 +26,48 @@
     max-width: 50vw;
 
     div{
-      @include flexbox.flexbox;
+      display: flex;
+      align-items: center;
+      justify-content: right;
       height: 100%;
       width: 30%;
       cursor: pointer;
+
+      p{
+        @include sizes.font(body3);
+      }
     }
   }
 
-  .logo {
-    cursor: pointer;
-    color: colors.$PRIMARY;
-  }
+  .logoWrapper{
+    display: flex;
+    align-items: center;
+    height: 100%;
 
+    .logo {
+      cursor: pointer;
+      color: colors.$PRIMARY;
+    }
+  }
+}
+
+// responsive : mobile
+@include responsive.mobileOnly{
+  .nav {
+    padding: 0 20px;
+
+    .logo{
+      position: absolute;
+      left: -10px;
+      scale: 0.7;
+    }
+
+    .navMenu {
+      div{
+        p{
+          @include sizes.font(body2);
+        }
+      }
+    }
+  }
 }

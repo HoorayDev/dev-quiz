@@ -10,7 +10,9 @@ const AppHeader: FC<AppHeaderProps> = () => {
   const { push } = useRouter();
   return (
       <nav className={`${styles.nav} ${styles.flexRow}`}>
-        <Logo className={styles.logo} onClick={()=>push(HOME.href)}/>
+        <div className={styles.logoWrapper}>
+          <Logo className={styles.logo} onClick={()=>push(HOME.href)}/>
+        </div>
         <div className={`${styles.flexRow} ${styles.navMenu}`}>
           <div onClick={()=>push(HOME.href)}>
             <p>홈</p>

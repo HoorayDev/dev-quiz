@@ -17,6 +17,7 @@ import { Toast, ToastType } from '~/components/Portal/Toast/toast';
 import { show,hide } from '~/store/slices/toast';
 import { setQuizInfo, resetQuizInfo } from '~/store/slices/inProgressQuizIdSlice';
 import { resetUserAnswerList } from '~/store/slices/userAnswerListSlice';
+import Spinner from '~/components/reusable/Spinner';
 
 const Index =()=>{
   const dispatch = useAppDispatch();
@@ -80,9 +81,16 @@ const Index =()=>{
 
     return (
         <div>
-            <div className={styles.categoryWrapper}>
-                {quizSetList}
-            </div>
+            {isLoading && (
+                <div className={styles.spinnerContainer}>
+                    <Spinner />
+                </div>
+            )}
+            {!isLoading && !isError && (
+                <div className={styles.categoryWrapper}>
+                    {quizSetList}
+                </div>
+            )}
             {loginModalOpen && (
                 <LoginModal onSubmit={({ value }) => modalSubmit(value)} onClose={() => setLoginModalOpen(false)} />
             )}
