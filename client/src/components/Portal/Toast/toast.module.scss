@@ -1,4 +1,5 @@
 @use 'src/styles/constants/colors';
+@use 'src/styles/constants/levels';
 
 .toast {
   display: flex;
@@ -14,8 +15,10 @@
   padding: 10px 20px;
 
   transition: all 0.2s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+  z-index: 1;
 }
 
+// responsive : mobile
 @media screen and (max-width: 395px) {
   .toast {width: 360px;}
 }

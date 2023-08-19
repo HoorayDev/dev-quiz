@@ -67,7 +67,7 @@
   @include sizes.font(display2);
 }
 
-// responsive: mobile
+// responsive : mobile
 @include responsive.mobileOnly{
   .quizTitleCodeBlockWrapper {
     .quizTitle{

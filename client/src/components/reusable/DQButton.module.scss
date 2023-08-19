@@ -26,6 +26,7 @@
   }
 }
 
+// responsive : mobile
 @include responsive.mobileOnly {
   .dqButton {
     @include sizes.font(body2);

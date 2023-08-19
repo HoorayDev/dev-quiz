@@ -109,6 +109,7 @@
   }
 }
 
+// responsive : mobile
 @include responsive.mobileOnly{
   .progressBarWrapper {
     height: 8px;

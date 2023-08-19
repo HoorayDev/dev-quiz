@@ -28,7 +28,7 @@
   }
 }
 
-// responsive: tablet
+// responsive : tablet
 @include responsive.before(MD){
   .wrapper {
     .layout{
@@ -38,7 +38,7 @@
   }
 }
 
-// responsive: mobile
+// responsive : mobile
 @include responsive.mobileOnly{
   .wrapper {
     .layout{

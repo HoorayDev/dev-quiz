@@ -69,7 +69,7 @@ const Index = ()=>{
         <div className={styles.content}>
           <div className={styles.innerContent}>
             <div className={styles.title}>
-              <h2>안녕하세요!</h2> <br/>
+              <h2>안녕하세요!</h2>
               <div className={styles.innerTitle}>
                 <h2 className={styles.underline}>DevQuiz</h2><h2>를 소개합니다.</h2>
               </div>

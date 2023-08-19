@@ -34,7 +34,12 @@
   }
 }
 
-// mobile
+.spinnerContainer {
+  height: 100vh;
+  @include flexbox.flexbox();
+}
+
+// responsive : mobile
 @include responsive.mobileOnly{
   .categoryWrapper{
     .card {
